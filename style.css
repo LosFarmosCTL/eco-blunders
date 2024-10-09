@@ -1,69 +1,80 @@
-
 body {
-    background-color: white;
-    background-image: url(background.png);
-  }
+  background-color: white;
+  background-image: url(background.png);
+}
 
 h1 {
-    color: rgb(255, 166, 0);
-    text-align: center;
-    font-family: Bahnschrift;
-  }
-
-  p {
-    color: purple;
-    font-family: Impact;
-    font-size: 20px;
-    text-align: center;
-  }
-  .arrow-style{
-    width: 300px;
-    height: auto;
-    rotate: 220deg;
-  }
-.emoji-style{
-    width: 300px;
-    height: auto;
-    rotate: 30deg;
+  color: rgb(255, 166, 0);
+  text-align: center;
+  font-family: Bahnschrift;
 }
-.login-container{
-    width: max-content;
-    margin: 20px;
 
+p {
+  color: purple;
+  font-family: Impact;
+  font-size: 20px;
+  text-align: center;
 }
-.surrounding-div{
-    display: flex;
-    justify-content: center;
+
+.arrow-style {
+  width: 300px;
+  height: auto;
+  rotate: 220deg;
+}
+
+.emoji-style {
+  width: 300px;
+  height: auto;
+  rotate: 30deg;
+}
+
+.login-container {
+  width: max-content;
+  margin: 20px;
 
 }
-.loginlabel{
+
+.surrounding-div {
+  display: flex;
+  justify-content: center;
+
+}
+
+.loginlabel {
   display: inline-block;
   width: 70px;
   color: white
 }
-.logininput{
+
+.logininput {
   &:focus {
     border-color: aqua;
   }
-  &::placeholder{
+
+  &::placeholder {
     color: rgba(64, 63, 63, 0.723);
     font-style: italic;
   }
+
   outline: none;
   border: none;
   border-bottom: solid grey 1px;
   background: transparent;
   color: rgba(26, 26, 26, 0.723);
 }
-.loginbutton{
-  &:hover{
+
+.loginbutton {
+  &:hover {
     background: rgba(139, 150, 150, 0.459);
     animation: cubic-bezier(0.075, 0.82, 0.165, 1);
   }
-  &:focus{
+
+  &:focus {
     background: rgba(77, 81, 81, 0.514);
   }
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 2px 5px 0 rgba(0,0,0,0.19);
+
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2),
+  0 2px 5px 0 rgba(0, 0, 0, 0.19);
   background: transparent;
   border: solid grey 1px;
   border-radius: 6px;

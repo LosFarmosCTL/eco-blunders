@@ -55,3 +55,17 @@ h1 {
   background: transparent;
   color: rgba(26, 26, 26, 0.723);
 }
+.loginbutton{
+  &:hover{
+    background: rgba(139, 150, 150, 0.459);
+    animation: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  &:focus{
+    background: rgba(77, 81, 81, 0.514);
+  }
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 2px 5px 0 rgba(0,0,0,0.19);
+  background: transparent;
+  border: solid grey 1px;
+  border-radius: 6px;
+
+}

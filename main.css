@@ -8,15 +8,33 @@ body {
     font-family: Bahnschrift;
   }
 
-  .location-buttons{
+  .location-container{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: max-content
   }
 
   .location{
-    width: 20%;
-    height: 10%
+    background-color: white;
+    width: 300px;
+    &:hover {
+        background: rgba(173, 173, 173, 0.856);
+        animation: cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: Bahnschrift;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2),
+  0 2px 5px 0 rgba(0, 0, 0, 0.19);
+
+  }
+  
+  .location-surrounding{
+    display: flex;
+    justify-content: center;
+  }
+  .add-container{
+    display: flex;
+    justify-content: center;
+    margin-right: 100px;
   }

@@ -1,0 +1,22 @@
+body {
+    background-color: white;
+    background-image: url(background.png);
+  }
+  h1 {
+    color: rgb(255, 166, 0);
+    text-align: center;
+    font-family: Bahnschrift;
+  }
+
+  .location-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: max-content
+  }
+
+  .location{
+    width: 20%;
+    height: 10%
+  }

@@ -16,17 +16,6 @@ p {
   text-align: center;
 }
 
-.arrow-style {
-  width: 300px;
-  height: auto;
-  rotate: 220deg;
-}
-
-.emoji-style {
-  width: 300px;
-  height: auto;
-  rotate: 30deg;
-}
 
 .login-container {
   width: max-content;

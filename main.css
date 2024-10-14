@@ -36,3 +36,8 @@ h1 {
   justify-content: center;
   margin-right: 200px;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 43%;
+}

@@ -24,23 +24,20 @@ p {
   text-align: center;
 }
 
-
 .login-container {
   width: max-content;
   padding: 20px;
-
 }
 
 .surrounding-div {
   display: flex;
   justify-content: center;
-
 }
 
 .loginlabel {
   display: inline-block;
   width: 70px;
-  color: white
+  color: white;
 }
 
 .logininput {
@@ -70,10 +67,8 @@ p {
     background: rgba(77, 81, 81, 0.514);
   }
 
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2),
-  0 2px 5px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
   background: transparent;
   border: solid grey 1px;
   border-radius: 6px;
-
 }

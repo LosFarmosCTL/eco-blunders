@@ -27,6 +27,11 @@ p {
 .login-container {
   width: max-content;
   padding: 20px;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+  border: solid grey 1px;
+  opacity: 95%;
+  border-radius: 6px;
 }
 
 .surrounding-div {

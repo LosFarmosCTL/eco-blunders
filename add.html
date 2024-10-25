@@ -13,13 +13,14 @@
   <div class="modal-container">
     <form class="add-form">
       <h3>Add a name</h3>
-      <input type="text" name="name" class="input mb-10" placeholder="Name">
+      <input type="text" name="name" class="input mb-10" placeholder="Name" tabindex="1" autocomplete="off" required
+        autofocus>
       <h3>Add a description</h3>
       <div class="horizontal-container mb-10">
-        <textarea name="description" class="input-area" placeholder="Description"></textarea>
+        <textarea name="description" class="input-area" placeholder="Description" tabindex="2"></textarea>
         <div class="image-container">
           <div class="upload-icon">
-            <input type="file" class="upload-input">
+            <input type="file" class="upload-input" tabindex="3">
             <svg xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
               <path
@@ -31,16 +32,17 @@
       </div>
       <div class="horizontal-container mb-10">
         <div class="address-container">
-          <input type="text" name="street" class="input street-input mb-10" placeholder="Street and Nr.">
+          <input type="text" name="street" class="input street-input mb-10" placeholder="Street and Nr." tabindex="4"
+            autocomplete="address-line1" required>
           <div class="horizontal-container">
-            <input type="text" name="zipcode" class="input zipcode-input" placeholder="ZIP Code">
-            <input type="text" name="city" class="input city-input" placeholder="Berlin">
+            <input type="text" name="zipcode" class="input zipcode-input" placeholder="ZIP Code" tabindex="5" required>
+            <input type="text" name="city" class="input city-input" placeholder="Berlin" tabindex="6" required>
           </div>
         </div>
         <div class="tag-container"></div>
       </div>
       <div class="add-container">
-        <button name="add" class="button-add">Add Location</button>
+        <button name="add" class="button-add" tabindex="7">Add Location</button>
       </div>
     </form>
   </div>

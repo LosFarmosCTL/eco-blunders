@@ -3,18 +3,15 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+
   height: 100vh;
   width: 100vw;
-  padding: 0;
-  margin: 0;
 }
 
 .company-name {
   margin: 0;
-  padding: 10px;
-  color: rgb(88, 128, 19);
+  color: var(--color-secondary);
   text-align: center;
-  font-family: Bahnschrift;
 }
 
 .login-container {
@@ -38,20 +35,6 @@ body {
 }
 
 .logininput {
-  &:focus {
-    border-color: rgb(55, 210, 210);
-  }
-
-  &::placeholder {
-    color: rgba(64, 63, 63, 0.723);
-    font-style: italic;
-  }
-  outline: none;
-  padding: 13px 10px;
-  background: transparent;
-  border: 1px solid gray;
-  border-radius: 4px;
-  color: rgba(26, 26, 26, 0.723);
   width: 90%;
   margin-bottom: 2%;
 }

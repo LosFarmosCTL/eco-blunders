@@ -11,9 +11,13 @@
 
 <body>
 
-    <div class="header">
-        <h1>Standort Liste</h1>
-        <button type="button" class="logout-button">Logout</button>
+    <div class="header-container">
+        <div class="title-container">
+            <h1>List of ecoBlunders™</h1>
+        </div>
+        <div class="logout-container">
+            <button type="button" id="logout-button">Logout</button>
+        </div>
     </div>
     <div class="control-bar">
         <div class="search-and-filter">
@@ -23,7 +27,7 @@
             </form>
         </div>
         <div class="add-button-container">
-            <button>Add Location</button>
+            <button id="add-button">Add Location</button>
         </div>
 
     </div>
@@ -32,17 +36,18 @@
         <div class="location-container">
 
             <div class="location">
-                <p>Location</p>
+                <div class="name-tags">
+                    <p>Location</p>
+                </div>
+                <div class="street">
+                    <p>Street Number one</p>
+                </div>
             </div>
             <div class="location">
                 <p>Location</p>
             </div>
 
             <div class="location">
-                <p>Location</p>
-            </div>
-
-            <div class="location" onclick="">
                 <p>Location</p>
             </div>
         </div>

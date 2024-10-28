@@ -15,7 +15,7 @@
 <body>
   <div class="modal-overlay"></div>
   <div class="modal-container">
-    <form class="add-form">
+    <form method="get" class="add-form">
       <h3>Add a name</h3>
       <input type="text" name="name" class="input mb-10" placeholder="Name" tabindex="1" autocomplete="off" required
         autofocus>
@@ -39,10 +39,34 @@
             <input type="text" name="city" class="input city-input" placeholder="Berlin" tabindex="6" required>
           </div>
         </div>
-        <div class="tag-container"></div>
+        <div class="tag-container">
+          <h4 class="tag-header">Tags</h4>
+          <div class="tag tag-red">
+            <div class="tag-delete-hover">
+              <span class="fa-solid fa-xmark"></span>
+            </div>
+            construction
+          </div>
+          <div class="tag tag-cyan">
+            <div class="tag-delete-hover">
+              <span class="fa-solid fa-xmark"></span>
+            </div>
+            public transport
+          </div>
+          <details tabindex="7">
+            <summary tabindex="-1">
+              <div class="tag add-tag">
+                + add
+              </div>
+            </summary>
+
+            <!--ADD DETAIL MENU-->
+            <span></span>
+          </details>
+        </div>
       </div>
       <div class="add-container">
-        <button name="add" class="button-add" tabindex="7">Add Location</button>
+        <button class="button-add" tabindex="8">Add Location</button>
       </div>
     </form>
   </div>

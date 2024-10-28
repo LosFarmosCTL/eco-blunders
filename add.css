@@ -139,9 +139,8 @@ body {
   border-color: #0969da;
 }
 
-.image-container svg {
-  width: 10%;
-  height: 10%;
+.icon-upload {
+  font-size: 30px;
   margin-bottom: 5px;
 }
 
@@ -160,7 +159,94 @@ body {
 
 .tag-container {
   width: 300px;
-  background-color: gray;
+  border-top: 1px solid #d1d9e0b3;
+  border-bottom: 1px solid #d1d9e0b3;
+
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.tag {
+  display: inline-flex;
+  justify-content: flex-end;
+  border-radius: 2em;
+  padding: 0 7px;
+  line-height: 18px;
+  font-size: 12px;
+  font-weight: 500;
+  position: relative;
+  box-sizing: border-box;
+  background-color: var(--tag-background-color);
+  color: var(--tag-color);
+}
+
+.tag-red {
+  --tag-background-color: rgb(215, 58, 74);
+  --tag-color: rgb(255, 255, 255);
+}
+
+.tag-cyan {
+  --tag-background-color: rgb(162, 238, 239);
+  --tag-color: rgb(0, 0, 0);
+}
+
+.add-tag {
+  border: 1px solid black;
+  background-color: white;
+  cursor: pointer;
+}
+
+.tag:hover > .tag-delete-hover {
+  opacity: 1;
+}
+
+.tag-delete-hover {
+  box-sizing: border-box;
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(162, 238, 239, 0) 0%,
+    var(--tag-background-color) 80%,
+    var(--tag-background-color) 100%
+  );
+  margin-right: -7px;
+  padding-right: 5px;
+  border-radius: 2em;
+  font-size: 1.2em;
+}
+
+.tag-delete-hover > span {
+  cursor: pointer;
+}
+
+.tag-container details {
+  display: inline-block;
+}
+
+.tag-container summary {
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.tag-container i {
+  display: inline-block;
+  vertical-align: text-bottom;
+  font-size: 30px;
+  fill: currentColor;
+}
+
+.tag-header {
+  display: block;
+  margin: 0 0 5px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #59636e;
 }
 
 .zipcode-input {

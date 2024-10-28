@@ -37,14 +37,14 @@ body {
 
 .logininput {
   &:focus {
-    border-color: aqua;
+    border-color: rgb(55, 210, 210);
   }
 
   &::placeholder {
     color: rgba(64, 63, 63, 0.723);
     font-style: italic;
   }
-
+  outline: none;
   padding: 13px 10px;
   background: transparent;
   border: 1px solid gray;

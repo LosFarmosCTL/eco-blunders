@@ -1,11 +1,4 @@
-.button {
-  padding: 5px 1rem;
-  border-radius: 0.375rem;
-
-  font-size: 14px;
-  line-height: 20px;
-
-  cursor: pointer;
+.btn-normal {
 }
 
 .button-positive {

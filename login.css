@@ -1,110 +1,43 @@
 body {
+  height: 100vh;
+  width: 100vw;
+
   background-image: url(background_unblured.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-
-  height: 100vh;
-  width: 100vw;
-}
-
-.company-name {
-  margin: 0;
-  color: var(--color-secondary);
-  text-align: center;
-}
-
-.login-container {
-  max-width: 50%;
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.surrounding-div {
-  width: auto;
-  margin: 0 13%;
-  display: flex;
-  background-color: whitesmoke;
-  box-shadow:
-    0 2px 8px 0 rgba(0, 0, 0, 0.2),
-    0 2px 5px 0 rgba(0, 0, 0, 0.19);
-  opacity: 95%;
-  border-radius: 20px;
-  padding: 7% 0;
-}
-
-.logininput {
-  width: 90%;
-  margin-bottom: 2%;
-}
-
-.loginbutton {
-  &:hover {
-    background: rgba(139, 150, 150, 0.459);
-    animation: cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
-
-  &:focus {
-    background: rgba(77, 81, 81, 0.514);
-  }
-
-  box-shadow:
-    0 2px 8px 0 rgba(0, 0, 0, 0.2),
-    0 2px 5px 0 rgba(0, 0, 0, 0.19);
-  background: transparent;
-  border: solid grey 1px;
-  border-radius: 6px;
 }
 
 .background-container {
   height: 100vh;
   width: 100vw;
+
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 }
 
-.login-message {
-  flex-grow: 1;
-}
+.login-container {
+  /* TODO: needs a lot of different states for various screen sizes */
+  margin: 0 13%;
+  padding: 7% 20px;
+  border-radius: 1rem;
 
-.login-form {
-  box-sizing: border-box;
-}
-
-.footer-container {
-  width: auto;
-  margin-left: 15%;
-  margin-right: 15%;
+  background-color: var(--bg-color-secondary);
+  opacity: 90%;
+  box-shadow:
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 2px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 .footer {
-  color: rgb(226, 225, 225);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: right;
+  margin: 0 13%;
+  padding: 0 15px;
 }
 
-.footer-list {
-  display: flex;
-  list-style: none;
-  margin: 0 -12px;
-  padding: 0;
-}
+.footer a {
+  color: rgb(255, 255, 255);
 
-a {
-  color: rgb(248, 246, 246);
   &:hover {
-    color: aqua;
+    color: var(--color-focus);
   }
-  text-decoration: none;
-}
-
-.list-element {
-  display: flex;
-  margin: 4% 2%;
-  text-decoration: none;
 }

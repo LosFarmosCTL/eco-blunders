@@ -1,0 +1,43 @@
+.box-border {
+  box-sizing: border-box;
+}
+
+.relative {
+  position: relative;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}

@@ -7,6 +7,9 @@
   <title></title>
 
   <link href="css/base.css" rel="stylesheet">
+  <link href="css/classes.css" rel="stylesheet">
+  <link href="css/components.css" rel="stylesheet">
+  <link href="css/interactivity.css" rel="stylesheet">
   <link href="add.css" rel="stylesheet">
 
   <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet" />
@@ -17,48 +20,48 @@
 
 <body>
   <div class="modal-overlay"></div>
-  <div class="modal-container">
-    <form method="get" class="add-form">
-      <h3>Add a name</h3>
-      <input type="text" name="name" class="input mb-10" placeholder="Name" tabindex="1" autocomplete="off" required
+  <div class="modal">
+    <form method="get" class="flex flex-col">
+      <h2>Add a name</h2>
+      <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required
         autofocus>
-      <h3>Add a description</h3>
-      <div class="horizontal-container mb-10">
-        <textarea name="description" class="input-area" placeholder="Description" tabindex="2"></textarea>
-        <div class="image-container">
-          <div class="upload-icon">
+      <h2>Add a description</h2>
+      <div class="flex gap-10 mb-10">
+        <textarea class="grow" name="description" placeholder="Description" tabindex="2"></textarea>
+        <div class="image-upload-container flex justify-center items-center relative box-border">
+          <div class="flex flex-col items-center">
             <input type="file" class="upload-input" tabindex="3">
-            <span class="icon-upload fa-solid fa-upload"></span>
+            <span class="mb-10 fa-solid fa-upload"></span>
             <span>Add Images</span>
           </div>
         </div>
       </div>
-      <div class="horizontal-container mb-10">
-        <div class="address-container">
-          <input type="text" name="street" class="input street-input mb-10" placeholder="Street and Nr." tabindex="4"
+      <div class="flex gap-10 mb-10">
+        <div class="flex flex-col grow">
+          <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
             autocomplete="address-line1" required>
-          <div class="horizontal-container">
-            <input type="text" name="zipcode" class="input zipcode-input" placeholder="ZIP Code" tabindex="5" required>
-            <input type="text" name="city" class="input city-input" placeholder="Berlin" tabindex="6" required>
+          <div class="flex gap-10">
+            <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required>
+            <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required>
           </div>
         </div>
         <div class="tag-container">
-          <h4 class="tag-header">Tags</h4>
+          <h3 class="tag-header">Tags</h3>
           <div class="tag tag-red">
-            <div class="tag-delete-hover">
+            <div class="tag-hover-overlay">
               <span class="fa-solid fa-xmark"></span>
             </div>
             construction
           </div>
           <div class="tag tag-cyan">
-            <div class="tag-delete-hover">
+            <div class="tag-hover-overlay">
               <span class="fa-solid fa-xmark"></span>
             </div>
             public transport
           </div>
-          <details tabindex="7">
-            <summary tabindex="-1">
-              <div class="tag add-tag">
+          <details class="inline" tabindex="7">
+            <summary class="inline" tabindex="-1">
+              <div class="tag tag-add">
                 + add
               </div>
             </summary>
@@ -68,8 +71,8 @@
           </details>
         </div>
       </div>
-      <div class="add-container">
-        <button class="button-add" tabindex="8">Add Location</button>
+      <div class="flex justify-end">
+        <button class="button button-positive" tabindex="8">Add Location</button>
       </div>
     </form>
   </div>

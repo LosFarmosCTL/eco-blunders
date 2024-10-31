@@ -1,17 +1,17 @@
 .btn-normal {
 }
 
-.button-positive {
+.btn-positive {
   color: white;
   background-color: rgb(31, 136, 61);
   border: 1px solid var(--border-color-primary);
 }
 
-.button-positive:hover {
+.btn-positive:hover {
   background-color: rgb(28, 129, 57);
 }
 
-.button-positive:active {
+.btn-positive:active {
   background-color: rgb(25, 121, 53);
   box-shadow: inset 0px 1px 0px 0px #002d114d;
   /*border-color: var(--border-color-primary);*/

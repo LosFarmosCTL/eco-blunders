@@ -2,8 +2,11 @@ body {
   background-color: grey;
 }
 h1 {
-  color: rgb(11, 220, 38);
+  color: var(--color-secondary);
   text-align: center;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px #00000053;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.103);
 }
 
 .location-container {
@@ -20,6 +23,7 @@ h1 {
   margin-bottom: 15px;
   border-radius: 6px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
 }
 
 .location-surrounding {
@@ -35,11 +39,14 @@ h1 {
 .header-container {
   display: flex;
   justify-content: center;
+  background-color: white;
+  margin-bottom: 10px;
 }
 .logout-container {
   display: flex;
   align-items: center;
   margin-left: auto;
+  margin-right: 10px;
 }
 .title-container {
   display: flex;
@@ -123,4 +130,20 @@ h1 {
   font-size: 0.8rem;
   color: rgba(129, 129, 129, 0.798);
   font-weight: normal;
+}
+.image-container {
+  display: flex;
+  justify-content: right;
+}
+.image-container img {
+  &:hover {
+  }
+  max-width: 50px;
+  aspect-ratio: 1 / 1;
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+}
+.title-and-street {
+  flex-grow: 1;
 }

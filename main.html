@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Main</title>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/components.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
+    <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="fontawesome/css/solid.min.css" rel="stylesheet" />
 
 </head>
 
@@ -16,7 +20,9 @@
             <h1>List of ecoBlunders™</h1>
         </div>
         <div class="logout-container">
-            <button type="button" id="logout-button">Logout</button>
+            <button type="button" id="logout-button">
+                <span class="fa-solid fa-right-from-bracket"></span>Logout
+            </button>
         </div>
     </div>
     <div class="control-bar">
@@ -27,7 +33,7 @@
             </form>
         </div>
         <div class="add-button-container">
-            <button id="add-button">Add Location</button>
+            <button class="btn-positive">Add Location</button>
         </div>
 
     </div>
@@ -36,23 +42,33 @@
         <div class="location-container">
 
             <div class="location">
+                <div class="title-and-street">
 
-                <p>Location</p>
-                <div class="street">
-                    <p>Street Number One</p>
+                    <p>Location</p>
+                    <div class="street">
+                        <p>Street Number One</p>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="test_image.jpg" alt="an image of berlin"></img>
+                </div>
+
+            </div>
+            <div class="location">
+                <div class="title-and-street">
+
+                    <p>Location</p>
+                    <div class="street">
+                        <p>Street Number Two</p>
+                    </div>
                 </div>
             </div>
             <div class="location">
-                <p>Location</p>
-                <div class="street">
-                    <p>Street Number Two</p>
-                </div>
-            </div>
-
-            <div class="location">
-                <p>Location</p>
-                <div class="street">
-                    <p>Street Number Three</p>
+                <div class="title-and-street">
+                    <p>Location</p>
+                    <div class="street">
+                        <p>Street Number Three</p>
+                    </div>
                 </div>
             </div>
         </div>

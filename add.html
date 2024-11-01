@@ -26,49 +26,51 @@
       <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required
         autofocus>
       <h2>Add a description</h2>
-      <div class="flex gap-10 mb-10">
-        <textarea class="grow" name="description" placeholder="Description" tabindex="2"></textarea>
-        <div class="image-upload-container flex justify-center items-center relative box-border">
-          <div class="flex flex-col items-center">
-            <input type="file" class="upload-input" tabindex="3">
-            <span class="mb-10 fa-solid fa-upload"></span>
-            <span>Add Images</span>
+      <div class="flex gap-10">
+        <div class="flex flex-col gap-10 grow mb-10">
+          <textarea class="grow" name="description" placeholder="Description" tabindex="2"></textarea>
+          <div class="flex flex-col">
+            <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
+              autocomplete="address-line1" required>
+            <div class="flex gap-10">
+              <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required>
+              <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex gap-10 mb-10">
-        <div class="flex flex-col grow">
-          <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
-            autocomplete="address-line1" required>
-          <div class="flex gap-10">
-            <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required>
-            <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required>
-          </div>
-        </div>
-        <div class="tag-container">
-          <h3 class="tag-header">Tags</h3>
-          <div class="tag tag-red">
-            <div class="tag-hover-overlay">
-              <span class="fa-solid fa-xmark"></span>
+        <div class="image-tag-container flex flex-col gap-10 mb-10">
+          <div class="image-upload-container flex justify-center items-center relative box-border">
+            <div class="flex flex-col items-center">
+              <input type="file" class="upload-input" tabindex="3">
+              <span class="mb-10 fa-solid fa-upload"></span>
+              <span>Add Images</span>
             </div>
-            construction
           </div>
-          <div class="tag tag-cyan">
-            <div class="tag-hover-overlay">
-              <span class="fa-solid fa-xmark"></span>
-            </div>
-            public transport
-          </div>
-          <details class="inline" tabindex="7">
-            <summary class="inline" tabindex="-1">
-              <div class="tag tag-add">
-                + add
+          <div class="tag-container">
+            <h3 class="tag-header">Tags</h3>
+            <div class="tag tag-red">
+              <div class="tag-hover-overlay">
+                <span class="fa-solid fa-xmark"></span>
               </div>
-            </summary>
+              construction
+            </div>
+            <div class="tag tag-cyan">
+              <div class="tag-hover-overlay">
+                <span class="fa-solid fa-xmark"></span>
+              </div>
+              public transport
+            </div>
+            <details class="inline" tabindex="7">
+              <summary class="inline" tabindex="-1">
+                <div class="tag tag-add">
+                  + add
+                </div>
+              </summary>
 
-            <!--ADD DETAIL MENU-->
-            <span></span>
-          </details>
+              <!--ADD DETAIL MENU-->
+              <span></span>
+            </details>
+          </div>
         </div>
       </div>
       <div class="flex justify-end">

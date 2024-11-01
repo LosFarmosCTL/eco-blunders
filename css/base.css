@@ -78,5 +78,13 @@ button {
   font-size: 14px;
   line-height: 20px;
 
+  background-color: var(--bg-color-button);
+  color: var(--color-button);
+  border: 1px solid var(--border-color-button);
+
   cursor: pointer;
+}
+
+button:active {
+  box-shadow: inset 0px 1px 0px 0px #002d114d;
 }

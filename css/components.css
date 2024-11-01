@@ -1,4 +1,15 @@
 .btn-normal {
+  --color-button: var(--color-secondary);
+  --bg-color-button: rgb(246, 248, 250);
+  --border-color-button: var(--border-color-primary);
+}
+
+.btn-normal:hover {
+  --bg-color-button: rgb(239, 242, 245);
+}
+
+.btn-normal:active {
+  --bg-color-button: rgb(230, 234, 239);
 }
 
 .btn-positive {

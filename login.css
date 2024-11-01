@@ -41,3 +41,25 @@ body {
     color: var(--color-focus);
   }
 }
+
+@media (width <= 640px) {
+  .login-container {
+    flex-direction: column;
+    margin: 0 5%;
+    gap: 50px;
+  }
+
+  .footer {
+    margin: 0 5%;
+    padding: 0;
+  }
+
+  .footer {
+    justify-content: center;
+  }
+
+  .footer ul {
+    margin: 5px 0;
+    padding: 0;
+  }
+}

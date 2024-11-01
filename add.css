@@ -53,6 +53,7 @@ input[name="city"]::placeholder {
 .tag-container {
   box-sizing: border-box;
   padding: 10px;
+  line-height: 1.5;
 
   border-top: 1px solid var(--border-color-primary);
   border-bottom: 1px solid var(--border-color-primary);

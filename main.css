@@ -17,7 +17,7 @@ h1 {
 .location {
   background-color: white;
   &:hover {
-    background: rgba(173, 173, 173, 0.856);
+    background: rgba(201, 200, 200, 0.856);
     animation: cubic-bezier(0.075, 0.82, 0.165, 1);
   }
   margin-bottom: 15px;
@@ -80,7 +80,7 @@ h1 {
   outline: none;
   border: 2px solid white;
   &:focus {
-    border: 2px solid rgb(4, 185, 185);
+    border: 2px solid rg  b(4, 185, 185);
   }
 }
 #add-button {
@@ -126,10 +126,22 @@ h1 {
   line-height: 0.6;
 }
 
+.street a {
+  font-size: 0.8rem;
+  color: rgba(129, 129, 129, 0.798);
+  font-weight: normal;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 15px;
+  &:hover{
+    color: var(--color-focus);
+  }
+}
 .street p {
   font-size: 0.8rem;
   color: rgba(129, 129, 129, 0.798);
   font-weight: normal;
+  text-decoration: none;
 }
 .image-container {
   display: flex;
@@ -149,7 +161,7 @@ h1 {
     bottom:0;
     margin: auto;
     max-width: 45%;
-    box-shadow: 0px 0px 200px 2000px rgba(0, 0, 0, 0.274);
+    box-shadow: 0px 0px 200px 2000px rgba(0, 0, 0, 0.671);
     padding: 0 0 0 0;
     &:hover{
       transform: none;

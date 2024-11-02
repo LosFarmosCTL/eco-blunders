@@ -37,6 +37,8 @@
   padding: 0 7px;
   border-radius: 2em;
 
+  white-space: nowrap;
+
   line-height: 18px;
   font-size: 12px;
   font-weight: 500;
@@ -75,5 +77,33 @@
 }
 
 .tag-hover-overlay > span {
+  cursor: pointer;
+}
+
+.tag-red {
+  --tag-bg-color: rgb(215, 58, 74);
+  --tag-color: rgb(255, 255, 255);
+}
+
+.tag-cyan {
+  --tag-bg-color: rgb(162, 238, 239);
+  --tag-color: rgb(0, 0, 0);
+}
+
+.tag-green {
+  --tag-bg-color: rgb(150, 250, 150);
+  --tag-color: rgb(0, 0, 0);
+}
+
+.tag-yellow {
+  --tag-bg-color: rgb(255, 255, 0);
+  --tag-color: rgb(0, 0, 0);
+}
+
+.tag-add {
+  --tag-bg-color: var(--bg-color);
+  --tag-color: var(--color-secondary);
+
+  border: 1px solid var(--border-color-primary);
   cursor: pointer;
 }

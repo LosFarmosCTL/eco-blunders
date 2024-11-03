@@ -101,7 +101,7 @@
 }
 
 .tag-add {
-  --tag-bg-color: var(--bg-color);
+  --tag-bg-color: var(--bg-color-primary);
   --tag-color: var(--color-secondary);
 
   border: 1px solid var(--border-color-primary);

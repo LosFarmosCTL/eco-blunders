@@ -29,13 +29,17 @@
     grid-column: 3;
     justify-self: end;
 
-    font-size: 1rem;
+    font-size: 1.2rem;
 
-    & > span {
+    & > .fa-right-from-bracket {
       margin-right: 2px;
     }
 
     @media (width <= 640px) {
+      & > .fa-right-from-bracket {
+        margin: 0;
+      }
+
       & .logout-text {
         display: none;
       }

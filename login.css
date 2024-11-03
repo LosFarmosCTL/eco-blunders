@@ -17,7 +17,6 @@ body {
 }
 
 .login-container {
-  /* TODO: needs a lot of different states for various screen sizes */
   margin: 0 13%;
   padding: 7% 20px;
   border-radius: 1rem;
@@ -29,25 +28,25 @@ body {
     0 2px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
-.footer {
+.login-footer {
   margin: 0 13%;
   padding: 0 10px;
-}
 
-.footer ul {
-  margin: 0;
-}
+  ul {
+    margin: 0;
+  }
 
-.footer > ul li {
-  padding: 5px;
-}
+  > ul li {
+    padding: 5px;
+  }
 
-.footer a {
-  color: rgb(255, 255, 255);
-  border-radius: 0.25rem;
+  a {
+    color: rgb(255, 255, 255);
+    border-radius: 0.25rem;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   }
 }
 
@@ -58,17 +57,14 @@ body {
     gap: 50px;
   }
 
-  .footer {
+  .login-footer {
     margin: 0 5%;
     padding: 0;
-  }
-
-  .footer {
     justify-content: center;
-  }
 
-  .footer ul {
-    margin: 5px 0;
-    padding: 0;
+    ul {
+      margin: 5px 0;
+      padding: 0;
+    }
   }
 }

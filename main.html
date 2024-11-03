@@ -21,28 +21,40 @@
     <h1><span>List of </span>ecoBlunders™</h1>
     <button>
       <span class="fa-solid fa-right-from-bracket"></span>
-      <span class="logout-text">Logout</span>
+      Logout
     </button>
   </header>
 
   <main class="app-content flex flex-col gap-10">
     <form class="flex">
-      <details class="filters">
+      <details class="filters details-modal">
         <summary class="list-none select-none cursor-pointer">
           Filters
           <span class="fa-solid fa-caret-down"></span>
         </summary>
 
-        <div>
-          <div class="tag tag-red">construction</div>
-          <div class="tag tag-cyan">public transport</div>
-          <div class="tag tag-green">bike lanes</div>
-          <div class="tag tag-yellow">park and ride</div>
+        <div class="tag-selector">
+          <h3>Filter by tag</h3>
+          <div class="tag-selector-search">
+            <input type="text" placeholder="Search for tag">
+          </div>
+          <div class="tag-selector-tag">
+            <span class="tag-red"></span> construction
+          </div>
+          <div class="tag-selector-tag">
+            <span class="tag-green"></span> bike lanes
+          </div>
+          <div class="tag-selector-tag">
+            <span class="tag-cyan"></span> public transport
+          </div>
+          <div class="tag-selector-tag">
+            <span class="tag-yellow"></span> park and ride
+          </div>
         </div>
       </details>
 
       <input class="search-bar grow" type="text" name="search" placeholder="Search...">
-      <button type="submit" class="btn-positive">Add Location</button>
+      <button class="btn-positive">Add Location</button>
     </form>
 
     <div class="location flex items-center">

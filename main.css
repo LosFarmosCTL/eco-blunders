@@ -151,3 +151,28 @@
     }
   }
 }
+
+.footer {
+  margin-top: 20px;
+
+  ul {
+    margin: 0;
+  }
+
+  > ul li {
+    padding: 5px;
+  }
+
+  a {
+    color: var(--color-tertiary);
+    border-radius: 0.25rem;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &:visited {
+      color: var(--color-secondary);
+    }
+  }
+}

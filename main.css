@@ -119,7 +119,6 @@
 
   img {
     max-height: 50px;
-    aspect-ratio: 1/1;
 
     &:hover {
       transform: scale(1.05);

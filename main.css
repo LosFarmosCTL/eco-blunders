@@ -172,7 +172,7 @@
     }
 
     &:visited {
-      color: var(--color-secondary);
+      color: var(--color-tertiary);
     }
   }
 }

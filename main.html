@@ -2,128 +2,96 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main</title>
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/components.css" rel="stylesheet">
-    <link href="main.css" rel="stylesheet">
-    <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet" />
-    <link href="fontawesome/css/solid.min.css" rel="stylesheet" />
-    <link href="css/interactivity.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main</title>
 
+  <link href="css/base.css" rel="stylesheet">
+  <link href="css/classes.css" rel="stylesheet">
+  <link href="css/components.css" rel="stylesheet">
+  <link href="css/interactivity.css" rel="stylesheet" />
+  <link href="main.css" rel="stylesheet">
+
+  <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+  <link href="fontawesome/css/solid.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="background-container">
+  <header class="app-header mb-20">
+    <h1><span>List of </span>ecoBlunders™</h1>
+    <button>
+      <span class="fa-solid fa-right-from-bracket"></span>
+      Logout
+    </button>
+  </header>
 
-        <div class="header-container">
-            <div class="title-container">
-                <h1>List of ecoBlunders™</h1>
-            </div>
-            <div class="logout-container">
-                <button type="button" id="logout-button">
-                    <span class="fa-solid fa-right-from-bracket"></span>Logout
-                </button>
-            </div>
+  <main class="app-content flex flex-col gap-10">
+    <form class="flex">
+      <details class="filters">
+        <summary class="list-none select-none cursor-pointer">
+          Filters
+          <span class="fa-solid fa-caret-down"></span>
+        </summary>
+
+        <div>
+          <div class="tag tag-red">construction</div>
+          <div class="tag tag-cyan">public transport</div>
+          <div class="tag tag-green">bike lanes</div>
+          <div class="tag tag-yellow">park and ride</div>
         </div>
-        <div class="control-bar">
-            <div class="search-and-filter">
-                <details class="filter-details">
-                    <summary class="filters-sum" role="button">Filters <span><i
-                                class="fa-solid fa-caret-down"></i></span>
-                    </summary>
-                    <div class="tag-filter-container">
-                        <div class="tag tag-red">construction</div>
-                        <div class="tag tag-cyan">public transport</div>
-                        <div class="tag tag-green">bike lanes</div>
-                        <div class="tag tag-yellow">park and ride</div>
-                    </div>
-                </details>
+      </details>
 
-                <form class="search-bar">
-                    <input class="search-bar-input" type="text" placeholder="Search...">
-                </form>
-            </div>
-            <div class="add-button-container">
-                <button class="btn-positive">Add Location</button>
-            </div>
+      <input class="search-bar grow" type="text" name="search" placeholder="Search...">
+      <button type="submit" class="btn-positive">Add Location</button>
+    </form>
 
+    <div class="location flex items-center">
+      <div class="grow flex flex-col gap-5">
+        <h2>Complete Roadblock Edisonstraße/Wilheminenhofstraße</h2>
+        <div class="tag-container">
+          <div class="tag tag-red">construction</div>
+          <div class="tag tag-cyan">public transport</div>
         </div>
-        <div class="location-surrounding">
-
-            <div class="location-container">
-
-                <div class="location">
-                    <div class="title-and-street">
-                        <div class="title-tag">
-                            <p>Complete Roadblock Edisonstraße/Wilheminenhofstraße</p>
-                            <div class="tag-container">
-                                <div class="tag tag-red">construction</div>
-                                <div class="tag tag-cyan">public transport</div>
-                            </div>
-                        </div>
-                        <div class="street">
-                            <a
-                                href="https://www.google.com/maps/place/Edisonstraße+63,+12459+Berlin/@52.4627426,13.511848,16z">
-                                Edisonstraße 63, 12459 Berlin</a>
-                        </div>
-                    </div>
-                    <div class="image-container">
-                        <img src="images/edisonstraße_baustelle.jpg"
-                            alt="Construction work at Edistonstraße 63 completely blocking all traffic"
-                            tabindex="0"></img>
-                    </div>
-
-                </div>
-                <div class="location">
-                    <div class="title-and-street">
-                        <div class="title-tag">
-                            <p>Construction Trainstation Schöneweide</p>
-                            <div class="tag-container">
-                                <div class="tag tag-red">construction</div>
-                                <div class="tag tag-cyan">public transport</div>
-                            </div>
-                        </div>
-                        <div class="street">
-                            <a
-                                href="https://www.google.com/maps/place/52°27'17.4N+13°30'42.0E/@52.4546829,13.511719,340m">
-                                Sterndamm/Michael-Brückner-Straße, 12439 Berlin</a>
-                        </div>
-                    </div>
-                    <div class="image-container">
-                        <img src="/images/schoeneweide_baustelle.jpg"
-                            alt="Construction work at the train station S-Schöneweide blocking blocking tram transport"
-                            tabindex="0"></img>
-                    </div>
-
-                </div>
-                <div class="location">
-                    <div class="title-and-street">
-                        <div class="title-tag">
-                            <p>Replacement service Prenzlauer Allee</p>
-                            <div class="tag-container">
-                                <div class="tag tag-cyan">public transport</div>
-                            </div>
-                        </div>
-                        <div class="street">
-                            <a
-                                href="https://www.google.de/maps/place/Prenzlauer+Allee+178,+10409+Berlin/@52.5448151,13.4244101,16z">
-                                Prenzlauer Allee 178 / S-Prenzlauer Allee, 10409 Berlin
-                            </a>
-                        </div>
-                    </div>
-                    <div class="image-container">
-                        <img src="images/Ersatzverkehr_PrenzlauerAllee.jpg" alt="an image of berlin" tabindex="0"></img>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
+        <a class="address"
+          href="https://www.google.com/maps/place/Edisonstraße+63,+12459+Berlin/@52.4627426,13.511848,16z">
+          Edisonstraße 63, 12459 Berlin</a>
+      </div>
+      <img src="images/edisonstraße_baustelle.jpg"
+        alt="Construction work at Edistonstraße 63 completely blocking all traffic" tabindex="-1">
     </div>
+
+    <div class="location flex items-center">
+      <div class="grow flex flex-col gap-5">
+        <h2>Construction Trainstation Schöneweide</h2>
+        <div class="tag-container">
+          <div class="tag tag-red">construction</div>
+          <div class="tag tag-cyan">public transport</div>
+        </div>
+        <a class="address" href="https://www.google.com/maps/place/52°27'17.4N+13°30'42.0E/@52.4546829,13.511719,340m">
+          Sterndamm/Michael-Brückner-Straße, 12439 Berlin</a>
+      </div>
+      <img src="images/schoeneweide_baustelle.jpg"
+        alt="Construction work at the train station S-Schöneweide blocking blocking tram transport" tabindex="-1">
+    </div>
+
+    <div class="location flex items-center gap-5">
+      <div class="grow flex flex-col gap-5">
+        <h2>Replacement service Prenzlauer Allee</h2>
+        <div class="tag-container">
+          <div class="tag tag-cyan">public transport</div>
+        </div>
+        <a class="address"
+          href="https://www.google.de/maps/place/Prenzlauer+Allee+178,+10409+Berlin/@52.5448151,13.4244101,16z">
+          Prenzlauer Allee 178 / S-Prenzlauer Allee, 10409 Berlin
+        </a>
+      </div>
+      <img src="images/Ersatzverkehr_PrenzlauerAllee.jpg" alt="an image of berlin" tabindex="-1">
+      <img src="images/Ersatzverkehr_PrenzlauerAllee.jpg" alt="an image of berlin" tabindex="-1">
+    </div>
+  </main>
+  <footer>
+
+  </footer>
 </body>
 
 </html>

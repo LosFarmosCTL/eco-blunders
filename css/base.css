@@ -1,5 +1,5 @@
 :root {
-  --bg-color: rgb(255, 255, 255);
+  --bg-color-primary: rgb(255, 255, 255);
   --bg-color-secondary: rgb(245, 245, 245);
 
   --color-primary: rgb(0, 0, 0);
@@ -8,6 +8,10 @@
   --color-focus: rgb(9, 105, 218);
 
   --border-color-primary: rgb(209, 217, 224);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -23,14 +27,14 @@ h1 {
 }
 
 h2 {
-  margin: 0 0 0.5rem 0;
+  margin: 0;
 
   font-size: 1rem;
   color: var(--color-secondary);
 }
 
 h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0;
 
   font-size: 0.75rem;
   font-weight: 600;
@@ -45,6 +49,7 @@ input,
 textarea {
   font-family: inherit;
   resize: none;
+  min-width: 100px;
 
   border-radius: 0.375rem;
   font-size: 0.875rem;
@@ -74,6 +79,7 @@ textarea {
 button {
   padding: 5px 1rem;
   border-radius: 0.375rem;
+  min-width: max-content;
 
   font-size: 14px;
   line-height: 20px;

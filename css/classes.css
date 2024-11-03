@@ -34,12 +34,24 @@
   gap: 10px;
 }
 
+.gap-5 {
+  gap: 5px;
+}
+
 .grow {
   flex-grow: 1;
 }
 
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .mb-10 {
   margin-bottom: 10px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
 }
 
 .w-full {
@@ -51,5 +63,14 @@
 }
 
 .list-none {
-  list-style-type: none;
+  list-style: none;
+}
+
+.select-none {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

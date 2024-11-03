@@ -31,6 +31,12 @@
     & > span {
       margin-right: 2px;
     }
+
+    @media (width <= 640px) {
+      & .logout-text {
+        display: none;
+      }
+    }
   }
 }
 

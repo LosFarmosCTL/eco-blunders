@@ -73,31 +73,3 @@ input[name="city"]::placeholder {
     }
   }
 }
-
-.tag-red {
-  --tag-bg-color: rgb(215, 58, 74);
-  --tag-color: rgb(255, 255, 255);
-}
-
-.tag-cyan {
-  --tag-bg-color: rgb(162, 238, 239);
-  --tag-color: rgb(0, 0, 0);
-}
-
-.tag-green {
-  --tag-bg-color: rgb(150, 250, 150);
-  --tag-color: rgb(0, 0, 0);
-}
-
-.tag-yellow {
-  --tag-bg-color: rgb(255, 255, 0);
-  --tag-color: rgb(0, 0, 0);
-}
-
-.tag-add {
-  --tag-bg-color: var(--bg-color);
-  --tag-color: var(--color-secondary);
-
-  border: 1px solid var(--border-color-primary);
-  cursor: pointer;
-}

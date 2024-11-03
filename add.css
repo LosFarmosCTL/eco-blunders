@@ -57,6 +57,21 @@ input[name="city"]::placeholder {
 
   border-top: 1px solid var(--border-color-primary);
   border-bottom: 1px solid var(--border-color-primary);
+
+  details > div {
+    position: absolute;
+    transform: translate(-100%, -100%);
+
+    z-index: 10;
+
+    @media (width <= 640px) {
+      left: 1rem;
+      right: 1rem;
+      width: auto;
+
+      transform: translate(0, calc(-100% - 30px));
+    }
+  }
 }
 
 .tag-red {

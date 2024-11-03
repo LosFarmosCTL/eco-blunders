@@ -58,6 +58,10 @@
   width: 100%;
 }
 
+.aspect-square {
+  aspect-ratio: 1/1;
+}
+
 .text-center {
   text-align: center;
 }

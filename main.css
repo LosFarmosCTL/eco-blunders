@@ -113,6 +113,9 @@ h1 {
 }
 
 .filters-sum {
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
+
   margin-left: 10px;
   padding: 4px;
   list-style: none;

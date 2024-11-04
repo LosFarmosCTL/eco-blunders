@@ -10,7 +10,7 @@
   display: none;
 }
 
-body:has(#login-form input:checked) {
+body:has(#login-form input:checked):not(:has(#login-form input:invalid)) {
   #login {
     display: none;
   }

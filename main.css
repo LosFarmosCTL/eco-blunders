@@ -108,6 +108,10 @@
     background: var(--bg-color-secondary);
   }
 
+  .tag {
+    cursor: pointer;
+  }
+
   a {
     font-size: 0.8rem;
     color: var(--color-tertiary);

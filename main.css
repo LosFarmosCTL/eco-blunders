@@ -104,7 +104,7 @@
   border: 1px solid var(--border-color-primary);
   border-radius: 6px;
 
-  &:hover {
+  &:hover:not(:has(img:focus:hover)) {
     background: var(--bg-color-secondary);
   }
 

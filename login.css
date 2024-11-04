@@ -54,7 +54,7 @@ body {
   }
 }
 
-@media (width <= 640px) {
+@media screen and (width <= 640px) {
   .login-container {
     flex-direction: column;
     margin: 0 5%;

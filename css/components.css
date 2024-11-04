@@ -40,6 +40,21 @@
   --border-color-button: var(--border-color-primary);
 }
 
+.btn-destructive {
+  --color-button: rgb(255, 255, 255);
+  --bg-color-button: rgb(200, 31, 61);
+  --border-color-button: rgba(31, 35, 40, 0.15);
+
+  &:hover {
+    --bg-color-button: rgb(195, 28, 57);
+  }
+
+  &:active {
+    --bg-color-button: rgb(190, 25, 53);
+    --border-color-button: var(--border-color-primary);
+  }
+}
+
 .tag {
   box-sizing: border-box;
   position: relative;

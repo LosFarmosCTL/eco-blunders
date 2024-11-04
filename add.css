@@ -15,8 +15,10 @@
 }
 
 .image-upload-container {
-  border: 2px dashed var(--border-color-primary);
+  padding: 10px;
+
   border-radius: 0.375rem;
+  border: 2px dashed var(--border-color-primary);
 }
 
 .image-upload-container:focus-within {
@@ -34,11 +36,6 @@
 
   opacity: 0;
   cursor: pointer;
-}
-
-/* upload icon */
-.fa-upload {
-  font-size: 30px;
 }
 
 input[name="zipcode"] {

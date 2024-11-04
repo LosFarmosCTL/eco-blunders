@@ -10,6 +10,7 @@
   <link href="css/classes.css" rel="stylesheet">
   <link href="css/components.css" rel="stylesheet">
   <link href="css/interactivity.css" rel="stylesheet">
+  <link href="edit.css" rel="stylesheet">
   <link href="add.css" rel="stylesheet">
 
   <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet" />
@@ -23,27 +24,36 @@
   <div class="modal">
     <form method="get" class="flex flex-col">
       <h2 class="mb-5">Add a name</h2>
-      <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required
-        autofocus>
+      <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required autofocus
+        value="Major rail work at intersection Wilhelminenhofstraße / Edisonstraße">
       <h2 class="mb-5">Add a description</h2>
       <div class="flex gap-10">
         <div class="flex flex-col gap-10 grow mb-10">
-          <textarea class="grow" name="description" placeholder="Description" tabindex="2"></textarea>
+          <textarea class="grow" name="description" placeholder="Description" tabindex="2">Big construction site
+            re-doing the complicated switch layout at the intersection. No trams going down Wilhelminenhofstraße,
+            sidewalks are restricted as well.</textarea>
           <div class="flex flex-col">
             <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
-              autocomplete="address-line1" required>
+              autocomplete="address-line1" required value="Edisonstraße 63">
             <div class="flex gap-10">
-              <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required>
-              <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required>
+              <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required value="12459">
+              <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required value="Berlin">
             </div>
           </div>
         </div>
         <div class="image-tag-container flex flex-col gap-10 mb-10">
-          <div class="image-upload-container flex justify-center items-center relative aspect-square">
-            <div class="flex flex-col items-center">
+          <div class="flex flex-col gap-10">
+            <div class="flex items-center gap-10">
+              <img class="upload-preview-image aspect-square" src=images/edisonstraße_baustelle.jpg>
+              <div class="flex justify-between grow pr-10">
+                <span>edisonstraße_baustelle.jpg</span>
+                <span class="fa-solid fa-trash-can cursor-pointer"></span>
+              </div>
+            </div>
+            <div class="image-upload-container flex justify-center items-center gap-10 w-full relative">
               <input type="file" class="upload-input" tabindex="3">
-              <span class="mb-10 text-3xl fa-solid fa-upload"></span>
-              <span>Add Images</span>
+              <span class="text-xl fa-solid fa-upload"></span>
+              <span>Add more Images</span>
             </div>
           </div>
           <div class="tag-container">
@@ -64,13 +74,7 @@
               <div class="tag-hover-overlay">
                 <span class="fa-solid fa-xmark"></span>
               </div>
-              park and ride
-            </div>
-            <div class="tag tag-green">
-              <div class="tag-hover-overlay">
-                <span class="fa-solid fa-xmark"></span>
-              </div>
-              bike lanes
+              sidewalks
             </div>
             <details class="details-modal inline" tabindex="7">
               <summary class="inline list-none" tabindex="-1">
@@ -101,9 +105,12 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-end gap-10">
-        <button type="reset" class="btn-normal" tabindex="9">Cancel</button>
-        <button type="submit" class="btn-positive" tabindex="8">Add Location</button>
+      <div class="flex justify-between">
+        <button type="reset" class="btn-destructive" tabindex="10">Delete</button>
+        <div class="flex gap-10">
+          <button type="reset" class="btn-normal" tabindex="9">Cancel</button>
+          <button type="submit" class="btn-positive" tabindex="8">Update</button>
+        </div>
       </div>
     </form>
   </div>

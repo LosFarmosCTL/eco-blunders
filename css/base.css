@@ -90,3 +90,8 @@ button {
 
   cursor: pointer;
 }
+
+button:focus {
+  outline: none;
+  border-color: var(--color-focus);
+}

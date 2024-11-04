@@ -1,11 +1,11 @@
 .image-tag-container {
   width: 300px;
 
-  @media (width <= 768px) {
+  @media screen and (width <= 768px) {
     width: 200px;
   }
 
-  @media (width <= 640px) {
+  @media screen and (width <= 640px) {
     div:has(&) {
       flex-direction: column;
     }
@@ -60,7 +60,7 @@ input[name="city"]::placeholder {
 
     z-index: 10;
 
-    @media (width <= 640px) {
+    @media screen and (width <= 640px) {
       left: 1rem;
       right: 1rem;
       width: auto;

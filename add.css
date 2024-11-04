@@ -46,6 +46,10 @@ input[name="city"]::placeholder {
   color: black;
 }
 
+textarea[name="description"] {
+  min-height: 100px;
+}
+
 .tag-container {
   box-sizing: border-box;
   padding: 10px;

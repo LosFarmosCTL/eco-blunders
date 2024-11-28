@@ -20,12 +20,14 @@ export async function getOsmData(address: String) {
     //let complete_url = baseurl + number + "+" + address.replace(" ", "+") + "+" + city + endurl
     let complete_url = baseurl+ address.replace(" ", "+") + endurl
 
-    //console.log(complete_url)
+    console.log(complete_url)
+
 
     let response = await fetch(complete_url, {
         method: "GET",
         headers: headersList,
     });
+    console.log("api request sent")
 
     //console.log(response)
     let data = await response.text()
@@ -41,7 +43,6 @@ export async function getOsmData(address: String) {
     responseJson.lat = OSMData[0]?.lat
     responseJson.long = OSMData[0]?.lon
 
-    console.log(responseJson)
     return responseJson
     //console.log(JSONdata[0].lat + "    " + JSONdata[0].lon)
 }

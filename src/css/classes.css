@@ -104,3 +104,7 @@ summary.list-none::-webkit-details-marker {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.none{
+  display: none
+}

@@ -14,19 +14,37 @@ let OSM = {
     long: "empty"
 }
 
-streetInput.onkeydown = async () => {
+let OSMTimeoutID: number
+let streetStringOld: string
+
+streetInput.onkeyup = async () => {
     let streetString: string = streetInput.value
     //introduce timeout to this and reduce limit
-    if (streetString.length < 15) {
+    if (streetString == streetStringOld){
+        return;
+    }
+    console.log(streetString)
+    window.clearTimeout(OSMTimeoutID)
+    streetStringOld = streetString
+
+
+    if (streetString.length < 5) {
         locationAutocomplete.style["display"] = "none"
         return 
     }
 
-    OSM = await getOsmData(streetString)
-    //console.log(OSM)
+    //store timeout in var 
+    //every call do the cleartimeout and reinvoke it
+    
+    
+    OSMTimeoutID = window.setTimeout( async () => {
+        OSM = await getOsmData(streetString)
+        locationAutocomplete.style["display"] = "block";
+        loc1text.textContent =  OSM.street + " " + OSM.house_number + " " + OSM.zip
+    }, 1000)
+    
 
-    locationAutocomplete.style["display"] = "block";
-    loc1text.textContent =  OSM.street + " " + OSM.house_number + " " + OSM.zip
+    
 }
 
 streetInput.addEventListener("onkeydown", ()  => {

@@ -27,7 +27,7 @@ export async function getOsmData(address: String) {
         headers: headersList,
     });
 
-    console.log(response)
+    //console.log(response)
     let data = await response.text()
 
     let OSMData = JSON.parse(data)

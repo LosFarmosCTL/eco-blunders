@@ -105,6 +105,6 @@ summary.list-none::-webkit-details-marker {
   cursor: pointer;
 }
 
-.none{
-  display: none
+.hidden {
+  display: none;
 }

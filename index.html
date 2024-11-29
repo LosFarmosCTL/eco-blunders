@@ -172,13 +172,24 @@
             <textarea class="grow" name="description" placeholder="Description" tabindex="2"></textarea>
             <div class="flex flex-col">
               <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
-                autocomplete="address-line1" required id="street">
-              <ul class="list-none relative hidden" id="loc_autocomplete">
-                <p id="loc1">test elem</p>
+                autocomplete="address-line1" required id="street-input">
+              <ul class="list-none relative flex flex-col osm-list" id="loc_autocomplete">
+                <!--  list elems for testing here
+                  <li class="list-none cursor-pointer osm-list-elem">
+                    <p>Gatower Straße 18</p>
+                    <p>13595 Berlin</p>
+                  </li>
+                  <li class="list-none cursor-pointer osm-list-elem">
+                    <p>Gatower Straße 18</p>
+                    <p>13595 Berlin</p>
+                  </li> 
+                  -->
               </ul>
               <div class="flex gap-10">
-                <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required>
-                <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required>
+                <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required id="zip-input">
+                <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required id="city-input">
+                <input type="text" name="latitude" placeholder="latitude" tabindex="7" required id="lat-input" readonly>
+                <input type="text" name="longitude" placeholder="longitude" tabindex="8" required id="lon-input" readonly>
               </div>
             </div>
           </div>
@@ -203,7 +214,7 @@
                   <span class="fa-solid fa-xmark"></span>
                 </div>
                 public transport
-              </div>
+              </div> 
               <div class="tag tag-yellow">
                 <div class="tag-hover-overlay">
                   <span class="fa-solid fa-xmark"></span>

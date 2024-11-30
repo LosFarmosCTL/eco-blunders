@@ -32,5 +32,18 @@ export class EditDialog {
 
 interface Location {
   name: string
-  // TODO: build a complete model and move it to an appropriate place
+  description: string
+  city: string
+  postcode: string
+  street: string
+  lat: string
+  lon: string
+  tags: [
+    {
+      tag_text: string
+      color: string
+    },
+  ]
+  images: [string] //encoding images to base64 maybe?
+  // TODO: first version probably still needs changes
 }

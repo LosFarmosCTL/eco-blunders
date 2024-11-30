@@ -1,0 +1,91 @@
+<form method="get" class="flex flex-col">
+  <h2 class="mb-5">Add a name</h2>
+  <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required autofocus
+    value="Major rail work at intersection Wilhelminenhofstraße / Edisonstraße">
+  <h2 class="mb-5">Add a description</h2>
+  <div class="flex gap-10">
+    <div class="flex flex-col gap-10 grow mb-10">
+      <textarea class="grow" name="description" placeholder="Description" tabindex="2">Big construction site
+        re-doing the complicated switch layout at the intersection. No trams going down Wilhelminenhofstraße,
+        sidewalks are restricted as well.</textarea>
+      <div class="flex flex-col">
+        <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
+          autocomplete="address-line1" required value="Edisonstraße 63">
+        <div class="flex gap-10">
+          <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required value="12459">
+          <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required value="Berlin">
+        </div>
+      </div>
+    </div>
+    <div class="image-tag-container flex flex-col gap-10 mb-10">
+      <div class="flex flex-col gap-10">
+        <div class="flex items-center gap-10">
+          <img class="upload-preview-image aspect-square" src='images/wilhelminenhof-edisonstr.webp'>
+          <div class="flex justify-between grow pr-10">
+            <span>edisonstraße_baustelle.jpg</span>
+            <span class="fa-solid fa-trash-can cursor-pointer"></span>
+          </div>
+        </div>
+        <div class="image-upload-container flex justify-center items-center gap-10 w-full relative">
+          <input type="file" class="upload-input" tabindex="3">
+          <span class="text-xl fa-solid fa-upload"></span>
+          <span>Add more Images</span>
+        </div>
+      </div>
+      <div class="tag-container">
+        <h3 class="mb-5">Tags</h3>
+        <div class="tag tag-red">
+          <div class="tag-hover-overlay">
+            <span class="fa-solid fa-xmark"></span>
+          </div>
+          construction
+        </div>
+        <div class="tag tag-cyan">
+          <div class="tag-hover-overlay">
+            <span class="fa-solid fa-xmark"></span>
+          </div>
+          public transport
+        </div>
+        <div class="tag tag-yellow">
+          <div class="tag-hover-overlay">
+            <span class="fa-solid fa-xmark"></span>
+          </div>
+          sidewalks
+        </div>
+        <details class="details-modal inline" tabindex="7">
+          <summary class="inline list-none" tabindex="-1">
+            <div class="tag tag-add">
+              + add
+            </div>
+          </summary>
+
+          <div class="tag-selector">
+            <h3>Filter by tag</h3>
+            <div class="tag-selector-search">
+              <input type="text" name="tag-search" placeholder="Search for tag">
+            </div>
+            <div class="tag-selector-tag">
+              <span class="tag-red"></span> construction
+            </div>
+            <div class="tag-selector-tag">
+              <span class="tag-green"></span> bike lanes
+            </div>
+            <div class="tag-selector-tag">
+              <span class="tag-cyan"></span> public transport
+            </div>
+            <div class="tag-selector-tag">
+              <span class="tag-yellow"></span> park and ride
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between">
+    <button class="btn-destructive" tabindex="10">Delete</button>
+    <div class="flex gap-10">
+      <button form="edit-form" class="btn-normal" tabindex="9">Cancel</button>
+      <button type="submit" class="btn-positive" tabindex="8">Update</button>
+    </div>
+  </div>
+</form>

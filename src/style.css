@@ -1,7 +1,6 @@
 @import 'css/base.css';
 @import 'css/classes.css';
 @import 'css/components.css';
-@import 'css/interactivity.css';
 
 /* TODO: extract into app & minify for actually needed icons? */
 @import 'css/fontawesome/css/fontawesome.min.css';

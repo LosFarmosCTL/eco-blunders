@@ -18,6 +18,6 @@ export default tseslint.config(
   },
   eslintConfigPrettier,
   {
-    ignores: ['node_modules/', 'dist/', 'eslint.config.mjs'],
+    ignores: ['node_modules/', 'dist/', 'eslint.config.mjs', 'vite.config.js'],
   },
 )

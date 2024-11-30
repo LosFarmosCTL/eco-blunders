@@ -1,4 +1,5 @@
 import { Location } from './Location'
+import { Tag } from './tags/tag'
 export class EditDialog {
   private readonly editDialogHtmlURL = new URL('./edit.html', import.meta.url)
 
@@ -20,6 +21,7 @@ export class EditDialog {
     if (location === null) {
       this.styleNewLocation()
     }
+    this.setupTagListeners()
 
     this.dialog
       .querySelector<HTMLInputElement>('input[name="name"]')
@@ -65,6 +67,24 @@ export class EditDialog {
       this.dialog.querySelector<HTMLDivElement>('#dialog-buttons')
     if (buttondiv) {
       buttondiv.style.justifyContent = 'right'
+    }
+  }
+
+  private setupTagListeners() {
+    const tags =
+      this.dialog.querySelector<HTMLDivElement>('#tag-selector')?.children
+
+    if (tags) {
+      for (const tag of tags) {
+        if (tag.className === 'tag-selector-tag')
+          tag.addEventListener('click', () => {
+            const tagContainer =
+              this.dialog.querySelector<HTMLDivElement>('#tag-container')
+            tagContainer?.appendChild(
+              new Tag(tag.textContent ?? '').getTagElment(),
+            )
+          })
+      }
     }
   }
 }

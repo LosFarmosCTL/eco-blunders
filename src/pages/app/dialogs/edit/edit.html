@@ -1,10 +1,10 @@
 <form method="get" class="flex flex-col">
   <h2 class="mb-5">Add a name</h2>
-  <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required autofocus>
+  <input type="text" class="mb-10" name="name" placeholder="Name" tabindex="1" autocomplete="off" required autofocus id="name-input">
   <h2 class="mb-5">Add a description</h2>
   <div class="flex gap-10">
     <div class="flex flex-col gap-10 grow mb-10">
-      <textarea class="grow" name="description" placeholder="Description" tabindex="2"></textarea>
+      <textarea class="grow" name="description" placeholder="Description" tabindex="2" id="desc-input"></textarea>
       <div class="flex flex-col">
         <input type="text" name="street" class="mb-10" placeholder="Street and Nr." tabindex="4"
           autocomplete="address-line1" required id="street-input">
@@ -20,9 +20,11 @@
                   </li> 
                   -->
         </ul>
-        <div class="flex gap-10">
+        <div class="flex gap-10 mb-10">
           <input type="text" name="zipcode" placeholder="ZIP Code" tabindex="5" required id="zip-input">
-          <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required id="city-input">
+          <input type="text" name="city" class="grow" placeholder="Berlin" tabindex="6" required id="city-input"> 
+        </div>
+        <div class="flex gap-10 lat-long">
           <input type="text" name="latitude" placeholder="Latitude" tabindex="7" required id="lat-input" readonly>
           <input type="text" name="longitude" placeholder="Longitude" tabindex="8" required id="lon-input" readonly>
         </div>
@@ -91,11 +93,11 @@
       </div>
     </div>
   </div>
-  <div class="flex justify-between">
-    <button class="btn-destructive" tabindex="10">Delete</button>
+  <div class="flex justify-between" id="dialog-buttons">
+    <button class="btn-destructive" tabindex="10" id="delete-button">Delete</button>
     <div class="flex gap-10">
-      <button form="edit-form" class="btn-normal" tabindex="9">Cancel</button>
-      <button type="submit" class="btn-positive" tabindex="8" id="submit_location">Update</button>
+      <button form="edit-form" class="btn-normal" tabindex="9" id="cancel-button">Cancel</button>
+      <button type="submit" class="btn-positive" tabindex="8" id="submit-location">Update</button>
     </div>
   </div>
 </form>

@@ -38,8 +38,8 @@ async function loadDialogs() {
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   document.querySelector('#add-btn')?.addEventListener('click', async () => {
-    await editDialog.load()
-    editDialog.show()
+    await editDialog.load({ name: 'dsfdsf' })
+    await editDialog.show()
 
     // TODO: load+store input data
   })

@@ -23,8 +23,10 @@ export class EditDialog {
   }
 
   // TODO: return edited data
-  public show() {
+  public async show() {
     this.dialog.showModal()
+
+    await import('./OSM/location_script')
   }
 }
 

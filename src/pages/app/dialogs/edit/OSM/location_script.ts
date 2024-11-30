@@ -39,7 +39,6 @@ streetInput?.addEventListener('input', function () {
   //store timeout in var
   //every call do the cleartimeout and reinvoke it
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   OSMTimeoutID = window.setTimeout(async () => {
     const OSM = await getOsmData(streetString)
     locationAutocomplete?.classList.remove('hidden')

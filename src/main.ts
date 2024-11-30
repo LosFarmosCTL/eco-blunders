@@ -9,5 +9,6 @@ if (!user) {
   setCookie('user', user)
 }
 
-const { default: loadApp } = await import('./pages/app')
-await loadApp(user)
+const { App } = await import('./pages/app')
+const app = new App(user)
+await app.load()

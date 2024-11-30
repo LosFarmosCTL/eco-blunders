@@ -1,12 +1,8 @@
-@import "css/base.css";
-@import "css/classes.css";
-@import "css/components.css";
-@import "css/interactivity.css";
+@import 'css/base.css';
+@import 'css/classes.css';
+@import 'css/components.css';
+@import 'css/interactivity.css';
 
-@import "css/pages/login.css";
-@import "css/pages/main.css";
-@import "css/pages/add.css";
-@import "css/pages/edit.css";
-
-@import "css/fontawesome/css/fontawesome.min.css";
-@import "css/fontawesome/css/solid.min.css";
+/* TODO: extract into app & minify for actually needed icons? */
+@import 'css/fontawesome/css/fontawesome.min.css';
+@import 'css/fontawesome/css/solid.min.css';

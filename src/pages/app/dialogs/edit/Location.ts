@@ -27,4 +27,23 @@ const lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
 const nameInput = document.body.querySelector<HTMLInputElement>('#name-input')
 const descInput = document.body.querySelector<HTMLInputElement>('#desc-input')
 
-export function pullLocationData(): Location {}
+export function pullLocationData(): Location {
+  return {
+    name: nameInput?.value ?? '',
+    description: descInput?.value ?? '',
+    location: {
+      lat: latInput?.value ?? '',
+      lon: lonInput?.value ?? '',
+      street: streetInput?.value ?? '',
+      zipcode: zipInput?.value ?? '',
+      city: cityInput?.value ?? '',
+    },
+    images: [
+      {
+        url: '',
+        alt: '',
+      },
+    ],
+    tags: [''],
+  }
+}

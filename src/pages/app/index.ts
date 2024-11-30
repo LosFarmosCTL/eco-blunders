@@ -1,6 +1,5 @@
 import './app.css'
 import { setCookie } from '../../util/cookies'
-import { submitLocation } from './dialogs/edit/OSM/location_script'
 
 const appHtmlURL = new URL('./app.html', import.meta.url)
 
@@ -39,17 +38,10 @@ async function loadDialogs() {
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   document.querySelector('#add-btn')?.addEventListener('click', async () => {
-    //FIXME: undefined to get rid of errors, works when adding new location
-    await editDialog.load(undefined)
+    await editDialog.load(null)
     await editDialog.show()
 
     // TODO: load+store input data
-    document
-      .querySelector('#submit_location')
-      ?.addEventListener('click', (e) => {
-        e.preventDefault()
-        submitLocation()
-      })
   })
 
   // TODO: set up detail/edit dialog

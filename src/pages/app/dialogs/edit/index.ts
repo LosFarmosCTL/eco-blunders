@@ -44,6 +44,6 @@ interface Location {
       color: string
     },
   ]
-  images: [string] //encoding images to base64 maybe?
+  images: [ImageBitmap]
   // TODO: first version probably still needs changes
 }

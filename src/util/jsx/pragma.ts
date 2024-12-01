@@ -34,13 +34,12 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
     })
   }
 
-  element.append(...children)
+  element.append(...children.flat())
 
   return element
 }
 
 export function Fragment(_props: object, children: Children) {
-  console.log(children)
   const fragment = document.createDocumentFragment()
   children.forEach((child) => {
     if (child instanceof Node) {

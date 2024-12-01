@@ -8,11 +8,13 @@ const headersList = {
 }
 
 export interface OSMResult {
+  name: string | null
   address: {
     road: string
-    house_number: string
+    house_number: string | null
     postcode: string
-    city: string
+    city: string | null
+    town: string | null
   }
   lat: string
   lon: string
@@ -30,6 +32,12 @@ export async function getOsmData(address: string) {
   const OSMData: OSMResult[] = await request(complete_url, {
     method: 'GET',
     headers: headersList,
+  })
+
+  OSMData.forEach((place) => {
+    if (place.name == place.address.road) {
+      place.name = null
+    }
   })
 
   console.log('api request sent')

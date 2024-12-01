@@ -1,0 +1,22 @@
+[
+  {
+    "id": "construction",
+    "text": "construction",
+    "color": "#d73a4a"
+  },
+  {
+    "id": "inconvenience",
+    "text": "inconvenience",
+    "color": "#d73a4a"
+  },
+  {
+    "id": "damage",
+    "text": "damage",
+    "color": "#d73a4a"
+  },
+  {
+    "id": "missing",
+    "text": "missing",
+    "color": "#d73a4a"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "public_transport",
+    "text": "public transport",
+    "colorbg": "#a2eeef",
+    "color": "#000000"
+  },
+  {
+    "id": "sidewalks",
+    "text": "sidewalks",
+    "colorbg": "#ffff00",
+    "color": "#000000"
+  },
+  {
+    "id": "bike_lane",
+    "text": "bike lane",
+    "colorbg": "#ffff00",
+    "color": "#000000"
+  },
+  {
+    "id": "pollution",
+    "text": "pollution",
+    "colorbg": "#ffff00",
+    "color": "#000000"
+  },
+  {
+    "id": "greenery",
+    "text": "greenery",
+    "colorbg": "#ffff00",
+    "color": "#000000"
+  },
+  {
+    "id": "park_and_ride",
+    "text": "P+R",
+    "colorbg": "#ffff00",
+    "color": "#000000"
+  },
+  {
+    "id": "other",
+    "text": "other",
+    "colorbg": "#ffff00",
+    "color": "#000000"
+  }
+]

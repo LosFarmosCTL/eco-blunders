@@ -2,6 +2,9 @@ import { h, Fragment } from '../../util/jsx/pragma'
 import { setCookie } from '../../util/cookies'
 
 import './app.css'
+import { request } from '../../util/request'
+import { Location } from '../../model/location'
+import { LocationEntry } from './components/location-entry'
 
 const detailDialogHtmlURL = new URL(
   './dialogs/detail/detail.html',
@@ -14,7 +17,7 @@ function logout() {
 }
 
 export async function App(user: string) {
-  console.log(user)
+  const locations = await request<[Location]>('/locations.json', {})
 
   const { EditDialog } = await import('./dialogs/edit')
   const editDialog = new EditDialog()
@@ -100,83 +103,16 @@ export async function App(user: string) {
               Add Location
             </button>
           </div>
-          <div className="location flex items-center">
-            <div className="grow flex flex-col gap-5">
-              <h2 className="cursor-pointer">
-                Major rail work at intersection Wilhelminenhofstraße /
-                Edisonstraße
-              </h2>
-              <div>
-                <div className="tag tag-red">construction</div>
-                <div className="tag tag-cyan">public transport</div>
-                <div className="tag tag-yellow">sidewalks</div>
-              </div>
-              <a
-                className="address"
-                href="https://www.google.com/maps/place/Edisonstraße+63,+12459+Berlin/@52.4627426,13.511848,16z"
-              >
-                Edisonstraße 63, 12459 Berlin
-              </a>
-            </div>
-            <img
-              className="aspect-square"
-              src="/assets/wilhelminenhof-edisonstr.webp"
-              alt="Construction work at Edistonstraße 63 completely blocking all traffic"
-              tabIndex={-1}
-            />
-          </div>
-          <div className="location flex items-center">
-            <div className="grow flex flex-col gap-5">
-              <h2 className="cursor-pointer">
-                Construction site at Schöneweide station
-              </h2>
-              <div>
-                <div className="tag tag-red">construction</div>
-                <div className="tag tag-cyan">public transport</div>
-              </div>
-              <a
-                className="address"
-                href="https://www.google.com/maps/place/52°27'17.4N+13°30'42.0E/@52.4546829,13.511719,340m"
-              >
-                Sterndamm/Michael-Brückner-Straße, 12439 Berlin
-              </a>
-            </div>
-            <img
-              className="aspect-square"
-              src="/assets/schoeneweide.webp"
-              alt="Construction work at the train station S-Schöneweide blocking blocking tram transport"
-              tabIndex={-1}
-              id="image-test-id"
-            />
-          </div>
-          <div className="location flex items-center gap-5">
-            <div className="grow flex flex-col gap-5">
-              <h2 className="cursor-pointer">
-                Replacement bus service Prenzlauer Allee
-              </h2>
-              <div>
-                <div className="tag tag-cyan">public transport</div>
-              </div>
-              <a
-                className="address"
-                href="https://www.google.de/maps/place/Prenzlauer+Allee+178,+10409+Berlin/@52.5448151,13.4244101,16z"
-              >
-                Prenzlauer Allee 178 / S-Prenzlauer Allee, 10409 Berlin
-              </a>
-            </div>
-            <img
-              className="aspect-square"
-              src="/assets/prenzlauerallee.webp"
-              alt="an image of berlin"
-              tabIndex={-1}
-            />
-            <img
-              className="aspect-square"
-              src="/assets/prenzlauerallee.webp"
-              alt="an image of berlin"
-              tabIndex={-1}
-            />
-          </div>
+          {locations.map((loc) => {
+            return (
+              <LocationEntry
+                location={loc}
+                onEdit={(location) => {
+                  console.log(location)
+                }}
+              />
+            )
+          })}
         </main>
         <footer className="footer flex justify-end">
           <ul className="flex gap-10 list-none">

@@ -122,13 +122,9 @@
     cursor: pointer;
   }
 
-  a {
+  .address {
     font-size: 0.8rem;
     color: var(--color-tertiary);
-
-    &:hover {
-      color: var(--color-focus);
-    }
   }
 
   img {

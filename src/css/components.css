@@ -73,6 +73,11 @@
 
   background-color: var(--tag-bg-color);
   color: var(--tag-color);
+
+  &.category-tag {
+    box-shadow: 0 0 0 1px var(--tag-border-color) inset;
+    font-weight: bold;
+  }
 }
 
 .tag-hover-overlay {

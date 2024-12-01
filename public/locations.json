@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Rail work at intersection Wilhelminenhofstraße / Edisonstraße",
+    "description": "Big construction site re-doing the complicated switch layout at the intersection. No trams going down Wilhelminenhofstraße, sidewalks are restricted as well.",
+    "address": {
+      "lat": "52.46160425",
+      "lon": "13.51339563267964",
+      "street": "Edisonstraße 63",
+      "zipcode": "12459",
+      "city": "Berlin"
+    },
+    "images": [
+      {
+        "url": "/assets/wilhelminenhof-edisonstr.webp",
+        "alt": "Construction work at Edistonstraße 63 completely blocking all traffic"
+      }
+    ],
+    "category": {
+      "id": "construction",
+      "text": "construction",
+      "color": "#d73a4a"
+    },
+    "tags": [
+      {
+        "id": "public_transport",
+        "text": "public transport",
+        "colorbg": "#a2eeef",
+        "color": "#000000"
+      },
+      {
+        "id": "sidewalks",
+        "text": "sidewalks",
+        "colorbg": "#ffff00",
+        "color": "#000000"
+      }
+    ]
+  },
+  {
+    "name": "Construction site at Schöneweide station",
+    "description": "Road-/Railwork under the bridge at Schöneweide station, no trams driving",
+    "address": {
+      "lat": "52.4546797",
+      "lon": "13.5113968",
+      "street": "Sterndamm 2",
+      "zipcode": "12439",
+      "city": "Berlin"
+    },
+    "images": [
+      {
+        "url": "/assets/schoeneweide.webp",
+        "alt": "Construction work at the train station S-Schöneweide blocking blocking tram lines"
+      }
+    ],
+    "category": {
+      "id": "construction",
+      "text": "construction",
+      "color": "#d73a4a"
+    },
+    "tags": [
+      {
+        "id": "public_transport",
+        "text": "public transport",
+        "colorbg": "#a2eeef",
+        "color": "#000000"
+      }
+    ]
+  },
+  {
+    "name": "Replacement bus service Prenzlauer Allee",
+    "description": "Construction going on between S-Bahn Greifswalder Straße and Gesundbrunnen, no Ringbahn S41/S42 going from Prenzlauer Allee, replacemenet bus service to Greifswalder Straße",
+    "address": {
+      "lat": "52.5447729",
+      "lon": "13.4269752",
+      "street": "Prenzlauer Allee 178",
+      "zipcode": "10409",
+      "city": "Berlin"
+    },
+    "images": [
+      {
+        "url": "/assets/prenzlauerallee.webp",
+        "alt": "Information poster about the replacement service and ongoing construction"
+      }
+    ],
+    "category": {
+      "id": "inconvenience",
+      "text": "inconvenience",
+      "color": "#d73a4a"
+    },
+    "tags": [
+      {
+        "id": "public_transport",
+        "text": "public transport",
+        "colorbg": "#a2eeef",
+        "color": "#000000"
+      }
+    ]
+  }
+]

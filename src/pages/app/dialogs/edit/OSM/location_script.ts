@@ -10,6 +10,8 @@ const zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
 const cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
 const latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
 const lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
+const searchInput =
+  document.body.querySelector<HTMLInputElement>('#search-input')
 
 const testData = [] as unknown as [OSMResult]
 
@@ -26,13 +28,13 @@ testData.push({
 
 let OSMTimeoutID: number
 
-streetInput?.addEventListener('input', function () {
-  const streetString: string = streetInput.value
+searchInput?.addEventListener('input', function () {
+  const searchString: string = searchInput.value
   //introduce timeout to this and reduce limit
   window.clearTimeout(OSMTimeoutID)
   locationAutocomplete?.classList.add('hidden')
 
-  if (streetString.length < 5) {
+  if (searchString.length < 5) {
     locationAutocomplete?.classList.add('hidden')
     return
   }
@@ -42,7 +44,7 @@ streetInput?.addEventListener('input', function () {
 
   OSMTimeoutID = window.setTimeout(async () => {
     clearList()
-    const OSM = await getOsmData(streetString)
+    const OSM = await getOsmData(searchString)
     if (OSM.length == 0) {
       console.log('no results found')
       return
@@ -51,7 +53,9 @@ streetInput?.addEventListener('input', function () {
     createListChildren(OSM)
   }, 1000)
 })
-//TODO: clear list after every new request and filter out undefindes
+//TODO: filter out undefindes
+
+//TODO: refactor to search address field, make all other elems readonly
 function createListChildren(OSM: OSMResult[]) {
   OSM.forEach((place) => {
     //console.log("adding" + place.address.road + "to list")

@@ -39,13 +39,14 @@
 }
 
 input[name='zipcode'] {
-  width: 80px;
+  width: 100px;
 }
 
+/*TODO: remove
 input[name='city']::placeholder {
   color: black;
 }
-
+*/
 textarea[name='description'] {
   min-height: 100px;
 }
@@ -96,12 +97,11 @@ textarea[name='description'] {
   padding-right: 20px;
 }
 
-.lat-long > input {
-  min-width: 0;
+.readonly-input {
   background-color: var(--bg-color-secondary);
 }
-.lat-long > input:focus-visible,
-textarea:focus-visible {
+
+.readonly-input:focus-visible {
   border-color: var(--border-color-primary);
   box-shadow: none;
 }

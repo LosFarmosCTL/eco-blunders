@@ -48,13 +48,13 @@ export class EditDialog {
           ev.preventDefault()
           console.log('submit clicked')
           if (this.checkSubmitConditions()) {
-            console.log(this.currentLocation)
+            console.log('checksubmit is true')
             this.currentLocation = pullLocationData(this.currentLocation)
             this.dialog.close()
             resolve(this.currentLocation)
             return
           }
-          this.errorStyling()
+          //this.errorStyling()
         })
 
       this.dialog
@@ -150,37 +150,63 @@ export class EditDialog {
   }
 
   private checkSubmitConditions(): boolean {
-    const nameInput =
-      this.dialog.querySelector<HTMLInputElement>('input[name="name"]')
-    const descInput = this.dialog.querySelector<HTMLInputElement>(
-      'input[name="description"]',
-    )
-    const latInput =
-      this.dialog.querySelector<HTMLInputElement>('input[name="lat"]')
-    const lonInput =
-      this.dialog.querySelector<HTMLInputElement>('input[name="lon"]')
-    const streetInput = this.dialog.querySelector<HTMLInputElement>(
-      'input[name="street"]',
-    )
-    const zipInput = this.dialog.querySelector<HTMLInputElement>(
-      'input[name="zipcode"]',
-    )
-    const cityInput =
-      this.dialog.querySelector<HTMLInputElement>('input[name="city"]')
+    const nameInput = this.dialog.querySelector<HTMLInputElement>('#name-input')
+    const latInput = this.dialog.querySelector<HTMLInputElement>('#lat-input')
+    const lonInput = this.dialog.querySelector<HTMLInputElement>('#lon-input')
+    const streetInput =
+      this.dialog.querySelector<HTMLInputElement>('#street-input')
+    const zipInput = this.dialog.querySelector<HTMLInputElement>('#zip-input')
+    const cityInput = this.dialog.querySelector<HTMLInputElement>('#city-input')
 
-    if (nameInput?.value === '') return false
-    if (descInput?.value === '') return false
-    if (latInput?.value === '') return false
-    if (lonInput?.value === '') return false
-    if (streetInput?.value === '') return false
-    if (zipInput?.value === '') return false
-    if (cityInput?.value === '') return false
+    if (nameInput?.value === '') {
+      console.log('name is empty' + nameInput.value)
+      nameInput.setCustomValidity('Please set a name.')
+      nameInput.reportValidity()
+      return false
+    }
+    nameInput?.setCustomValidity('')
+    if (streetInput?.value === '') {
+      console.log('street is empty' + streetInput.value)
+      streetInput.setCustomValidity('Please set a street.')
+      streetInput.reportValidity()
+      return false
+    }
+    streetInput?.setCustomValidity('')
+    if (zipInput?.value === '') {
+      console.log('zip is empty' + zipInput.value)
+      zipInput.setCustomValidity('Please set a zipcode.')
+      zipInput.reportValidity()
+      return false
+    }
+    if (cityInput?.value === '') {
+      console.log('city is empty' + cityInput.value)
+      cityInput.setCustomValidity('Please set a city.')
+      cityInput.reportValidity()
+      return false
+    }
+    if (latInput?.value === '') {
+      console.log('lat is empty' + latInput.value)
+      latInput.setCustomValidity(
+        'Please set a latitude by choosing a location from the list.',
+      )
+      latInput.reportValidity()
+      return false
+    }
+    if (lonInput?.value === '') {
+      console.log('lon is empty' + lonInput.value)
+      lonInput.setCustomValidity(
+        'Please set a longitude by choosing a location from the list.',
+      )
+      lonInput.reportValidity()
+      return false
+    }
 
+    console.log('all fields filled out')
     return true
   }
 
-  private errorStyling() {
+  private errorStyling(element: HTMLInputElement) {
     //TODO: make this better for the love of god
-    alert('Please fill out all required fields')
+    //alert('Please fill out all required fields')
   }
 }

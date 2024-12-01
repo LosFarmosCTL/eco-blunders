@@ -6,8 +6,24 @@
   position: relative;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.block {
+  display: block;
+}
+
 .inline {
   display: inline;
+}
+
+.hidden {
+  display: none;
 }
 
 .flex {
@@ -50,6 +66,14 @@
   flex-grow: 1;
 }
 
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
 .mb-20 {
   margin-bottom: 20px;
 }
@@ -62,12 +86,24 @@
   margin-bottom: 5px;
 }
 
+.p-10 {
+  padding: 10px;
+}
+
 .pr-10 {
   padding-right: 10px;
 }
 
 .w-full {
   width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.rounded-full {
+  border-radius: 50%;
 }
 
 .aspect-square {
@@ -88,6 +124,10 @@
   line-height: 2.25rem;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .list-none {
   list-style: none;
 }
@@ -103,8 +143,4 @@ summary.list-none::-webkit-details-marker {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.hidden {
-  display: none;
 }

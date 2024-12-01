@@ -1,5 +1,5 @@
 type Tag = string | ((props: Props, children: Children) => HTMLElement)
-type Props = Record<string, string> | null
+type Props = Record<string, string | EventListenerOrEventListenerObject> | null
 type Children = (Node | string)[]
 
 export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
@@ -8,18 +8,21 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
   const element = document.createElement(tag)
   if (props) {
     Object.entries(props).forEach(([key, val]) => {
-      if (key === 'className') {
-        element.classList.add(...(val || '').trim().split(' '))
-        return
+      if (key === 'className' && typeof val === 'string') {
+        const classes = (val || '').trim().split(' ')
+        element.classList.add(...classes)
+      } else if (key.startsWith('on')) {
+        const event = key.toLowerCase().substring(2)
+        const listener = val as EventListenerOrEventListenerObject
+        element.addEventListener(event, listener)
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        element.setAttribute(key, val.toString())
       }
-
-      element.setAttribute(key, val)
     })
   }
 
-  children.forEach((child) => {
-    element.append(child)
-  })
+  element.append(...children)
 
   return element
 }

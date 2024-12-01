@@ -1,4 +1,4 @@
-import { createEmptyLocation, Location, pullLocationData } from './Location'
+import { createEmptyLocation, Location, pullLocationData } from './location'
 import { Tag } from './tags/tag'
 export class EditDialog {
   private readonly editDialogHtmlURL = new URL('./edit.html', import.meta.url)
@@ -41,7 +41,6 @@ export class EditDialog {
     this.dialog.showModal()
     await import('./OSM/location_script')
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     return new Promise<Location>((resolve) => {
       this.dialog
         .querySelector('#submit-location')
@@ -52,7 +51,8 @@ export class EditDialog {
             console.log(this.currentLocation)
             this.currentLocation = pullLocationData(this.currentLocation)
             this.dialog.close()
-            return resolve(this.currentLocation)
+            resolve(this.currentLocation)
+            return
           }
           this.errorStyling()
         })
@@ -133,7 +133,6 @@ export class EditDialog {
     const testImage =
       document.body.querySelector<HTMLImageElement>('#image-test-id')
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     imageInput?.addEventListener('change', async () => {
       console.log('image changed')
       const [image] = imageInput.files ?? []

@@ -51,6 +51,7 @@ export class EditDialog {
           if (this.checkSubmitConditions()) {
             console.log(this.currentLocation)
             this.currentLocation = pullLocationData(this.currentLocation)
+            this.dialog.close()
             return resolve(this.currentLocation)
           }
           this.errorStyling()

@@ -18,6 +18,11 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
       } else if (key === 'className' && typeof val === 'string') {
         const classes = (val || '').trim().split(' ')
         element.classList.add(...classes)
+      } else if (key === 'style') {
+        const styles = val as React.CSSProperties
+        Object.entries(styles).forEach(([rule, value]) => {
+          element.style.setProperty(rule, value as string)
+        })
       } else if (key.startsWith('on')) {
         const event = key.toLowerCase().substring(2)
         const listener = val as EventListenerOrEventListenerObject

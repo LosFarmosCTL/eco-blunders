@@ -41,7 +41,7 @@ export class App {
 
     async function addLocation(dialog: EditDialog) {
       await dialog.load(null)
-      await dialog.showModal()
+      console.log(await dialog.showModal())
 
       // TODO: load+store input data
     }

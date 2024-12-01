@@ -14,29 +14,41 @@ export interface Location {
       alt: string
     },
   ]
-  tags: [string]
+  tags: string[]
 }
 
-//define all html elements of the inputs
-const streetInput =
-  document.body.querySelector<HTMLInputElement>('#street-input')
-const zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
-const cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
-const latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
-const lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
-const nameInput = document.body.querySelector<HTMLInputElement>('#name-input')
-const descInput = document.body.querySelector<HTMLInputElement>('#desc-input')
+export function pullLocationData(location: Location): Location {
+  //define all html elements of the inputs
+  const streetInput =
+    document.body.querySelector<HTMLInputElement>('#street-input')
+  const zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
+  const cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
+  const latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
+  const lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
+  const nameInput = document.body.querySelector<HTMLInputElement>('#name-input')
+  const descInput = document.body.querySelector<HTMLInputElement>('#desc-input')
 
-export function pullLocationData(): Location {
+  //pull data from inputs
+  location.name = nameInput?.value ?? ''
+  location.description = descInput?.value ?? ''
+  location.location.lat = latInput?.value ?? ''
+  location.location.lon = lonInput?.value ?? ''
+  location.location.street = streetInput?.value ?? ''
+  location.location.zipcode = zipInput?.value ?? ''
+  location.location.city = cityInput?.value ?? ''
+  return location
+}
+
+export function createEmptyLocation(): Location {
   return {
-    name: nameInput?.value ?? '',
-    description: descInput?.value ?? '',
+    name: '',
+    description: '',
     location: {
-      lat: latInput?.value ?? '',
-      lon: lonInput?.value ?? '',
-      street: streetInput?.value ?? '',
-      zipcode: zipInput?.value ?? '',
-      city: cityInput?.value ?? '',
+      lat: '',
+      lon: '',
+      street: '',
+      zipcode: '',
+      city: '',
     },
     images: [
       {
@@ -44,6 +56,6 @@ export function pullLocationData(): Location {
         alt: '',
       },
     ],
-    tags: [''],
+    tags: [],
   }
 }

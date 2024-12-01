@@ -1,6 +1,10 @@
 type Tag = string | ((props: Props, children: Children) => HTMLElement)
-type Props = Record<string, string | EventListenerOrEventListenerObject> | null
+type Props = Record<
+  string,
+  string | EventListenerOrEventListenerObject | RefCallback
+> | null
 type Children = (Node | string)[]
+type RefCallback = (element: HTMLElement) => void
 
 export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
   if (typeof tag === 'function') return tag({ ...props }, children)
@@ -8,7 +12,10 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
   const element = document.createElement(tag)
   if (props) {
     Object.entries(props).forEach(([key, val]) => {
-      if (key === 'className' && typeof val === 'string') {
+      if (key === 'ref' && typeof val === 'function') {
+        const handler = val as RefCallback
+        handler(element)
+      } else if (key === 'className' && typeof val === 'string') {
         const classes = (val || '').trim().split(' ')
         element.classList.add(...classes)
       } else if (key.startsWith('on')) {

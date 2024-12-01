@@ -24,4 +24,16 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
   return element
 }
 
-export const Fragment = () => null
+export function Fragment(_props: object, children: Children) {
+  console.log(children)
+  const fragment = document.createDocumentFragment()
+  children.forEach((child) => {
+    if (child instanceof Node) {
+      fragment.appendChild(child)
+    } else {
+      fragment.appendChild(document.createTextNode(String(child)))
+    }
+  })
+
+  return fragment
+}

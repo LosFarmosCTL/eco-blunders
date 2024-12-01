@@ -1,9 +1,11 @@
-import { Location } from './Location'
+import { createEmptyLocation, Location, pullLocationData } from './Location'
 import { Tag } from './tags/tag'
 export class EditDialog {
   private readonly editDialogHtmlURL = new URL('./edit.html', import.meta.url)
 
   private dialog: HTMLDialogElement
+
+  private currentLocation = createEmptyLocation()
 
   constructor() {
     this.dialog = document.createElement('dialog')
@@ -35,24 +37,32 @@ export class EditDialog {
   }
 
   // TODO: return edited data
-  public async showModal() {
+  public async showModal(): Promise<Location> {
     this.dialog.showModal()
-    this.dialog
-      .querySelector('#submit-location')
-      ?.addEventListener('click', (ev) => {
-        ev.preventDefault()
-        console.log('submit clicked')
-      })
-
-    this.dialog
-      .querySelector('#cancel-button')
-      ?.addEventListener('click', () => {
-        console.log('cancel clicked')
-        this.dialog.close()
-      })
-
     await import('./OSM/location_script')
-    //TODO: do a promise resolve on click event here to return
+
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    return new Promise<Location>((resolve) => {
+      this.dialog
+        .querySelector('#submit-location')
+        ?.addEventListener('click', (ev) => {
+          ev.preventDefault()
+          console.log('submit clicked')
+          if (this.checkSubmitConditions()) {
+            console.log(this.currentLocation)
+            this.currentLocation = pullLocationData(this.currentLocation)
+            return resolve(this.currentLocation)
+          }
+          this.errorStyling()
+        })
+
+      this.dialog
+        .querySelector('#cancel-button')
+        ?.addEventListener('click', () => {
+          console.log('cancel clicked')
+          this.dialog.close()
+        })
+    })
   }
 
   private styleNewLocation() {
@@ -103,6 +113,8 @@ export class EditDialog {
           const tagContainer =
             this.dialog.querySelector<HTMLDivElement>('#tag-container')
           tagContainer?.appendChild(completeTag)
+
+          this.currentLocation.tags.push(newTag.text)
         })
       }
     }
@@ -121,9 +133,47 @@ export class EditDialog {
       reader.onload = (e) => {
         //TODO: actually put the image somewhere useful right now just replaces a test image
         if (testImage) testImage.src = e.target?.result as string
+        this.currentLocation.images.push({
+          url: e.target?.result as string,
+          alt: 'uploaded image',
+        })
       }
-
       reader.readAsDataURL(image)
     })
+  }
+
+  private checkSubmitConditions(): boolean {
+    const nameInput =
+      this.dialog.querySelector<HTMLInputElement>('input[name="name"]')
+    const descInput = this.dialog.querySelector<HTMLInputElement>(
+      'input[name="description"]',
+    )
+    const latInput =
+      this.dialog.querySelector<HTMLInputElement>('input[name="lat"]')
+    const lonInput =
+      this.dialog.querySelector<HTMLInputElement>('input[name="lon"]')
+    const streetInput = this.dialog.querySelector<HTMLInputElement>(
+      'input[name="street"]',
+    )
+    const zipInput = this.dialog.querySelector<HTMLInputElement>(
+      'input[name="zipcode"]',
+    )
+    const cityInput =
+      this.dialog.querySelector<HTMLInputElement>('input[name="city"]')
+
+    if (nameInput?.value === '') return false
+    if (descInput?.value === '') return false
+    if (latInput?.value === '') return false
+    if (lonInput?.value === '') return false
+    if (streetInput?.value === '') return false
+    if (zipInput?.value === '') return false
+    if (cityInput?.value === '') return false
+
+    return true
+  }
+
+  private errorStyling() {
+    //TODO: make this better for the love of god
+    alert('Please fill out all required fields')
   }
 }

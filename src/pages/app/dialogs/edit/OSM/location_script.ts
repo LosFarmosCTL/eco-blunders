@@ -46,7 +46,7 @@ streetInput?.addEventListener('input', function () {
     createListChildren(OSM)
   }, 1000)
 })
-
+//TODO: clear list after every new request and filter out undefindes
 function createListChildren(OSM: [OSMResult]) {
   OSM.forEach((place) => {
     //console.log("adding" + place.address.road + "to list")

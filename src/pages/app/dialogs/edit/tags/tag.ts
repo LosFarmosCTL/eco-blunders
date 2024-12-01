@@ -1,5 +1,5 @@
 export class Tag {
-  private text: string
+  public readonly text: string
   private color: string
   public readonly id: number
 

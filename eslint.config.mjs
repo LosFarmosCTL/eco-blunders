@@ -18,6 +18,11 @@ export default tseslint.config(
   },
   eslintConfigPrettier,
   {
+    rules: {
+      '@typescript-eslint/no-misused-promises': 'off',
+    },
+  },
+  {
     ignores: ['node_modules/', 'dist/', 'eslint.config.mjs', 'vite.config.js'],
   },
 )

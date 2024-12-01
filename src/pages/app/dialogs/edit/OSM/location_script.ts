@@ -30,6 +30,7 @@ streetInput?.addEventListener('input', function () {
   const streetString: string = streetInput.value
   //introduce timeout to this and reduce limit
   window.clearTimeout(OSMTimeoutID)
+  locationAutocomplete?.classList.add('hidden')
 
   if (streetString.length < 5) {
     locationAutocomplete?.classList.add('hidden')
@@ -40,13 +41,18 @@ streetInput?.addEventListener('input', function () {
   //every call do the cleartimeout and reinvoke it
 
   OSMTimeoutID = window.setTimeout(async () => {
+    clearList()
     const OSM = await getOsmData(streetString)
+    if (OSM.length == 0) {
+      console.log('no results found')
+      return
+    }
     locationAutocomplete?.classList.remove('hidden')
     createListChildren(OSM)
   }, 1000)
 })
 //TODO: clear list after every new request and filter out undefindes
-function createListChildren(OSM: [OSMResult]) {
+function createListChildren(OSM: OSMResult[]) {
   OSM.forEach((place) => {
     //console.log("adding" + place.address.road + "to list")
     const li = document.createElement('li')
@@ -74,7 +80,16 @@ function autoFillData(OSM: OSMResult) {
   locationAutocomplete?.classList.add('hidden')
 
   //removes all children
-  if (locationAutocomplete) locationAutocomplete.textContent = ''
+  //clearList()
+}
+
+function clearList() {
+  const locationslist = locationAutocomplete?.children
+  if (locationslist) {
+    for (const location of locationslist) {
+      location.remove()
+    }
+  }
 }
 
 //TODO: tag selecting and shit, image uploading, submit button gives a location interface,

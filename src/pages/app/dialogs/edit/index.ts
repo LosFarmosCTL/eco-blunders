@@ -10,8 +10,8 @@ export class EditDialog {
   constructor() {
     this.dialog = document.createElement('dialog')
     this.dialog.id = 'add-dialog'
-    this.dialog.addEventListener('close', () => {
-      //TODO: closing via ESC is not preventable we can just direct it to do something
+    this.dialog.addEventListener('cancel', (ev) => {
+      ev.preventDefault()
       console.log('close detected')
     })
   }

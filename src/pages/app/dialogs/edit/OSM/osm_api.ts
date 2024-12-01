@@ -27,7 +27,7 @@ export async function getOsmData(address: string) {
 
   //console.log(response)
 
-  const OSMData: [OSMResult] = await request(complete_url, {
+  const OSMData: OSMResult[] = await request(complete_url, {
     method: 'GET',
     headers: headersList,
   })

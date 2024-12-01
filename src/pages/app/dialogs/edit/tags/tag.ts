@@ -1,7 +1,8 @@
 export class Tag {
   public readonly text: string
-  private color: string
-  public readonly id: number
+  public color: string
+  public readonly id: string
+  public colorbg = 'white'
 
   constructor(text: string) {
     //remove all white spaces except for those inbetween words
@@ -11,23 +12,23 @@ export class Tag {
     switch (this.text) {
       case 'construction':
         this.color = 'red'
-        this.id = 1
+        this.id = '1'
         break
       case 'bike lanes':
         this.color = 'green'
-        this.id = 2
+        this.id = '2'
         break
       case 'public transport':
         this.color = 'cyan'
-        this.id = 3
+        this.id = '3'
         break
       case 'park and ride':
         this.color = 'yellow'
-        this.id = 4
+        this.id = '4'
         break
       default:
         this.color = 'black'
-        this.id = 0
+        this.id = '0'
     }
   }
 

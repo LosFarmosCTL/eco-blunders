@@ -2,7 +2,6 @@ export class Tag {
   private text: string
   private color: string
   public readonly id: number
-  private static tagArray: number[] = []
 
   constructor(text: string) {
     //remove all white spaces except for those inbetween words
@@ -32,7 +31,10 @@ export class Tag {
     }
   }
 
-  public getTagElment(): HTMLDivElement {
+  public getTagElment(): [
+    completeTag: HTMLDivElement,
+    tagIcons: HTMLSpanElement,
+  ] {
     /*
         <div class="tag tag-red">
           <div class="tag-hover-overlay">
@@ -51,15 +53,13 @@ export class Tag {
     hoverOverlay.appendChild(icon)
     tag.appendChild(hoverOverlay)
     tag.appendChild(document.createTextNode(this.text))
-    Tag.tagArray.push(this.id)
+    //Tag.tagArray.push(this.id)
 
+    /*
     icon.addEventListener('click', () => {
       tag.remove()
-      Tag.tagArray.filter((value) => {
-        return value !== this.id
-      })
     })
-
-    return tag
+    */
+    return [tag, icon]
   }
 }

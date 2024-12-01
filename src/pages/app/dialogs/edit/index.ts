@@ -72,6 +72,8 @@ export class EditDialog {
   }
 
   private setupTagListeners() {
+    let existingTags: number[] = []
+
     const tagSelector =
       this.dialog.querySelector<HTMLDivElement>('#tag-selector')?.children
 
@@ -80,10 +82,27 @@ export class EditDialog {
     for (const elem of tagSelector) {
       if (elem.className === 'tag-selector-tag') {
         elem.addEventListener('click', () => {
+          //create a new tag, see if it already exists
           const newTag = new Tag(elem.textContent ?? '')
+          console.log(existingTags)
+          if (existingTags.includes(newTag.id)) return
+
+          //get the entire tag div and icon
+          const tagElements = newTag.getTagElment()
+          const completeTag = tagElements[0]
+          const tagIcons = tagElements[1]
+          existingTags.push(newTag.id)
+
+          //remove the tag and the id from the array
+          tagIcons.addEventListener('click', () => {
+            completeTag.remove()
+            existingTags = existingTags.filter((tagID) => tagID !== newTag.id)
+          })
+
+          //add the tag to the html
           const tagContainer =
             this.dialog.querySelector<HTMLDivElement>('#tag-container')
-          tagContainer?.appendChild(newTag.getTagElment())
+          tagContainer?.appendChild(completeTag)
         })
       }
     }
@@ -100,7 +119,7 @@ export class EditDialog {
       const [image] = imageInput.files ?? []
       const reader = new FileReader()
       reader.onload = (e) => {
-        //TODO: actually put the image somewhere useful
+        //TODO: actually put the image somewhere useful right now just replaces a test image
         if (testImage) testImage.src = e.target?.result as string
       }
 

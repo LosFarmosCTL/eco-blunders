@@ -65,7 +65,7 @@ export async function App(user: string) {
             <details className="filters details-modal">
               <summary className="list-none select-none cursor-pointer">
                 Filters
-                <span className="fa-solid fa-caret-down" />
+                <span className="ml-5 fa-solid fa-caret-down" />
               </summary>
               <div className="tag-selector">
                 <h3>Filter by tag</h3>

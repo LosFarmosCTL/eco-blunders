@@ -1,23 +1,6 @@
-export interface Location {
-  name: string
-  description: string
-  location: {
-    lat: string
-    lon: string
-    street: string
-    zipcode: string
-    city: string
-  }
-  images: [
-    {
-      url: string
-      alt: string
-    },
-  ]
-  tags: string[]
-}
+import { Location } from '../../../../model/location'
 
-export function pullLocationData(location: Location): Location {
+export function pullLocationData(address: Location): Location {
   //define all html elements of the inputs
   const streetInput =
     document.body.querySelector<HTMLInputElement>('#street-input')
@@ -29,23 +12,23 @@ export function pullLocationData(location: Location): Location {
   const descInput = document.body.querySelector<HTMLInputElement>('#desc-input')
 
   //pull data from inputs
-  location.name = nameInput?.value ?? ''
-  location.description = descInput?.value ?? ''
-  location.location.lat = latInput?.value ?? ''
-  location.location.lon = lonInput?.value ?? ''
-  location.location.street = streetInput?.value ?? ''
-  location.location.zipcode = zipInput?.value ?? ''
-  location.location.city = cityInput?.value ?? ''
-  return location
+  address.name = nameInput?.value ?? ''
+  address.description = descInput?.value ?? ''
+  address.lat = latInput?.value ?? ''
+  address.lon = lonInput?.value ?? ''
+  address.address.street = streetInput?.value ?? ''
+  address.address.zipcode = zipInput?.value ?? ''
+  address.address.city = cityInput?.value ?? ''
+  return address
 }
 
 export function createEmptyLocation(): Location {
   return {
     name: '',
     description: '',
-    location: {
-      lat: '',
-      lon: '',
+    lat: '',
+    lon: '',
+    address: {
       street: '',
       zipcode: '',
       city: '',
@@ -56,6 +39,11 @@ export function createEmptyLocation(): Location {
         alt: '',
       },
     ],
+    category: {
+      id: '',
+      text: '',
+      color: '',
+    },
     tags: [],
   }
 }

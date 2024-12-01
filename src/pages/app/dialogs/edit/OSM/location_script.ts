@@ -49,6 +49,8 @@ searchInput?.addEventListener('input', function () {
     clearList()
     const OSM = await getOsmData(searchString)
     if (OSM.length == 0) {
+      searchInput.setCustomValidity('No results found')
+      searchInput.reportValidity()
       console.log('no results found')
       return
     }

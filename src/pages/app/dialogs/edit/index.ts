@@ -1,4 +1,5 @@
-import { createEmptyLocation, Location, pullLocationData } from './location'
+import { createEmptyLocation, pullLocationData } from './location'
+import { Location } from '../../../../model/location'
 import { Tag } from './tags/tag'
 export class EditDialog {
   private readonly editDialogHtmlURL = new URL('./edit.html', import.meta.url)
@@ -83,7 +84,7 @@ export class EditDialog {
   }
 
   private setupTagListeners() {
-    let existingTags: number[] = []
+    let existingTags: string[] = []
 
     const tagSelector =
       this.dialog.querySelector<HTMLDivElement>('#tag-selector')?.children
@@ -122,7 +123,7 @@ export class EditDialog {
           elem.appendChild(checkmark)
           elem.classList.add('tag-selector-checked')
 
-          this.currentLocation.tags.push(newTag.text)
+          this.currentLocation.tags.push(newTag)
         })
       }
     }
@@ -157,6 +158,8 @@ export class EditDialog {
       this.dialog.querySelector<HTMLInputElement>('#street-input')
     const zipInput = this.dialog.querySelector<HTMLInputElement>('#zip-input')
     const cityInput = this.dialog.querySelector<HTMLInputElement>('#city-input')
+    const searchInput =
+      this.dialog.querySelector<HTMLInputElement>('#search-input')
 
     if (nameInput?.value === '') {
       console.log('name is empty' + nameInput.value)
@@ -166,9 +169,10 @@ export class EditDialog {
     }
     nameInput?.setCustomValidity('')
     if (streetInput?.value === '') {
-      console.log('street is empty' + streetInput.value)
-      streetInput.setCustomValidity('Please set a street.')
-      streetInput.reportValidity()
+      searchInput?.setCustomValidity(
+        'Please choose a location from the search list.',
+      )
+      searchInput?.reportValidity()
       return false
     }
     streetInput?.setCustomValidity('')
@@ -203,10 +207,5 @@ export class EditDialog {
 
     console.log('all fields filled out')
     return true
-  }
-
-  private errorStyling(element: HTMLInputElement) {
-    //TODO: make this better for the love of god
-    //alert('Please fill out all required fields')
   }
 }

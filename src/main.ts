@@ -10,5 +10,5 @@ if (!user) {
 }
 
 const { App } = await import('./pages/app')
-const app = new App(user)
-await app.load()
+
+document.body.replaceChildren(await App(user))

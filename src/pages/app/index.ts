@@ -34,7 +34,6 @@ export class App {
     detailDialog.id = 'detail-dialog'
     document.body.appendChild(detailDialog)
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     document.querySelector('#add-btn')?.addEventListener('click', async () => {
       await addLocation(editDialog)
     })

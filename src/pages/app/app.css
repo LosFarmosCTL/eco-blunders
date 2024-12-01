@@ -25,23 +25,29 @@
     }
   }
 
-  & > button {
+  & > details {
     grid-column: 3;
     justify-self: end;
 
-    font-size: 1.2rem;
-
-    & > .fa-right-from-bracket {
-      margin-right: 2px;
+    & > summary {
+      background-color: var(--bg-color-primary);
+      border: 1px solid var(--border-color-primary);
     }
 
-    @media screen and (width <= 640px) {
-      & > .fa-right-from-bracket {
-        margin: 0;
-      }
+    & > div {
+      width: 200px;
 
-      & .logout-text {
-        display: none;
+      background-color: var(--bg-color-primary);
+      border-radius: 10px;
+      box-shadow:
+        0px 0px 0px 1px #d1d9e080,
+        0px 6px 12px -3px #25292e0a,
+        0px 6px 18px 0px #25292e1f;
+
+      z-index: 10;
+
+      & > div {
+        border-bottom: 1px solid var(--border-color-primary);
       }
     }
   }

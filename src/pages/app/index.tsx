@@ -40,10 +40,24 @@ export async function App(user: string) {
         <h1>
           <span>List of </span>ecoBlunders™
         </h1>
-        <button type="reset" onClick={logout}>
-          <span className="fa-solid fa-right-from-bracket" />
-          <span className="logout-text">Logout</span>
-        </button>
+        <details className="details-modal h-full">
+          <summary className="flex justify-center items-center h-full list-none text-xl bold rounded-full aspect-square cursor-pointer">
+            {user.at(0)?.toUpperCase()}
+          </summary>
+          <div className="absolute right-0 mr-5 mt-5">
+            <div className="p-10">
+              Hello, <span className="bold">{user}</span>!
+            </div>
+            <button
+              className="flex justify-between items-center p-10 w-full"
+              type="reset"
+              onClick={logout}
+            >
+              Sign out
+              <span className="fa-solid fa-right-from-bracket" />
+            </button>
+          </div>
+        </details>
       </header>
       <div className="app-content">
         <main className="flex flex-col gap-10">

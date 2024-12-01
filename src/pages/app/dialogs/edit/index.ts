@@ -104,16 +104,23 @@ export class EditDialog {
           const tagIcons = tagElements[1]
           existingTags.push(newTag.id)
 
+          const checkmark = document.createElement('i')
+          checkmark.classList.add('fa-solid', 'fa-check')
+
           //remove the tag and the id from the array
           tagIcons.addEventListener('click', () => {
             completeTag.remove()
             existingTags = existingTags.filter((tagID) => tagID !== newTag.id)
+            elem.removeChild(checkmark)
+            elem.classList.remove('tag-selector-checked')
           })
 
           //add the tag to the html
           const tagContainer =
             this.dialog.querySelector<HTMLDivElement>('#tag-container')
           tagContainer?.appendChild(completeTag)
+          elem.appendChild(checkmark)
+          elem.classList.add('tag-selector-checked')
 
           this.currentLocation.tags.push(newTag.text)
         })

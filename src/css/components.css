@@ -7,7 +7,7 @@
   z-index: 5;
   display: block;
   cursor: default;
-  content: " ";
+  content: ' ';
   background: transparent;
 }
 
@@ -183,5 +183,9 @@
       vertical-align: -2px;
       border: 1px solid var(--border-color-primary);
     }
+  }
+
+  .tag-selector-checked {
+    background-color: var(--bg-color-secondary);
   }
 }

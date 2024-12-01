@@ -49,6 +49,10 @@
       & > div {
         border-bottom: 1px solid var(--border-color-primary);
       }
+
+      & > button:hover {
+        background-color: var(--bg-color-secondary);
+      }
     }
   }
 }

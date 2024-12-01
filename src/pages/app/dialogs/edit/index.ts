@@ -22,6 +22,7 @@ export class EditDialog {
       this.styleNewLocation()
     }
     this.setupTagListeners()
+    this.handleImageUpload()
 
     this.dialog
       .querySelector<HTMLInputElement>('input[name="name"]')
@@ -71,20 +72,39 @@ export class EditDialog {
   }
 
   private setupTagListeners() {
-    const tags =
+    const tagSelector =
       this.dialog.querySelector<HTMLDivElement>('#tag-selector')?.children
 
-    if (tags) {
-      for (const tag of tags) {
-        if (tag.className === 'tag-selector-tag')
-          tag.addEventListener('click', () => {
-            const tagContainer =
-              this.dialog.querySelector<HTMLDivElement>('#tag-container')
-            tagContainer?.appendChild(
-              new Tag(tag.textContent ?? '').getTagElment(),
-            )
-          })
+    if (!tagSelector) return
+
+    for (const elem of tagSelector) {
+      if (elem.className === 'tag-selector-tag') {
+        elem.addEventListener('click', () => {
+          const newTag = new Tag(elem.textContent ?? '')
+          const tagContainer =
+            this.dialog.querySelector<HTMLDivElement>('#tag-container')
+          tagContainer?.appendChild(newTag.getTagElment())
+        })
       }
     }
+  }
+  private handleImageUpload() {
+    const imageInput =
+      this.dialog.querySelector<HTMLInputElement>('#image-upload')
+    const testImage =
+      document.body.querySelector<HTMLImageElement>('#image-test-id')
+
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    imageInput?.addEventListener('change', async () => {
+      console.log('image changed')
+      const [image] = imageInput.files ?? []
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        //TODO: actually put the image somewhere useful
+        if (testImage) testImage.src = e.target?.result as string
+      }
+
+      reader.readAsDataURL(image)
+    })
   }
 }

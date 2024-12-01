@@ -1,3 +1,4 @@
 declare namespace JSX {
-  interface Element extends HTMLElement { }
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  interface Element extends HTMLElement {}
 }

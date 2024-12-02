@@ -42,11 +42,6 @@ input[name='zipcode'] {
   width: 100px;
 }
 
-/*TODO: remove
-input[name='city']::placeholder {
-  color: black;
-}
-*/
 textarea[name='description'] {
   min-height: 100px;
 }
@@ -76,14 +71,28 @@ textarea[name='description'] {
 }
 
 .osm-list-elem {
-  position: absolute;
-  border: 1px solid rgb(116, 116, 116);
-  border-radius: 6px;
+  box-shadow: 0 1px 0px var(--border-color-primary);
   text-align: left;
-  margin-bottom: 2px;
-  background-color: rgb(209, 209, 209);
+  background-color: var(--bg-color-primary);
+  z-index: 10;
+  width: 100%;
+  margin: 0;
+
+  &:hover {
+    background-color: var(--bg-color-secondary);
+  }
 }
 
+.osm-list-elem > p:first-child {
+  margin: 5px;
+  margin-top: 0;
+}
+
+.osm-list-elem > p:last-child {
+  margin: 5px;
+  margin-bottom: 1px;
+  padding-bottom: 1px;
+}
 .osm-list-elem > p {
   margin: 5px;
 }
@@ -93,10 +102,27 @@ textarea[name='description'] {
 }
 
 .osm-list {
-  position: relative;
-  margin-top: 0px;
-  padding-left: 15px;
-  padding-right: 20px;
+  border: 1px solid var(--border-color-primary);
+  position: absolute;
+  border-radius: 6px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  margin-top: 43px;
+  gap: 0;
+  box-shadow:
+    0px 6px 12px -3px #25292e0a,
+    0px 6px 18px 0px #25292e1f;
+}
+
+.osm-list > :first-child {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.osm-list > :last-child {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .readonly-input {

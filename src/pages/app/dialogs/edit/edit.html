@@ -5,9 +5,9 @@
   <div class="flex gap-10">
     <div class="flex flex-col gap-10 grow mb-10">
       <textarea class="grow" name="description" placeholder="Description" tabindex="2" id="desc-input"></textarea>
-      <div class="flex flex-col">
-        <input type ="text" name="adressSearch" class="mb-10" placeholder="Search address..." tabindex="4" required id="search-input">
-        <div class="hidden list-none relative flex flex-col osm-list " id="loc_autocomplete">
+      <div class="flex flex-col relative">
+        <input type ="text" name="adressSearch" class="mb-10" placeholder="Search address..." tabindex="4" required id="search-input" autocomplete="off">
+        <div class="hidden list-none osm-list " id="loc_autocomplete">
           <!--  list elems for testing here
                   <li class="list-none cursor-pointer osm-list-elem">
                     <p>Gatower Straße 18</p>

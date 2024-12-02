@@ -2,6 +2,7 @@ import { Category } from './category'
 import { Tag } from './tag'
 
 export interface Location {
+  id: string
   name: string
   description: string
   lat: string

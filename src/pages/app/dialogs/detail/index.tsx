@@ -73,7 +73,7 @@ function createImageElements(images: { url: string; alt: string }[]) {
       <img src={image.url} alt={image.alt} className="w-full h-full hidden" />,
     )
   }
-  imageElements.at(0).classList.remove('hidden')
+  imageElements.at(0)?.classList.remove('hidden')
   if (numberText) numberText.innerHTML = '1/' + String(images.length)
   return imageElements
 }

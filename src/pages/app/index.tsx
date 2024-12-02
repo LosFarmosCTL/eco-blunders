@@ -44,7 +44,7 @@ export async function App(user: string) {
           <span>List of </span>ecoBlunders™
         </h1>
         <details className="details-modal h-full aspect-square">
-          <summary className="flex justify-center items-center h-full list-none text-xl bold rounded-full aspect-square cursor-pointer">
+          <summary className="flex justify-center items-center h-full list-none text-xl bold rounded-full aspect-square cursor-pointer select-none">
             {user.at(0)?.toUpperCase()}
           </summary>
           <div className="absolute right-0 mr-5 mt-5">

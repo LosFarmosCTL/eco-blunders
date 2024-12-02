@@ -136,7 +136,6 @@ export async function App(user: string) {
               const entry = (
                 <LocationEntry location={loc} onEdit={editLocation} />
               )
-              console.log(loc.id)
               locationEntries.set(loc.id, entry)
 
               return entry

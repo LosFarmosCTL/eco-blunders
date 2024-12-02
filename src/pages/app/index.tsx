@@ -18,9 +18,9 @@ function logout() {
 }
 
 export async function App(user: User) {
-  const tags = await request<Tag[]>('/tags.json', {})
-  const categories = await request<Category[]>('/categories.json', {})
-  let locations = await request<Location[]>('/locations.json', {})
+  const tags = await request<Tag[]>('./tags.json', {})
+  const categories = await request<Category[]>('./categories.json', {})
+  let locations = await request<Location[]>('./locations.json', {})
 
   let editDialog: HTMLDialogElement | null
   let locationList: HTMLDivElement | null

@@ -49,11 +49,9 @@ export async function App(user: string) {
 
   function updateLocation(location: Location) {
     if (locations.some((loc) => location.id == loc.id)) {
-      locationEntries
-        .get(location.id)
-        ?.replaceWith(
-          <LocationEntry location={location} onEdit={editLocation} />,
-        )
+      const entry = <LocationEntry location={location} onEdit={editLocation} />
+      locationEntries.get(location.id)?.replaceWith(entry)
+      locationEntries.set(location.id, entry)
     } else {
       locations.push(location)
       const entry = <LocationEntry location={location} onEdit={editLocation} />

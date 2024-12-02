@@ -1,7 +1,6 @@
 import { h, Fragment } from '../../../../util/jsx/pragma'
 import './edit.css'
 
-
 import { Location } from '../../../../model/location'
 import { Tag } from '../../../../model/tag'
 import { Category } from '../../../../model/category'
@@ -32,13 +31,14 @@ export function EditDialog({
   let tagList: HTMLElement | null = null
 
   let nameInput: HTMLInputElement | null = null
-  let descInput: HTMLInputElement | null = null
+  let descInput: HTMLTextAreaElement | null = null
   let searchInput: HTMLInputElement | null = null
   let streetInput: HTMLInputElement | null = null
   let zipInput: HTMLInputElement | null = null
   let cityInput: HTMLInputElement | null = null
   let latInput: HTMLInputElement | null = null
   let lonInput: HTMLInputElement | null = null
+  let categorySelect: HTMLSelectElement | null = null
 
   let selectedTags: Tag[] = location?.tags ?? []
 
@@ -47,9 +47,26 @@ export function EditDialog({
   }
 
   function submitLocation() {
-    if (/*checkSubmitConditions()*/ true) {
+    if (checkSubmitConditions()) {
+      location = {
+        id: location?.id ?? crypto.randomUUID(),
+        name: nameInput?.value ?? '',
+        description: descInput?.value ?? '',
+        lat: latInput?.value ?? '',
+        lon: lonInput?.value ?? '',
+        address: {
+          street: streetInput?.value ?? '',
+          zipcode: zipInput?.value ?? '',
+          city: cityInput?.value ?? '',
+        },
+        images: location?.images ?? [],
+        category:
+          categories.find((c) => c.id === categorySelect?.value) ??
+          categories[0],
+        tags: selectedTags,
+      }
       dialog?.close()
-      onEdit(location!)
+      onEdit(location)
       return
     }
   }
@@ -89,6 +106,62 @@ export function EditDialog({
     updateTagList()
   }
 
+  function checkSubmitConditions(): boolean {
+    if (nameInput?.value === '') {
+      nameInput.setCustomValidity('Please set a name.')
+      nameInput.reportValidity()
+      return false
+    }
+
+    if (
+      streetInput?.value === '' ||
+      zipInput?.value === '' ||
+      cityInput?.value === '' ||
+      latInput?.value === '' ||
+      lonInput?.value === ''
+    ) {
+      searchInput?.setCustomValidity(
+        'Please choose a location from the search list.',
+      )
+      searchInput?.reportValidity()
+      return false
+    }
+    /*
+    if (streetInput?.value === '') {
+      searchInput?.setCustomValidity(
+        'Please choose a location from the search list.',
+      )
+      searchInput?.reportValidity()
+      return false
+    }
+
+    if (zipInput?.value === '') {
+      searchInput?.setCustomValidity('Please choose a location from the serach list.')
+      searchInput?.reportValidity()
+      return false
+    }
+
+    if (cityInput?.value === '') {
+      searchInput?.setCustomValidity('Please choose a location from the serach list.')
+      searchInput?.reportValidity()
+      return false
+    }
+
+    if (latInput?.value === '') {
+      searchInput?.setCustomValidity('Please choose a location from the serach list.')
+      searchInput?.reportValidity()
+      return false
+    }
+
+    if (lonInput?.value === '') {
+      searchInput?.setCustomValidity('Please choose a location from the serach list.')
+      searchInput?.reportValidity()
+      return false
+    }
+*/
+    return true
+  }
+
   return (
     <>
       <dialog
@@ -111,6 +184,7 @@ export function EditDialog({
             autoComplete="off"
             required
             autoFocus
+            ref={(elem) => (nameInput = elem)}
           />
           <h2 className="mb-5">Add a description</h2>
           <div className="flex gap-10 mb-10">
@@ -122,6 +196,7 @@ export function EditDialog({
                 defaultValue={location?.description ?? ''}
                 tabIndex={2}
                 required
+                ref={(elem) => (descInput = elem)}
               />
               <div className="flex flex-col">
                 <input
@@ -130,9 +205,10 @@ export function EditDialog({
                   placeholder="Search address..."
                   tabIndex={4}
                   autoComplete="off"
-                  onInput={(ev) =>{
+                  onInput={(ev) => {
                     activateLocationScript(ev)
                   }}
+                  ref={(elem) => (searchInput = elem)}
                 />
                 <div
                   className="hidden list-none osm-list "
@@ -146,6 +222,7 @@ export function EditDialog({
                     value={location?.address.street ?? ''}
                     readOnly
                     id="street-input"
+                    ref={(elem) => (streetInput = elem)}
                   />
                 </div>
                 <div className="flex gap-10 mb-10">
@@ -156,6 +233,7 @@ export function EditDialog({
                     value={location?.address.zipcode ?? ''}
                     readOnly
                     id="zip-input"
+                    ref={(elem) => (zipInput = elem)}
                   />
                   <input
                     className="readonly-input grow"
@@ -164,6 +242,7 @@ export function EditDialog({
                     value={location?.address.city ?? ''}
                     readOnly
                     id="city-input"
+                    ref={(elem) => (cityInput = elem)}
                   />
                 </div>
                 <div className="flex gap-10 lat-long">
@@ -174,6 +253,7 @@ export function EditDialog({
                     value={location?.lat ?? ''}
                     readOnly
                     id="lat-input"
+                    ref={(elem) => (latInput = elem)}
                   />
                   <input
                     className="readonly-input"
@@ -182,6 +262,7 @@ export function EditDialog({
                     value={location?.lon ?? ''}
                     readOnly
                     id="lon-input"
+                    ref={(elem) => (lonInput = elem)}
                   />
                 </div>
               </div>
@@ -202,7 +283,10 @@ export function EditDialog({
               </div>
               <div className="custom-select">
                 <h3 className="mb-5">Category</h3>
-                <select id="category-dropdown">
+                <select
+                  ref={(elem) => (categorySelect = elem)}
+                  id="category-dropdown"
+                >
                   {categories.map((category) => (
                     <option value={category.id}>{category.text}</option>
                   ))}

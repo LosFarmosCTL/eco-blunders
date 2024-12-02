@@ -12,12 +12,11 @@ export interface Location {
     zipcode: string
     city: string
   }
-  images: [
-    {
-      url: string
-      alt: string
-    },
-  ]
+  images: {
+    url: string
+    alt: string
+  }[]
+
   category: Category
   tags: Tag[]
 }

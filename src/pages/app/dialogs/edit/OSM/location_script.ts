@@ -59,12 +59,9 @@ export function activateLocationScript(ev: React.FormEvent<HTMLInputElement>) {
   latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
   lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
 
-  console.log('location script loaded')
-
   //searchInput?.addEventListener('input', function () {
   //const searchString: string = searchInput?.value ?? ''
   const searchString: string = ev.currentTarget.value
-  console.log(searchString)
   clearList()
   //introduce timeout to this and reduce limit
   window.clearTimeout(OSMTimeoutID)
@@ -86,7 +83,6 @@ export function activateLocationScript(ev: React.FormEvent<HTMLInputElement>) {
       //searchInput.setCustomValidity('No results found')
       //searchInput.reportValidity()
       createNoResults()
-      console.log('no results found')
       return
     }
 
@@ -99,7 +95,6 @@ export function activateLocationScript(ev: React.FormEvent<HTMLInputElement>) {
 
 function createListChildren(OSM: OSMResult[]) {
   OSM.forEach((place) => {
-    //console.log("adding" + place.address.road + "to list")
     const listElem = document.createElement('div')
     const p0 = document.createElement('p')
     const p1 = document.createElement('p')
@@ -142,7 +137,6 @@ function autoFillData(OSM: OSMResult) {
 }
 
 function clearList() {
-  console.log('clearing list')
   const locationslist = locationAutocomplete?.children
   if (locationslist) {
     for (const location of locationslist) {

@@ -67,7 +67,6 @@ export function EditDialog({
       }
       dialog?.close()
       onEdit(location)
-      return
     }
   }
 

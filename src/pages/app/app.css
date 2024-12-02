@@ -201,7 +201,9 @@
   transition:
     border-color 0.3s,
     box-shadow 0.3s;
+  padding: 4px;
 }
+
 .custom-select select:hover,
 .custom-select select:focus {
   border-color: var(--border-color-primary);

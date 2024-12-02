@@ -9,6 +9,7 @@ import { EditDialog } from './dialogs/edit'
 import { Tag } from '../../model/tag'
 import { Category } from '../../model/category'
 import { TagSelector } from './dialogs/edit/components/tag-selector'
+import { DetailDialog } from './dialogs/detail'
 
 function logout() {
   setCookie('user', '')
@@ -30,8 +31,18 @@ export async function App(user: string) {
   }
 
   function editLocation(location: Location) {
-    editDialog?.replaceWith(getEditDialog(location))
-    editDialog?.showModal()
+    if (user === 'admina') {
+      editDialog?.replaceWith(getEditDialog(location))
+      editDialog?.showModal()
+    } else {
+      editDialog?.replaceWith(
+        <DetailDialog
+          dialogRef={(dialog) => (editDialog = dialog)}
+          location={location}
+        />,
+      )
+      editDialog?.showModal()
+    }
   }
 
   function getEditDialog(location: Location | null) {

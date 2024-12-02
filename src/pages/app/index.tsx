@@ -43,7 +43,7 @@ export async function App(user: string) {
         <h1>
           <span>List of </span>ecoBlunders™
         </h1>
-        <details className="details-modal h-full">
+        <details className="details-modal h-full aspect-square">
           <summary className="flex justify-center items-center h-full list-none text-xl bold rounded-full aspect-square cursor-pointer">
             {user.at(0)?.toUpperCase()}
           </summary>

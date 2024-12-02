@@ -256,7 +256,12 @@ export function EditDialog({
                   id="category-dropdown"
                 >
                   {categories.map((category) => (
-                    <option value={category.id}>{category.text}</option>
+                    <option
+                      selected={category.id === location?.category.id}
+                      value={category.id}
+                    >
+                      {category.text}
+                    </option>
                   ))}
                 </select>
               </div>

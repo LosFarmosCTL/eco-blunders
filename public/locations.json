@@ -12,11 +12,11 @@
     },
     "images": [
       {
-        "url": "/assets/wilhelminenhof-edisonstr.webp",
+        "url": "./assets/wilhelminenhof-edisonstr.webp",
         "alt": "Construction work at Edistonstraße 63 completely blocking all traffic"
       },
       {
-        "url": "/assets/schoeneweide.webp",
+        "url": "./assets/schoeneweide.webp",
         "alt": "Construction work at Edistonstraße 63 completely blocking all traffic"
       }
     ],
@@ -53,7 +53,7 @@
     },
     "images": [
       {
-        "url": "/assets/schoeneweide.webp",
+        "url": "./assets/schoeneweide.webp",
         "alt": "Construction work at the train station S-Schöneweide blocking blocking tram lines"
       }
     ],
@@ -84,7 +84,7 @@
     },
     "images": [
       {
-        "url": "/assets/prenzlauerallee.webp",
+        "url": "./assets/prenzlauerallee.webp",
         "alt": "Information poster about the replacement service and ongoing construction"
       }
     ],

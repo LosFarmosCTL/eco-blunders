@@ -14,31 +14,31 @@
   {
     "id": "bike_lane",
     "text": "bike lane",
-    "colorbg": "#ffff00",
-    "color": "#000000"
+    "colorbg": "#2065EE",
+    "color": "#FFFFFF"
   },
   {
     "id": "pollution",
     "text": "pollution",
-    "colorbg": "#ffff00",
-    "color": "#000000"
+    "colorbg": "#298811",
+    "color": "#FFFFFF"
   },
   {
     "id": "greenery",
     "text": "greenery",
-    "colorbg": "#ffff00",
+    "colorbg": "#94FA94",
     "color": "#000000"
   },
   {
     "id": "park_and_ride",
     "text": "P+R",
-    "colorbg": "#ffff00",
-    "color": "#000000"
+    "colorbg": "#298811",
+    "color": "#FFFFFF"
   },
   {
     "id": "other",
     "text": "other",
-    "colorbg": "#ffff00",
-    "color": "#000000"
+    "colorbg": "#A359F7",
+    "color": "#FFFFFF"
   }
 ]

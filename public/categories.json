@@ -2,12 +2,12 @@
   {
     "id": "construction",
     "text": "construction",
-    "color": "#d73a4a"
+    "color": "#DBBE1F"
   },
   {
     "id": "inconvenience",
     "text": "inconvenience",
-    "color": "#d73a4a"
+    "color": "#9900FF"
   },
   {
     "id": "damage",
@@ -17,6 +17,6 @@
   {
     "id": "missing",
     "text": "missing",
-    "color": "#d73a4a"
+    "color": "#006CE0"
   }
 ]

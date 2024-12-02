@@ -1,5 +1,6 @@
 import { h } from '../../../util/jsx/pragma'
 import { Location } from '../../../model/location'
+import { TagList } from '../dialogs/edit/components/tag-list'
 
 interface LocationEntryProps {
   location: Location
@@ -27,23 +28,12 @@ export function LocationEntry({ location, onEdit }: LocationEntryProps) {
             } as React.CSSProperties
 
             return (
-              <div className="tag category-tag" style={variables}>
+              <div className="tag category-tag mr-5" style={variables}>
                 {location.category.text}
               </div>
             )
           })()}
-          {location.tags.map((tag) => {
-            const variables = {
-              '--tag-bg-color': tag.colorbg,
-              '--tag-color': tag.color,
-            } as React.CSSProperties
-
-            return (
-              <div className="tag" style={variables}>
-                {tag.text}
-              </div>
-            )
-          })}
+          <TagList tags={location.tags} overlay={false} onDelete={() => {}} />
         </div>
         <span className="address">
           {location.address.street}, {location.address.zipcode}{' '}

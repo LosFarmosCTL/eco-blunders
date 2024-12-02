@@ -7,6 +7,7 @@ import { Location } from '../../model/location'
 import { LocationEntry } from './components/location-entry'
 import { EditDialog } from './dialogs/edit'
 import { Tag } from '../../model/tag'
+import { Category } from '../../model/category'
 import { TagSelector } from './dialogs/edit/components/tag-selector'
 
 function logout() {
@@ -17,6 +18,7 @@ function logout() {
 export async function App(user: string) {
   const locations = await request<[Location]>('/locations.json', {})
   const tags = await request<[Tag]>('/tags.json', {})
+  const categories = await request<[Category]>('/categories.json', {})
 
   let editDialog: HTMLDialogElement | null
 
@@ -35,6 +37,7 @@ export async function App(user: string) {
       <EditDialog
         dialogRef={(dialog) => (editDialog = dialog)}
         tags={tags}
+        categories={categories}
         location={location}
         onEdit={() => console.log('edit')}
         onDelete={() => console.log('delete')}

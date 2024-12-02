@@ -1,8 +1,10 @@
 import { h, Fragment } from '../../../../util/jsx/pragma'
-import('./edit.css')
+import './edit.css'
+
 
 import { Location } from '../../../../model/location'
 import { Tag } from '../../../../model/tag'
+import { Category } from '../../../../model/category'
 import { TagSelector } from './components/tag-selector'
 import { TagList } from './components/tag-list'
 
@@ -10,6 +12,7 @@ interface EditDialogProps {
   dialogRef: (dialog: HTMLDialogElement) => void
   location: Location | null
   tags: Tag[]
+  categories: Category[]
   onEdit: (location: Location) => void
   onDelete: (location: Location) => void
 }
@@ -18,6 +21,7 @@ export function EditDialog({
   dialogRef,
   location,
   tags,
+  categories,
   onEdit,
   onDelete,
 }: EditDialogProps) {
@@ -185,6 +189,13 @@ export function EditDialog({
                   <span className="mb-10 text-3xl fa-solid fa-upload" />
                   <span>Add Images</span>
                 </div>
+              </div>
+              <div>
+                <select>
+                  {categories.map((category) => (
+                    <option value={category.id}>{category.text}</option>
+                  ))}
+                </select>
               </div>
               <div className="tag-container" id="tag-container">
                 <h3 className="mb-5">Tags</h3>

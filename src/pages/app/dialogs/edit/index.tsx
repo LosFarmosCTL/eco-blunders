@@ -107,10 +107,10 @@ export function EditDialog({
             autoFocus
           />
           <h2 className="mb-5">Add a description</h2>
-          <div className="flex gap-10">
-            <div className="flex flex-col relative">
+          <div className="flex gap-10 mb-10">
+            <div className="flex flex-col grow relative">
               <textarea
-                className="grow"
+                className="grow mb-10"
                 name="description"
                 placeholder="Description"
                 defaultValue={location?.description ?? ''}
@@ -172,7 +172,7 @@ export function EditDialog({
                 </div>
               </div>
             </div>
-            <div className="image-tag-container flex flex-col gap-10 mb-10">
+            <div className="image-tag-container flex flex-col gap-10">
               <div className="image-upload-container flex justify-center items-center relative aspect-square">
                 <div className="flex flex-col items-center">
                   <input

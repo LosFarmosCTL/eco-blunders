@@ -9,7 +9,6 @@ let zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
 let cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
 let latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
 let lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
-let searchInput = document.body.querySelector<HTMLInputElement>('#search-input')
 
 const testData = [] as unknown as [OSMResult]
 
@@ -51,7 +50,7 @@ testData.push({
 })
 
 let OSMTimeoutID: number
-export function activateLocationScript() {
+export function activateLocationScript(ev: React.FormEvent<HTMLInputElement>) {
   streetInput = document.body.querySelector<HTMLInputElement>('#street-input')
   locationAutocomplete =
     document.body.querySelector<HTMLElement>('#loc_autocomplete')
@@ -59,42 +58,43 @@ export function activateLocationScript() {
   cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
   latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
   lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
-  searchInput = document.body.querySelector<HTMLInputElement>('#search-input')
 
   console.log('location script loaded')
 
-  searchInput?.addEventListener('input', function () {
-    const searchString: string = searchInput?.value ?? ''
-    clearList()
-    //introduce timeout to this and reduce limit
-    window.clearTimeout(OSMTimeoutID)
-    locationAutocomplete?.classList.add('hidden')
+  //searchInput?.addEventListener('input', function () {
+  //const searchString: string = searchInput?.value ?? ''
+  const searchString: string = ev.currentTarget.value
+  console.log(searchString)
+  clearList()
+  //introduce timeout to this and reduce limit
+  window.clearTimeout(OSMTimeoutID)
+  locationAutocomplete?.classList.add('hidden')
 
-    if (searchString.length < 5) {
-      locationAutocomplete?.classList.add('hidden')
+  if (searchString.length < 5) {
+    locationAutocomplete?.classList.add('hidden')
+    return
+  }
+
+  //store timeout in var
+  //every call do the cleartimeout and reinvoke it
+
+  OSMTimeoutID = window.setTimeout(async () => {
+    clearList()
+
+    const OSM = await getOsmData(searchString)
+    if (OSM.length == 0) {
+      //searchInput.setCustomValidity('No results found')
+      //searchInput.reportValidity()
+      createNoResults()
+      console.log('no results found')
       return
     }
 
-    //store timeout in var
-    //every call do the cleartimeout and reinvoke it
-
-    OSMTimeoutID = window.setTimeout(async () => {
-      clearList()
-
-      const OSM = await getOsmData(searchString)
-      if (OSM.length == 0) {
-        //searchInput.setCustomValidity('No results found')
-        //searchInput.reportValidity()
-        createNoResults()
-        console.log('no results found')
-        return
-      }
-
-      locationAutocomplete?.classList.remove('hidden')
-      //createNoResults()
-      createListChildren(OSM)
-    }, 1000)
-  })
+    locationAutocomplete?.classList.remove('hidden')
+    //createNoResults()
+    createListChildren(OSM)
+  }, 1000)
+  //})
 }
 
 function createListChildren(OSM: OSMResult[]) {

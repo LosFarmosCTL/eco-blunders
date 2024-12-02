@@ -126,39 +126,7 @@ export function EditDialog({
       searchInput?.reportValidity()
       return false
     }
-    /*
-    if (streetInput?.value === '') {
-      searchInput?.setCustomValidity(
-        'Please choose a location from the search list.',
-      )
-      searchInput?.reportValidity()
-      return false
-    }
 
-    if (zipInput?.value === '') {
-      searchInput?.setCustomValidity('Please choose a location from the serach list.')
-      searchInput?.reportValidity()
-      return false
-    }
-
-    if (cityInput?.value === '') {
-      searchInput?.setCustomValidity('Please choose a location from the serach list.')
-      searchInput?.reportValidity()
-      return false
-    }
-
-    if (latInput?.value === '') {
-      searchInput?.setCustomValidity('Please choose a location from the serach list.')
-      searchInput?.reportValidity()
-      return false
-    }
-
-    if (lonInput?.value === '') {
-      searchInput?.setCustomValidity('Please choose a location from the serach list.')
-      searchInput?.reportValidity()
-      return false
-    }
-*/
     return true
   }
 
@@ -370,86 +338,4 @@ export function EditDialog({
       </dialog>
     </>
   )
-}
-
-export class EditDialogClass {
-  //private handleImageUpload() {
-  //  const imageInput =
-  //    this.dialog.querySelector<HTMLInputElement>('#image-upload')
-  //  const testImage =
-  //    document.body.querySelector<HTMLImageElement>('#image-test-id')
-  //
-  //  imageInput?.addEventListener('change', async () => {
-  //    console.log('image changed')
-  //    const [image] = imageInput.files ?? []
-  //    const reader = new FileReader()
-  //    reader.onload = (e) => {
-  //      // TODO: actually put the image somewhere useful right now just replaces a test image
-  //      if (testImage) testImage.src = e.target?.result as string
-  //      this.currentLocation.images.push({
-  //        url: e.target?.result as string,
-  //        alt: 'uploaded image',
-  //      })
-  //    }
-  //    reader.readAsDataURL(image)
-  //  })
-  //}
-  //private checkSubmitConditions(): boolean {
-  //  const nameInput = this.dialog.querySelector<HTMLInputElement>('#name-input')
-  //  const latInput = this.dialog.querySelector<HTMLInputElement>('#lat-input')
-  //  const lonInput = this.dialog.querySelector<HTMLInputElement>('#lon-input')
-  //  const streetInput =
-  //    this.dialog.querySelector<HTMLInputElement>('#street-input')
-  //  const zipInput = this.dialog.querySelector<HTMLInputElement>('#zip-input')
-  //  const cityInput = this.dialog.querySelector<HTMLInputElement>('#city-input')
-  //  const searchInput =
-  //    this.dialog.querySelector<HTMLInputElement>('#search-input')
-  //
-  //  if (nameInput?.value === '') {
-  //    console.log('name is empty' + nameInput.value)
-  //    nameInput.setCustomValidity('Please set a name.')
-  //    nameInput.reportValidity()
-  //    return false
-  //  }
-  //  nameInput?.setCustomValidity('')
-  //  if (streetInput?.value === '') {
-  //    searchInput?.setCustomValidity(
-  //      'Please choose a location from the search list.',
-  //    )
-  //    searchInput?.reportValidity()
-  //    return false
-  //  }
-  //  streetInput?.setCustomValidity('')
-  //  if (zipInput?.value === '') {
-  //    console.log('zip is empty' + zipInput.value)
-  //    zipInput.setCustomValidity('Please set a zipcode.')
-  //    zipInput.reportValidity()
-  //    return false
-  //  }
-  //  if (cityInput?.value === '') {
-  //    console.log('city is empty' + cityInput.value)
-  //    cityInput.setCustomValidity('Please set a city.')
-  //    cityInput.reportValidity()
-  //    return false
-  //  }
-  //  if (latInput?.value === '') {
-  //    console.log('lat is empty' + latInput.value)
-  //    latInput.setCustomValidity(
-  //      'Please set a latitude by choosing a location from the list.',
-  //    )
-  //    latInput.reportValidity()
-  //    return false
-  //  }
-  //  if (lonInput?.value === '') {
-  //    console.log('lon is empty' + lonInput.value)
-  //    lonInput.setCustomValidity(
-  //      'Please set a longitude by choosing a location from the list.',
-  //    )
-  //    lonInput.reportValidity()
-  //    return false
-  //  }
-  //
-  //  console.log('all fields filled out')
-  //  return true
-  //}
 }

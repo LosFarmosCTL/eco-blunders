@@ -1,7 +1,7 @@
 type Tag = string | ((props: Props, children: Children) => HTMLElement)
 type Props = Record<
   string,
-  string | EventListenerOrEventListenerObject | RefCallback
+  string | boolean | EventListenerOrEventListenerObject | RefCallback
 > | null
 type Children = (Node | string)[]
 type RefCallback = (element: HTMLElement) => void
@@ -30,6 +30,8 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
       } else if (key === 'defaultValue') {
         // eslint-disable-next-line @typescript-eslint/no-base-to-string
         element.textContent = val.toString()
+      } else if (typeof val === 'boolean') {
+        if (val) element.setAttribute(key, key)
       } else {
         // eslint-disable-next-line @typescript-eslint/no-base-to-string
         element.setAttribute(key, val.toString())

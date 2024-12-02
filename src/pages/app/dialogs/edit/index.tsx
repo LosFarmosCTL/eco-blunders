@@ -8,6 +8,8 @@ import { Category } from '../../../../model/category'
 import { TagSelector } from './components/tag-selector'
 import { TagList } from './components/tag-list'
 
+import { activateLocationScript } from './OSM/location_script'
+
 interface EditDialogProps {
   dialogRef: (dialog: HTMLDialogElement) => void
   location: Location | null
@@ -128,6 +130,9 @@ export function EditDialog({
                   placeholder="Search address..."
                   tabIndex={4}
                   autoComplete="off"
+                  onInput={(ev) =>{
+                    activateLocationScript(ev)
+                  }}
                 />
                 <div
                   className="hidden list-none osm-list "
@@ -140,6 +145,7 @@ export function EditDialog({
                     placeholder="Street and Nr."
                     value={location?.address.street ?? ''}
                     readOnly
+                    id="street-input"
                   />
                 </div>
                 <div className="flex gap-10 mb-10">
@@ -149,6 +155,7 @@ export function EditDialog({
                     placeholder="ZIP Code"
                     value={location?.address.zipcode ?? ''}
                     readOnly
+                    id="zip-input"
                   />
                   <input
                     className="readonly-input grow"
@@ -156,6 +163,7 @@ export function EditDialog({
                     placeholder="City"
                     value={location?.address.city ?? ''}
                     readOnly
+                    id="city-input"
                   />
                 </div>
                 <div className="flex gap-10 lat-long">
@@ -165,6 +173,7 @@ export function EditDialog({
                     placeholder="Latitude"
                     value={location?.lat ?? ''}
                     readOnly
+                    id="lat-input"
                   />
                   <input
                     className="readonly-input"
@@ -172,6 +181,7 @@ export function EditDialog({
                     placeholder="Longitude"
                     value={location?.lon ?? ''}
                     readOnly
+                    id="lon-input"
                   />
                 </div>
               </div>
@@ -190,8 +200,9 @@ export function EditDialog({
                   <span>Add Images</span>
                 </div>
               </div>
-              <div>
-                <select>
+              <div className="custom-select">
+                <h3 className="mb-5">Category</h3>
+                <select id="category-dropdown">
                   {categories.map((category) => (
                     <option value={category.id}>{category.text}</option>
                   ))}

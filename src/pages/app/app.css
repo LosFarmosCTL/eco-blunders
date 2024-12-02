@@ -185,3 +185,33 @@
     }
   }
 }
+
+.custom-select {
+  border-top: 1px solid var(--border-color-primary);
+  padding: 10px;
+}
+
+.custom-select select {
+  border: 1px solid var(--border-color-primary);
+  border-radius: 5px;
+  background: var(--bg-color-secondary);
+  color: #333;
+  appearance: none; /* Remove native dropdown arrow */
+  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.custom-select select:hover,
+.custom-select select:focus {
+  border-color: var(--border-color-primary);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.custom-select select option {
+  padding: 10px;
+  background: white;
+  color: #333;
+  cursor: pointer;
+}

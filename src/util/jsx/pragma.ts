@@ -27,6 +27,9 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
         const event = key.toLowerCase().substring(2)
         const listener = val as EventListenerOrEventListenerObject
         element.addEventListener(event, listener)
+      } else if (key === 'defaultValue') {
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        element.textContent = val.toString()
       } else {
         // eslint-disable-next-line @typescript-eslint/no-base-to-string
         element.setAttribute(key, val.toString())
@@ -41,7 +44,7 @@ export function h(tag: Tag, props: Props, ...children: Children): HTMLElement {
 
 export function Fragment(_props: object, children: Children) {
   const fragment = document.createDocumentFragment()
-  children.forEach((child) => {
+  children.flat().forEach((child) => {
     if (child instanceof Node) {
       fragment.appendChild(child)
     } else {

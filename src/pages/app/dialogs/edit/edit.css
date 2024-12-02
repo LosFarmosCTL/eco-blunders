@@ -48,6 +48,8 @@ textarea[name='description'] {
 
 .tag-container {
   box-sizing: border-box;
+
+  min-height: 100px;
   padding: 10px;
   line-height: 1.5;
 

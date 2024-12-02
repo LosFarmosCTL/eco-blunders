@@ -1,8 +1,9 @@
 import { h, Fragment } from '../../util/jsx/pragma'
+import { User, UserRole } from '../../model/user'
 
 import './login.css'
 
-export function Login(onLogin: (user: string) => void) {
+export function Login(onLogin: (user: User) => void) {
   let usernameInput: HTMLInputElement | null = null
   let passwordInput: HTMLInputElement | null = null
 
@@ -10,8 +11,10 @@ export function Login(onLogin: (user: string) => void) {
     const user = usernameInput?.value
     const pass = passwordInput?.value
 
-    if (user == 'admina' && pass == 'password') onLogin('admina')
-    else if (user == 'normalo' && pass == 'password') onLogin('normalo')
+    if (user == 'admina' && pass == 'password')
+      onLogin({ login: 'admina', name: 'Admina', role: UserRole.admin })
+    else if (user == 'normalo' && pass == 'password')
+      onLogin({ login: 'normalo', name: 'Normalo', role: UserRole.normal })
     // TODO: build a nicer way to show an invalid login
     else alert('Invalid login!')
   }

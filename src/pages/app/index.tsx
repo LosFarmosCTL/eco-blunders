@@ -10,13 +10,14 @@ import { Tag } from '../../model/tag'
 import { Category } from '../../model/category'
 import { TagSelector } from './dialogs/edit/components/tag-selector'
 import { DetailDialog } from './dialogs/detail'
+import { User, UserRole } from '../../model/user'
 
 function logout() {
   setCookie('user', '')
   window.location.reload()
 }
 
-export async function App(user: string) {
+export async function App(user: User) {
   const tags = await request<Tag[]>('/tags.json', {})
   const categories = await request<Category[]>('/categories.json', {})
   let locations = await request<Location[]>('/locations.json', {})
@@ -31,7 +32,7 @@ export async function App(user: string) {
   }
 
   function editLocation(location: Location) {
-    if (user === 'admina') {
+    if (user.role === UserRole.admin) {
       editDialog?.replaceWith(getEditDialog(location))
       editDialog?.showModal()
     } else {
@@ -84,11 +85,11 @@ export async function App(user: string) {
         </h1>
         <details className="details-modal h-full aspect-square">
           <summary className="flex justify-center items-center h-full list-none text-xl bold rounded-full aspect-square cursor-pointer select-none">
-            {user.at(0)?.toUpperCase()}
+            {user.name.at(0)}
           </summary>
           <div className="absolute right-0 mr-5 mt-5">
             <div className="p-10">
-              Hello, <span className="bold">{user}</span>!
+              Hello, <span className="bold">{user.name} 👋</span>!
             </div>
             <button
               className="flex justify-between items-center p-10 w-full"
@@ -122,7 +123,7 @@ export async function App(user: string) {
               name="search"
               placeholder="Search..."
             />
-            {user === 'admina' ?
+            {user.role === UserRole.admin ?
               <button className="btn-positive ml-10" onClick={addLocation}>
                 Add Location
               </button>

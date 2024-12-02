@@ -47,6 +47,7 @@ searchInput?.addEventListener('input', function () {
 
   OSMTimeoutID = window.setTimeout(async () => {
     clearList()
+    /*
     const OSM = await getOsmData(searchString)
     if (OSM.length == 0) {
       searchInput.setCustomValidity('No results found')
@@ -54,10 +55,11 @@ searchInput?.addEventListener('input', function () {
       console.log('no results found')
       return
     }
+      */
     //if (!checkOsmData(OSM)) locationAutocomplete?.classList.remove('hidden')
     locationAutocomplete?.classList.remove('hidden')
-    createListChildren(OSM)
-  }, 1000)
+    createListChildren(testData)
+  }, 10)
 })
 //TODO: filter out undefindes
 
@@ -65,11 +67,11 @@ searchInput?.addEventListener('input', function () {
 function createListChildren(OSM: OSMResult[]) {
   OSM.forEach((place) => {
     //console.log("adding" + place.address.road + "to list")
-    const li = document.createElement('li')
+    const listElem = document.createElement('div')
     const p0 = document.createElement('p')
     const p1 = document.createElement('p')
     const p2 = document.createElement('p')
-    li.classList.add('list-none', 'cursor-pointer', 'osm-list-elem')
+    listElem.classList.add('list-none', 'cursor-pointer', 'osm-list-elem')
 
     p1.textContent =
       place.address.road + ' ' + (place.address.house_number ?? '')
@@ -79,14 +81,14 @@ function createListChildren(OSM: OSMResult[]) {
       (place.address.city ?? place.address.town ?? 'Berlin')
     if (place.name) {
       p0.textContent = place.name
-      li.appendChild(p0)
+      listElem.appendChild(p0)
     }
-    li.appendChild(p1)
-    li.appendChild(p2)
-    li.addEventListener('click', () => {
+    listElem.appendChild(p1)
+    listElem.appendChild(p2)
+    listElem.addEventListener('click', () => {
       autoFillData(place)
     })
-    locationAutocomplete?.appendChild(li)
+    locationAutocomplete?.appendChild(listElem)
   })
 }
 

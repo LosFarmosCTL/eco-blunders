@@ -7,7 +7,7 @@
       <textarea class="grow" name="description" placeholder="Description" tabindex="2" id="desc-input"></textarea>
       <div class="flex flex-col">
         <input type ="text" name="adressSearch" class="mb-10" placeholder="Search address..." tabindex="4" required id="search-input">
-        <ul class="hidden list-none relative flex flex-col osm-list " id="loc_autocomplete">
+        <div class="hidden list-none relative flex flex-col osm-list " id="loc_autocomplete">
           <!--  list elems for testing here
                   <li class="list-none cursor-pointer osm-list-elem">
                     <p>Gatower Straße 18</p>
@@ -18,7 +18,7 @@
                     <p>13595 Berlin</p>
                   </li> 
                   -->
-        </ul>
+        </div>
         <div class="flex gap-10 mb-10">
           <input class="readonly-input grow" type="text" name="street" placeholder="Street and Nr." tabindex="5"
            required id="street-input" readonly>

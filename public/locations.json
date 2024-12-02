@@ -2,9 +2,9 @@
   {
     "name": "Rail work at intersection Wilhelminenhofstraße / Edisonstraße",
     "description": "Big construction site re-doing the complicated switch layout at the intersection. No trams going down Wilhelminenhofstraße, sidewalks are restricted as well.",
+    "lat": "52.46160425",
+    "lon": "13.51339563267964",
     "address": {
-      "lat": "52.46160425",
-      "lon": "13.51339563267964",
       "street": "Edisonstraße 63",
       "zipcode": "12459",
       "city": "Berlin"
@@ -38,9 +38,9 @@
   {
     "name": "Construction site at Schöneweide station",
     "description": "Road-/Railwork under the bridge at Schöneweide station, no trams driving",
+    "lat": "52.4546797",
+    "lon": "13.5113968",
     "address": {
-      "lat": "52.4546797",
-      "lon": "13.5113968",
       "street": "Sterndamm 2",
       "zipcode": "12439",
       "city": "Berlin"
@@ -68,9 +68,9 @@
   {
     "name": "Replacement bus service Prenzlauer Allee",
     "description": "Construction going on between S-Bahn Greifswalder Straße and Gesundbrunnen, no Ringbahn S41/S42 going from Prenzlauer Allee, replacemenet bus service to Greifswalder Straße",
+    "lat": "52.5447729",
+    "lon": "13.4269752",
     "address": {
-      "lat": "52.5447729",
-      "lon": "13.4269752",
       "street": "Prenzlauer Allee 178",
       "zipcode": "10409",
       "city": "Berlin"

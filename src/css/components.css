@@ -172,15 +172,18 @@
   .tag-selector-tag {
     padding: 10px;
     border-bottom: 1px solid var(--border-color-primary);
-    cursor: pointer;
     font-weight: 600;
     font-size: 12px;
+
+    &.tag-selected {
+      background-color: var(--bg-color-secondary);
+    }
 
     &:hover {
       background-color: var(--bg-color-secondary);
     }
 
-    span {
+    & .tag-color {
       display: inline-block;
       width: 1em;
       height: 1em;
@@ -188,9 +191,5 @@
       vertical-align: -2px;
       border: 1px solid var(--border-color-primary);
     }
-  }
-
-  .tag-selector-checked {
-    background-color: var(--bg-color-secondary);
   }
 }

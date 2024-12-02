@@ -5,11 +5,9 @@ import './app.css'
 import { request } from '../../util/request'
 import { Location } from '../../model/location'
 import { LocationEntry } from './components/location-entry'
-
-const detailDialogHtmlURL = new URL(
-  './dialogs/detail/detail.html',
-  import.meta.url,
-)
+import { EditDialog } from './dialogs/edit'
+import { Tag } from '../../model/tag'
+import { TagSelector } from './dialogs/edit/components/tag-selector'
 
 function logout() {
   setCookie('user', '')
@@ -18,23 +16,30 @@ function logout() {
 
 export async function App(user: string) {
   const locations = await request<[Location]>('/locations.json', {})
+  const tags = await request<[Tag]>('/tags.json', {})
 
-  const { EditDialog } = await import('./dialogs/edit')
-  const editDialog = new EditDialog()
+  let editDialog: HTMLDialogElement | null
 
-  // TODO: extract to separate class as well
-  await import('./dialogs/detail/detail.css')
-  const detailDialog = document.createElement('dialog')
-  const detailDialogHTML = await (await fetch(detailDialogHtmlURL)).text()
-  detailDialog.innerHTML = detailDialogHTML
-  detailDialog.id = 'detail-dialog'
-  document.body.appendChild(detailDialog)
+  function addLocation() {
+    editDialog?.replaceWith(getEditDialog(null))
+    editDialog?.showModal()
+  }
 
-  async function addLocation() {
-    await editDialog.load(null)
-    console.log(await editDialog.showModal())
+  function editLocation(location: Location) {
+    editDialog?.replaceWith(getEditDialog(location))
+    editDialog?.showModal()
+  }
 
-    // TODO: load+store input data
+  function getEditDialog(location: Location | null) {
+    return (
+      <EditDialog
+        dialogRef={(dialog) => (editDialog = dialog)}
+        tags={tags}
+        location={location}
+        onEdit={() => console.log('edit')}
+        onDelete={() => console.log('delete')}
+      />
+    )
   }
 
   return (
@@ -70,28 +75,12 @@ export async function App(user: string) {
                 Filters
                 <span className="ml-5 fa-solid fa-caret-down" />
               </summary>
-              <div className="tag-selector">
-                <h3>Filter by tag</h3>
-                <div className="tag-selector-search">
-                  <input
-                    type="text"
-                    name="tag-search"
-                    placeholder="Search for tag"
-                  />
-                </div>
-                <div className="tag-selector-tag">
-                  <span className="tag-red" /> construction
-                </div>
-                <div className="tag-selector-tag">
-                  <span className="tag-green" /> bike lanes
-                </div>
-                <div className="tag-selector-tag">
-                  <span className="tag-cyan" /> public transport
-                </div>
-                <div className="tag-selector-tag">
-                  <span className="tag-yellow" /> park and ride
-                </div>
-              </div>
+              <TagSelector
+                ref={() => {}}
+                tags={tags}
+                selectedTags={[]}
+                addTag={() => {}}
+              />
             </details>
             <input
               className="search-bar grow"
@@ -104,14 +93,7 @@ export async function App(user: string) {
             </button>
           </div>
           {locations.map((loc) => {
-            return (
-              <LocationEntry
-                location={loc}
-                onEdit={(location) => {
-                  console.log(location)
-                }}
-              />
-            )
+            return <LocationEntry location={loc} onEdit={editLocation} />
           })}
         </main>
         <footer className="footer flex justify-end">
@@ -124,6 +106,7 @@ export async function App(user: string) {
             </a>
           </ul>
         </footer>
+        <dialog ref={(dialog) => (editDialog = dialog)} />
       </div>
     </>
   )

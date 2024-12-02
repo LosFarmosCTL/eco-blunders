@@ -2,21 +2,43 @@ import { getOsmData } from './osm_api.ts'
 import { OSMResult } from './osm_api.ts'
 
 //get all the HTML elems here
-const streetInput =
-  document.body.querySelector<HTMLInputElement>('#street-input')
-const locationAutocomplete =
+let streetInput = document.body.querySelector<HTMLInputElement>('#street-input')
+let locationAutocomplete =
   document.body.querySelector<HTMLElement>('#loc_autocomplete')
-const zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
-const cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
-const latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
-const lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
-const searchInput =
-  document.body.querySelector<HTMLInputElement>('#search-input')
+let zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
+let cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
+let latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
+let lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
+let searchInput = document.body.querySelector<HTMLInputElement>('#search-input')
 
 const testData = [] as unknown as [OSMResult]
 
 testData.push({
-  name: '',
+  name: 'meine wohnung',
+  address: {
+    road: 'Gatower Straße',
+    house_number: '18',
+    postcode: '13595',
+    city: 'Berlin',
+    town: '',
+  },
+  lat: '52.5423',
+  lon: '13.432',
+})
+testData.push({
+  name: 'meine wohnung',
+  address: {
+    road: 'Gatower Straße',
+    house_number: '18',
+    postcode: '13595',
+    city: 'Berlin',
+    town: '',
+  },
+  lat: '52.5423',
+  lon: '13.432',
+})
+testData.push({
+  name: 'meine wohnung',
   address: {
     road: 'Gatower Straße',
     house_number: '18',
@@ -29,41 +51,52 @@ testData.push({
 })
 
 let OSMTimeoutID: number
+export function activateLocationScript() {
+  streetInput = document.body.querySelector<HTMLInputElement>('#street-input')
+  locationAutocomplete =
+    document.body.querySelector<HTMLElement>('#loc_autocomplete')
+  zipInput = document.body.querySelector<HTMLInputElement>('#zip-input')
+  cityInput = document.body.querySelector<HTMLInputElement>('#city-input')
+  latInput = document.body.querySelector<HTMLInputElement>('#lat-input')
+  lonInput = document.body.querySelector<HTMLInputElement>('#lon-input')
+  searchInput = document.body.querySelector<HTMLInputElement>('#search-input')
 
-searchInput?.addEventListener('input', function () {
-  const searchString: string = searchInput.value
-  clearList()
-  //introduce timeout to this and reduce limit
-  window.clearTimeout(OSMTimeoutID)
-  locationAutocomplete?.classList.add('hidden')
+  console.log('location script loaded')
 
-  if (searchString.length < 5) {
-    locationAutocomplete?.classList.add('hidden')
-    return
-  }
-
-  //store timeout in var
-  //every call do the cleartimeout and reinvoke it
-
-  OSMTimeoutID = window.setTimeout(async () => {
+  searchInput?.addEventListener('input', function () {
+    const searchString: string = searchInput?.value ?? ''
     clearList()
-    /*
-    const OSM = await getOsmData(searchString)
-    if (OSM.length == 0) {
-      searchInput.setCustomValidity('No results found')
-      searchInput.reportValidity()
-      console.log('no results found')
+    //introduce timeout to this and reduce limit
+    window.clearTimeout(OSMTimeoutID)
+    locationAutocomplete?.classList.add('hidden')
+
+    if (searchString.length < 5) {
+      locationAutocomplete?.classList.add('hidden')
       return
     }
-      */
-    //if (!checkOsmData(OSM)) locationAutocomplete?.classList.remove('hidden')
-    locationAutocomplete?.classList.remove('hidden')
-    createListChildren(testData)
-  }, 10)
-})
-//TODO: filter out undefindes
 
-//TODO: refactor to search address field, make all other elems readonly
+    //store timeout in var
+    //every call do the cleartimeout and reinvoke it
+
+    OSMTimeoutID = window.setTimeout(async () => {
+      clearList()
+
+      const OSM = await getOsmData(searchString)
+      if (OSM.length == 0) {
+        //searchInput.setCustomValidity('No results found')
+        //searchInput.reportValidity()
+        createNoResults()
+        console.log('no results found')
+        return
+      }
+
+      locationAutocomplete?.classList.remove('hidden')
+      //createNoResults()
+      createListChildren(OSM)
+    }, 1000)
+  })
+}
+
 function createListChildren(OSM: OSMResult[]) {
   OSM.forEach((place) => {
     //console.log("adding" + place.address.road + "to list")
@@ -116,6 +149,19 @@ function clearList() {
       location.remove()
     }
   }
+}
+
+function createNoResults() {
+  locationAutocomplete?.classList.remove('hidden')
+  const listElem = document.createElement('div')
+  const noResults = document.createElement('p')
+  noResults.classList.add('text-center')
+  noResults.style.color = 'rgb(235, 107, 107)'
+  noResults.style.fontWeight = 'bold'
+  listElem.appendChild(noResults)
+  noResults.textContent = 'No results found :^('
+  listElem.classList.add('list-none', 'cursor-pointer', 'osm-list-elem')
+  locationAutocomplete?.appendChild(listElem)
 }
 
 //TODO: tag selecting and shit, image uploading, submit button gives a location interface,

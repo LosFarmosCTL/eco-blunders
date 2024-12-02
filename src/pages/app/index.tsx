@@ -122,9 +122,11 @@ export async function App(user: string) {
               name="search"
               placeholder="Search..."
             />
-            <button className="btn-positive" onClick={addLocation}>
-              Add Location
-            </button>
+            {user === 'admina' ?
+              <button className="btn-positive ml-10" onClick={addLocation}>
+                Add Location
+              </button>
+            : ''}
           </div>
           <div
             ref={(elem) => (locationList = elem)}

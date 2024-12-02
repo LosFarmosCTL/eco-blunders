@@ -8,6 +8,7 @@ import { TagSelector } from './components/tag-selector'
 import { TagList } from './components/tag-list'
 
 import { activateLocationScript } from './OSM/location_script'
+import { ImageUpload } from './components/image-upload'
 
 interface EditDialogProps {
   dialogRef: (dialog: HTMLDialogElement) => void
@@ -29,6 +30,7 @@ export function EditDialog({
   let dialog: HTMLDialogElement | null = null
   let tagSelector: HTMLElement | null = null
   let tagList: HTMLElement | null = null
+  let uploadContainer: HTMLDivElement | null = null
 
   let nameInput: HTMLInputElement | null = null
   let descInput: HTMLTextAreaElement | null = null
@@ -41,6 +43,7 @@ export function EditDialog({
   let categorySelect: HTMLSelectElement | null = null
 
   let selectedTags: Tag[] = location?.tags ?? []
+  let selectedImages = location?.images ?? []
 
   function cancel() {
     dialog?.close()
@@ -59,7 +62,7 @@ export function EditDialog({
           zipcode: zipInput?.value ?? '',
           city: cityInput?.value ?? '',
         },
-        images: location?.images ?? [],
+        images: selectedImages,
         category:
           categories.find((c) => c.id === categorySelect?.value) ??
           categories[0],
@@ -128,6 +131,36 @@ export function EditDialog({
     }
 
     return true
+  }
+
+  function addedImages(images: { url: string; alt: string }[]): void {
+    selectedImages = images
+
+    rerenderImageControl()
+  }
+
+  function removedImages(images: { url: string; alt: string }[]): void {
+    selectedImages = images
+
+    if (images.length == 0) {
+      rerenderImageControl()
+    }
+  }
+
+  function updateImages(images: { url: string; alt: string }[]): void {
+    selectedImages = images
+  }
+
+  function rerenderImageControl() {
+    uploadContainer?.replaceWith(
+      <ImageUpload
+        ref={(elem) => (uploadContainer = elem)}
+        images={selectedImages}
+        onAdd={addedImages}
+        onRemove={removedImages}
+        onUpdate={updateImages}
+      />,
+    )
   }
 
   return (
@@ -236,19 +269,13 @@ export function EditDialog({
               </div>
             </div>
             <div className="image-tag-container flex flex-col gap-10">
-              <div className="image-upload-container flex justify-center items-center relative aspect-square">
-                <div className="flex flex-col items-center">
-                  <input
-                    className="upload-input"
-                    type="file"
-                    accept="image/*"
-                    tabIndex={3}
-                    multiple
-                  />
-                  <span className="mb-10 text-3xl fa-solid fa-upload" />
-                  <span>Add Images</span>
-                </div>
-              </div>
+              <ImageUpload
+                ref={(elem) => (uploadContainer = elem)}
+                images={selectedImages}
+                onAdd={addedImages}
+                onRemove={removedImages}
+                onUpdate={updateImages}
+              />
               <div className="custom-select">
                 <h3 className="mb-5">Category</h3>
                 <select

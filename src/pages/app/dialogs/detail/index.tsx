@@ -9,8 +9,76 @@ interface DetailDialogProps {
   location: Location
 }
 
+let imageContainer: HTMLDivElement | null = null
+let activeImage: HTMLImageElement | null = null
+const imageArray: HTMLImageElement[] = []
+let currentImage = 1
+let numberText: HTMLDivElement | null = null
+
+function nextSlide(){
+  const imageCount = imageArray.length
+  if (currentImage == imageCount){
+    return
+  }
+  currentImage++;
+  //activeImage = imageArray[currentImage - 1]
+  activeImage = imageArray[currentImage - 1]
+  for (const image of imageArray){
+    image.classList.add("hidden")
+  }
+  if (numberText) numberText.innerHTML = String(currentImage) + "/" + String(imageCount)
+  activeImage.classList.remove("hidden")
+}
+
+function prevSlide(){
+  const imageCount = imageArray.length
+  if (currentImage == 1){
+    return
+  }
+  if (imageCount == 1){
+    return
+  }
+  currentImage--;
+  activeImage = imageArray[currentImage - 1]
+  for (const image of imageArray){
+    image.classList.add("hidden")
+  }
+  if (numberText) numberText.innerHTML = String(currentImage) + "/" + String(imageCount)
+  
+  activeImage.classList.remove("hidden")
+
+}
+
+function getImages(){
+  console.log("getImages called")
+  if (imageArray.length > 0){
+    return
+  }
+  //get all children of imageContainer as htmlelements
+  const images = imageContainer?.children
+  if (images){
+    for (const image of images){
+      if (image instanceof HTMLImageElement) {
+        imageArray.push(image)
+      }
+    }
+  }
+}
+
+function createImageElements(images: {url: string, alt: string}[]){
+  const imageElements = []
+  for (const image of images){
+    imageElements.push(<img src={image.url} alt={image.alt} className="w-full h-full hidden"/>)
+  }
+  imageElements.at(0).classList.remove("hidden")
+  return imageElements
+}
+  
+
 export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
   let dialog: HTMLDialogElement | null = null
+
+
 
   return (
     <>
@@ -92,13 +160,19 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                 </div>
               </div>
             </div>
-            <div className="image-tag-container flex flex-col gap-10">
-              <div className="image-upload-container flex justify-center items-center relative aspect-square">
-                <img
-                  className="w-full h-full"
-                  src={location.images[0].url}
-                  alt={location.images[0].alt}
-                />
+            <div onLoad={() => {console.log("loaded")}} className="image-tag-container flex flex-col gap-10">
+              <div ref={(elem) => imageContainer = elem}
+               className="slideshow-container image-upload-container flex justify-center items-center relative aspect-square">
+                <div ref={(elem) => numberText = elem} className="numbertext">1</div>
+                {createImageElements(location.images)}
+                <a className="prev" onClick={() => {
+                  getImages()
+                  prevSlide()
+                }}   >❮</a>
+                <a className="next" onClick={() => {
+                  getImages()
+                  nextSlide()
+                }}>❯</a>
               </div>
               <div className="custom-select">
                 <h3 className="mb-5">Category</h3>

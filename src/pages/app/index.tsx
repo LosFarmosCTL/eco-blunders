@@ -16,11 +16,13 @@ function logout() {
 }
 
 export async function App(user: string) {
-  const locations = await request<[Location]>('/locations.json', {})
-  const tags = await request<[Tag]>('/tags.json', {})
-  const categories = await request<[Category]>('/categories.json', {})
+  const tags = await request<Tag[]>('/tags.json', {})
+  const categories = await request<Category[]>('/categories.json', {})
+  let locations = await request<Location[]>('/locations.json', {})
 
   let editDialog: HTMLDialogElement | null
+  let locationList: HTMLDivElement | null
+  let locationEntries = new Map<string, HTMLElement>()
 
   function addLocation() {
     editDialog?.replaceWith(getEditDialog(null))
@@ -39,10 +41,30 @@ export async function App(user: string) {
         tags={tags}
         categories={categories}
         location={location}
-        onEdit={() => console.log('edit')}
-        onDelete={() => console.log('delete')}
+        onEdit={updateLocation}
+        onDelete={deleteLocation}
       />
     )
+  }
+
+  function updateLocation(location: Location) {
+    if (locations.some((loc) => location.id == loc.id)) {
+      locationEntries
+        .get(location.id)
+        ?.replaceWith(
+          <LocationEntry location={location} onEdit={editLocation} />,
+        )
+    } else {
+      locations.push(location)
+      const entry = <LocationEntry location={location} onEdit={editLocation} />
+      locationList?.appendChild(entry)
+      locationEntries.set(location.id, entry)
+    }
+  }
+
+  function deleteLocation(location: Location) {
+    locationEntries.get(location.id)?.remove()
+    locations = locations.filter((loc) => loc.id != location.id)
   }
 
   return (
@@ -95,9 +117,20 @@ export async function App(user: string) {
               Add Location
             </button>
           </div>
-          {locations.map((loc) => {
-            return <LocationEntry location={loc} onEdit={editLocation} />
-          })}
+          <div
+            ref={(elem) => (locationList = elem)}
+            className="flex flex-col gap-10"
+          >
+            {locations.map((loc) => {
+              const entry = (
+                <LocationEntry location={loc} onEdit={editLocation} />
+              )
+              console.log(loc.id)
+              locationEntries.set(loc.id, entry)
+
+              return entry
+            })}
+          </div>
         </main>
         <footer className="footer flex justify-end">
           <ul className="flex gap-10 list-none">

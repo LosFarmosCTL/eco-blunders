@@ -71,6 +71,7 @@ export function EditDialog({
   }
 
   function deleteLocation() {
+    dialog?.close()
     onDelete(location!)
   }
 

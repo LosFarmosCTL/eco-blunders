@@ -1,22 +1,57 @@
 import { h, Fragment } from '../../util/jsx/pragma'
 import { User, UserRole } from '../../model/user'
+import { request } from '../../util/request'
 
 import './login.css'
+
+interface LoginResponse {
+  username: string
+  role: string
+}
 
 export function Login(onLogin: (user: User) => void) {
   let usernameInput: HTMLInputElement | null = null
   let passwordInput: HTMLInputElement | null = null
 
-  function login() {
+  async function login() {
     const user = usernameInput?.value
     const pass = passwordInput?.value
+    const baseurl = 'http://localhost:8000/login'
+    const headers = {
+      'Content-Type': 'application/json',
+    }
 
+    const response: LoginResponse | null = await request(baseurl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        username: user,
+        password: pass,
+      }),
+    })
+    console.log(response)
+    if (response) {
+      console.log('triggered succesfully')
+      if (user)
+        onLogin({
+          login: user,
+          name: response.username,
+          role: UserRole[response.role as keyof typeof UserRole],
+        })
+    } else {
+      alert('Invalid login!')
+    }
+
+    //TODO: Connect the MongoDB here
+    /*
     if (user == 'admina' && pass == 'password')
       onLogin({ login: 'admina', name: 'Admina', role: UserRole.admin })
     else if (user == 'normalo' && pass == 'password')
       onLogin({ login: 'normalo', name: 'Normalo', role: UserRole.normal })
+    
     // TODO: build a nicer way to show an invalid login
     else alert('Invalid login!')
+    */
   }
 
   return (

@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
-import { ObjectId } from 'mongodb'
-
+//import { ObjectId } from 'mongodb'
+import { Location } from '../client/model/location'
 // Replace db_user, db_pass, db_name, db_collection
 const db_user = 'wad_bunke_petzel_bunke'
 const db_pass = 'wLCEwvzze'
@@ -23,6 +23,45 @@ export async function findOneUser(uNameIn: string, passwdIn: string) {
       delete doc.password
       return doc
     }
+  } finally {
+    await client.close()
+  }
+}
+
+export async function findAllLocations() {
+  const client = new MongoClient(uri)
+  try {
+    const db = client.db(db_name)
+    const location_collection = db.collection('locations')
+    const query = {}
+    const doc = await location_collection.find(query)
+    return doc
+  } finally {
+    await client.close()
+  }
+}
+
+export async function findOneLocation(locid: number) {
+  const client = new MongoClient(uri)
+  try {
+    const db = client.db(db_name)
+    const location_collection = db.collection('locations')
+    const query = { id: locid }
+    const doc = await location_collection.findOne(query)
+    return doc
+  } finally {
+    await client.close()
+  }
+}
+
+export async function insertOneLocation(loc: Location) {
+  const client = new MongoClient(uri)
+  try {
+    const db = client.db(db_name)
+    const location_collection = db.collection('locations')
+    const result = await location_collection.insertOne(loc)
+    console.log(`Inserted location with the id ${result.insertedId}`)
+    return result.insertedId
   } finally {
     await client.close()
   }

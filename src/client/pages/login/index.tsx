@@ -16,7 +16,7 @@ export function Login(onLogin: (user: User) => void) {
   async function login() {
     const user = usernameInput?.value
     const pass = passwordInput?.value
-    const baseurl = 'http://localhost:8000/login'
+    const baseurl = 'http://localhost:3000/login'
     const headers = {
       'Content-Type': 'application/json',
     }

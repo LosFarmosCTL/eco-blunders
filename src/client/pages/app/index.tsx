@@ -59,12 +59,26 @@ export async function App(user: User) {
     )
   }
 
-  function updateLocation(location: Location) {
+  async function updateLocation(location: Location) {
     if (locations.some((loc) => location.id == loc.id)) {
+      //TODO: update location in db
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationEntries.get(location.id)?.replaceWith(entry)
       locationEntries.set(location.id, entry)
     } else {
+      //TODO: insert location in db
+      const result = await request('http://localhost:3000/loc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(location),
+      })
+      if (!result) {
+        console.error('Failed to insert location')
+        alert('Failed to insert location')
+        return
+      }
       locations.push(location)
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationList?.appendChild(entry)

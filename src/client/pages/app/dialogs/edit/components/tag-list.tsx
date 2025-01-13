@@ -25,7 +25,9 @@ export function TagList({ tags, overlay, onDelete }: TagListProps) {
               <div className="tag-hover-overlay">
                 <span
                   className="fa-solid fa-xmark"
-                  onClick={() => deleteTag(tag)}
+                  onClick={() => {
+                    deleteTag(tag)
+                  }}
                 />
               </div>
             : ''}

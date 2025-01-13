@@ -8,5 +8,4 @@ export default defineConfig({
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
   },
-  base: '/bunke-petzel_WAD/',
 })

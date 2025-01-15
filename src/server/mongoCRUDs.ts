@@ -1,6 +1,8 @@
 import { MongoClient } from 'mongodb'
 //import { ObjectId } from 'mongodb'
 import { Location } from '../client/model/location'
+import { saveImageInLocation } from './util/saveImage'
+
 // Replace db_user, db_pass, db_name, db_collection
 const db_user = 'wad_bunke_petzel_bunke'
 const db_pass = 'wLCEwvzze'
@@ -64,6 +66,7 @@ export async function findOneLocation(locid: number) {
 
 export async function insertOneLocation(loc: Location) {
   const client = new MongoClient(uri)
+  loc = saveImageInLocation(loc)
   try {
     const db = client.db(db_name)
     const location_collection = db.collection('locations')

@@ -29,7 +29,7 @@ export function ImageUpload({
   }
 
   function addImage(url: string) {
-    currentImages.set(url, currentImages.get(url) ?? url)
+    currentImages.set(url, currentImages.get(url) ?? '')
 
     onAdd(getImages())
   }

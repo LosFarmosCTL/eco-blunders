@@ -135,6 +135,7 @@ export function EditDialog({
 
   function addedImages(images: { url: string; alt: string }[]): void {
     selectedImages = images
+    console.log('added image')
 
     rerenderImageControl()
   }

@@ -12,6 +12,7 @@ app.get('/hello', (_, res) => {
 })
 
 app.post('/loc', locPOST)
+app.get('/loc', locGET)
 
 app.post('/login', loginPOST)
 

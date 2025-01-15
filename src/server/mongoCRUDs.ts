@@ -34,8 +34,16 @@ export async function findAllLocations() {
     const db = client.db(db_name)
     const location_collection = db.collection('locations')
     const query = {}
-    const doc = await location_collection.find(query)
-    return doc
+    const record_cursor =
+      location_collection.find(query) /*eslint-disable-line*/
+    const allRecords = []
+    for await (const doc of record_cursor) {
+      //console.log(doc)
+      doc.id = doc._id
+      allRecords.push(doc)
+    }
+    console.log(`got:  + ${allRecords.length} locations from mongodb`)
+    return allRecords
   } finally {
     await client.close()
   }
@@ -60,7 +68,9 @@ export async function insertOneLocation(loc: Location) {
     const db = client.db(db_name)
     const location_collection = db.collection('locations')
     const result = await location_collection.insertOne(loc)
-    console.log(`Inserted location with the id ${result.insertedId}`)
+    console.log(
+      `Inserted location with the id ${result.insertedId}` /*eslint-disable-line*/,
+    )
     return result.insertedId
   } finally {
     await client.close()

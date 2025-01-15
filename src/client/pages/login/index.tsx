@@ -39,7 +39,11 @@ export function Login(onLogin: (user: User) => void) {
           role: UserRole[response.role as keyof typeof UserRole],
         })
     } else {
-      alert('Invalid login!')
+      usernameInput?.setCustomValidity('Invalid login')
+      usernameInput?.reportValidity()
+      passwordInput?.setCustomValidity('Invalid login')
+      passwordInput?.reportValidity()
+      //alert('Invalid login!')
     }
 
     //TODO: Connect the MongoDB here

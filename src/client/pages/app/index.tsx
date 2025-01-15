@@ -20,7 +20,16 @@ function logout() {
 export async function App(user: User) {
   const tags = await request<Tag[]>('./tags.json', {})
   const categories = await request<Category[]>('./categories.json', {})
-  let locations = await request<Location[]>('./locations.json', {})
+  //let locations = await request<Location[]>('./locations.json', {})
+  //let locations = await request<Location[]>('./locations.json', {})
+  let locations = await request<Location[]>('http://localhost:3000/loc', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  console.log(typeof locations)
 
   let editDialog: HTMLDialogElement | null
   let locationList: HTMLDivElement | null
@@ -78,7 +87,11 @@ export async function App(user: User) {
         console.error('Failed to insert location')
         alert('Failed to insert location')
         return
+      } else if (result.id) {
+        location.id = result.id
       }
+
+      //location.id = result.
       locations.push(location)
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationList?.appendChild(entry)
@@ -88,7 +101,7 @@ export async function App(user: User) {
 
   function deleteLocation(location: Location) {
     locationEntries.get(location.id)?.remove()
-    locations = locations.filter((loc) => loc.id != location.id)
+    locations = locations.filter((loc) => loc.id != location._id)
   }
 
   return (

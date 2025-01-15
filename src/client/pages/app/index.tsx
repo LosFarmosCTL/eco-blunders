@@ -11,6 +11,17 @@ import { Category } from '../../model/category'
 import { TagSelector } from './dialogs/edit/components/tag-selector'
 import { DetailDialog } from './dialogs/detail'
 import { User, UserRole } from '../../model/user'
+import { Response } from 'express'
+
+interface emptyResponse {
+  empty: boolean
+  error: boolean
+}
+
+interface LocationResponse {
+  id: string
+  error: boolean
+}
 
 function logout() {
   setCookie('user', '')
@@ -69,19 +80,40 @@ export async function App(user: User) {
   async function updateLocation(location: Location) {
     if (locations.some((loc) => location.id == loc.id)) {
       //TODO: update location in db
+      console.log('updating location')
+      const result = await request<emptyResponse>(
+        `http://localhost:3000/loc/${location.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(location),
+        },
+      )
+
+      if (result.error) {
+        console.error('Failed to update location')
+        alert('Failed to update location')
+        return
+      }
+      console.log('test')
+      //console.log(`result:${result}`)
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationEntries.get(location.id)?.replaceWith(entry)
       locationEntries.set(location.id, entry)
     } else {
-      //TODO: insert location in db
-      const result = await request('http://localhost:3000/loc', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const result = await request<LocationResponse>(
+        'http://localhost:3000/loc',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(location),
         },
-        body: JSON.stringify(location),
-      })
-      if (!result) {
+      )
+      if (result.error) {
         console.error('Failed to insert location')
         alert('Failed to insert location')
         return
@@ -94,12 +126,29 @@ export async function App(user: User) {
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationList?.appendChild(entry)
       locationEntries.set(location.id, entry)
+      console.log(locationEntries)
     }
   }
 
-  function deleteLocation(location: Location) {
-    locationEntries.get(location.id)?.remove()
-    locations = locations.filter((loc) => loc.id != location._id)
+  async function deleteLocation(location: Location) {
+    const result = await request<emptyResponse>(
+      `http://localhost:3000/loc/${location.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    if (result.error) {
+      console.error('Failed to delete location')
+      alert('Failed to delete location')
+      return
+    }
+    if (result.empty) {
+      locationEntries.get(location.id)?.remove()
+      locations = locations.filter((loc) => loc.id != location.id)
+    }
   }
 
   return (

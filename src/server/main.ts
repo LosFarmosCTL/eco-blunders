@@ -1,7 +1,7 @@
 import express from 'express'
 import ViteExpress from 'vite-express'
 import { loginPOST } from './routes/login'
-import { locGET, locPOST } from './routes/loc'
+import { locGET, locGETOne, locPOST, locDELETE, locPUT } from './routes/loc'
 
 const app = express()
 
@@ -11,8 +11,12 @@ app.get('/hello', (_, res) => {
   res.send('Hello World!')
 })
 
+app.get('/loc/:id', locGETOne)
+
 app.post('/loc', locPOST)
 app.get('/loc', locGET)
+app.put('/loc/:id', locPUT)
+app.delete('/loc/:id', locDELETE)
 
 app.post('/login', loginPOST)
 

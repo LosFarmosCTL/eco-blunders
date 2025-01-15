@@ -1,16 +1,36 @@
 import { Request, Response } from 'express'
-import { findAllLocations } from '../mongoCRUDs'
-import { insertOneLocation } from '../mongoCRUDs'
+import { findAllLocations, updateOneLocation } from '../mongoCRUDs'
+import {
+  insertOneLocation,
+  findOneLocation,
+  deleteOneLocation,
+} from '../mongoCRUDs'
 import { Location } from '../../client/model/location'
+import { ObjectId } from 'mongodb'
 
 export async function locGET(req: Request, res: Response) {
   console.log('get loc received')
   const locations = await findAllLocations()
-  if (locations) {
-    console.log('result found, sending locations')
-    res.status(200).json(locations)
+  console.log('result found, sending locations')
+  res.status(200).json(locations)
+}
+
+export async function locGETOne(req: Request, res: Response) {
+  console.log('get one loc received')
+  const locid = req.params.id
+  console.log('locid: ', locid)
+  let location
+  try {
+    location = await findOneLocation(locid)
+  } catch (e) {
+    console.log(e)
+    res.status(500)
+    return
+  }
+  if (location) {
+    res.status(200).json(location)
   } else {
-    res.status(404).send(`Locations not found!`)
+    res.status(404).send(`Location not found!`)
   }
 }
 
@@ -24,7 +44,7 @@ export async function locPOST(req: Request, res: Response) {
   const result = await insertOneLocation(location)
   if (result) {
     console.log('inserting location')
-    res.status(200).json({
+    res.status(201).json({
       id: result,
     })
   } else {
@@ -32,9 +52,33 @@ export async function locPOST(req: Request, res: Response) {
   }
 }
 
-export async function locPUT(req: Request, res: Response) {}
+export async function locPUT(req: Request, res: Response) {
+  console.log('updating one location')
+  if (!validateLocation(req.body)) {
+    res.status(400).send('Invalid location!')
+    return
+  }
+  const location = req.body
+  const result = await updateOneLocation(location)
+  if (result) {
+    res.status(204)
+    res.send()
+  } else {
+    res.status(404).send(`Location not found!`)
+  }
+}
 
-export async function locDELETE(req: Request, res: Response) {}
+export async function locDELETE(req: Request, res: Response) {
+  const locid = req.params.id
+  console.log('deleting one location')
+  const result = await deleteOneLocation(locid)
+  if (result) {
+    res.status(204)
+    res.send()
+  } else {
+    res.status(404).send(`Location not found!`)
+  }
+}
 
 function validateLocation(reqBody: unknown): reqBody is Location {
   return (

@@ -3,8 +3,17 @@ export async function request<Response>(
   config: RequestInit,
 ): Promise<Response> {
   const result = await fetch(url, config)
-  if (result.status != 200) {
-    return null as Response
+  console.log(result)
+  if (result.status < 200 || result.status >= 300) {
+    return { error: true } as Response
   }
-  return result.json() as Response
+  let jsonData
+  try {
+    //needed because if body is empty this will just throw an error
+    jsonData = (await result.json()) as Response
+  } catch (e) {
+    console.log(e)
+    return { empty: true } as Response
+  }
+  return jsonData
 }

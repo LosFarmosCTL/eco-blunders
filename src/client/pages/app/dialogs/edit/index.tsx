@@ -52,7 +52,7 @@ export function EditDialog({
   function submitLocation() {
     if (checkSubmitConditions()) {
       location = {
-        id: '', //location?.id ?? crypto.randomUUID(),
+        id: location?.id ?? '', //crypto.randomUUID(),
         name: nameInput?.value ?? '',
         description: descInput?.value ?? '',
         lat: latInput?.value ?? '',

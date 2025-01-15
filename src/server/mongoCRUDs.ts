@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb'
-//import { ObjectId } from 'mongodb'
+import { ObjectId } from 'mongodb'
 import { Location } from '../client/model/location'
 import { saveImageInLocation } from './util/saveImage'
 
@@ -44,19 +44,23 @@ export async function findAllLocations() {
       doc.id = doc._id
       allRecords.push(doc)
     }
-    console.log(`got:  + ${allRecords.length} locations from mongodb`)
+    console.log(
+      `got: ${allRecords.length} locations from mongodb` /*eslint-disable-line*/,
+    )
     return allRecords
   } finally {
     await client.close()
   }
 }
 
-export async function findOneLocation(locid: number) {
+export async function findOneLocation(locid: string) {
   const client = new MongoClient(uri)
   try {
+    console.log('locid in mongo: ', locid)
+    const objectId = new ObjectId(locid)
     const db = client.db(db_name)
     const location_collection = db.collection('locations')
-    const query = { id: locid }
+    const query = { _id: objectId }
     const doc = await location_collection.findOne(query)
     return doc
   } finally {
@@ -75,6 +79,44 @@ export async function insertOneLocation(loc: Location) {
       `Inserted location with the id ${result.insertedId}` /*eslint-disable-line*/,
     )
     return result.insertedId
+  } finally {
+    await client.close()
+  }
+}
+
+export async function updateOneLocation(loc: Location) {
+  const client = new MongoClient(uri)
+  try {
+    const db = client.db(db_name)
+    const location_collection = db.collection('locations')
+    const objectId = new ObjectId(loc.id)
+    const query = { _id: objectId }
+    const result = await location_collection.replaceOne(query, loc)
+    console.log(
+      `Updated ${result.modifiedCount} location(s)` /*eslint-disable-line*/,
+    ) /*eslint-disable-line*/
+    if (result.modifiedCount > 0) {
+      return true
+    }
+  } finally {
+    await client.close()
+  }
+}
+
+export async function deleteOneLocation(locid: string) {
+  const client = new MongoClient(uri)
+  try {
+    const db = client.db(db_name)
+    const location_collection = db.collection('locations')
+    const objectId = new ObjectId(locid)
+    const query = { _id: objectId }
+    const result = await location_collection.deleteOne(query)
+    console.log(
+      `Deleted ${result.deletedCount} location(s)` /*eslint-disable-line*/,
+    ) /*eslint-disable-line*/
+    if (result.deletedCount > 0) {
+      return true
+    }
   } finally {
     await client.close()
   }

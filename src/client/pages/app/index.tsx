@@ -29,8 +29,6 @@ export async function App(user: User) {
     },
   })
 
-  console.log(typeof locations)
-
   let editDialog: HTMLDialogElement | null
   let locationList: HTMLDivElement | null
   let locationEntries = new Map<string, HTMLElement>()

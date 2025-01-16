@@ -11,7 +11,6 @@ import { Category } from '../../model/category'
 import { TagSelector } from './dialogs/edit/components/tag-selector'
 import { DetailDialog } from './dialogs/detail'
 import { User, UserRole } from '../../model/user'
-import { Response } from 'express'
 
 interface emptyResponse {
   empty: boolean

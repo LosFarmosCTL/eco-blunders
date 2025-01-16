@@ -9,7 +9,7 @@ export async function request<Response>(
   }
   let jsonData
   try {
-    //needed because if body is empty this will just throw an error
+    //needed because if body is empty .json will throw an error
     jsonData = (await result.json()) as Response
   } catch (e) {
     console.log(e)

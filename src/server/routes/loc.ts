@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { findAllLocations, updateOneLocation } from '../mongoCRUDs'
 import {
   insertOneLocation,
   findOneLocation,
   deleteOneLocation,
+  findAllLocations,
+  updateOneLocation,
 } from '../mongoCRUDs'
 import { Location } from '../../client/model/location'
-import { ObjectId } from 'mongodb'
 
 export async function locGET(req: Request, res: Response) {
   console.log('get loc received')
@@ -42,14 +42,10 @@ export async function locPOST(req: Request, res: Response) {
   }
   const location = req.body
   const result = await insertOneLocation(location)
-  if (result) {
-    console.log('inserting location')
-    res.status(201).json({
-      id: result,
-    })
-  } else {
-    res.status(404).send(`Location not found!`)
-  }
+  console.log('inserting location')
+  res.status(201).json({
+    id: result,
+  })
 }
 
 export async function locPUT(req: Request, res: Response) {

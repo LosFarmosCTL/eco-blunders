@@ -11,6 +11,7 @@ export function saveImageInLocation(loc: Location) {
     const buffer = Buffer.from(matches[2], 'base64')
     let fileName = loc.name.replaceAll(' ', '_')
     fileName = fileName.replaceAll('/', '_')
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const filePath = `./public/media/${fileName}${index}.png`
     await writeFile(filePath, buffer)
     loc.images[index] = { url: filePath, alt: img.alt }

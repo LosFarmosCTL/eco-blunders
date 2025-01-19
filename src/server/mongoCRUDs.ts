@@ -3,19 +3,17 @@ import { ObjectId } from 'mongodb'
 import { Location } from '../client/model/location'
 import { saveImageInLocation } from './util/saveImage'
 
-// Replace db_user, db_pass, db_name, db_collection
-const db_user = 'wad_bunke_petzel_bunke'
-const db_pass = 'wLCEwvzze'
-const db_name = 'wad_bunke_petzel'
-//const users_collection = "users";
-//const location_collection = "locations";
-const dbHostname = 'mongodb1.f4.htw-berlin.de'
-const dbPort = '27017'
-const uri = `mongodb://${db_user}:${db_pass}@${dbHostname}:${dbPort}/${db_name}`
+import 'dotenv/config'
+const user = process.env.DB_USER!
+const password = process.env.DB_PASSWORD!
+const database = process.env.DB_NAME!
 
-//TODO: rewrite as own functions and not fucking objects fuck objects
+const hostname = process.env.DB_HOSTNAME!
+const port = process.env.DB_PORT!
+const uri = `mongodb://${user}:${password}@${hostname}:${port}/${database}`
+const client: MongoClient = new MongoClient(uri)
+
 export async function findOneUser(uNameIn: string, passwdIn: string) {
-  const client: MongoClient = new MongoClient(uri)
   try {
     const db = client.db(db_name)
     const users_collection = db.collection('users')
@@ -31,7 +29,6 @@ export async function findOneUser(uNameIn: string, passwdIn: string) {
 }
 
 export async function findAllLocations() {
-  const client = new MongoClient(uri)
   try {
     const db = client.db(db_name)
     const location_collection = db.collection('locations')
@@ -54,7 +51,6 @@ export async function findAllLocations() {
 }
 
 export async function findOneLocation(locid: string) {
-  const client = new MongoClient(uri)
   try {
     console.log('locid in mongo: ', locid)
     const objectId = new ObjectId(locid)
@@ -69,7 +65,6 @@ export async function findOneLocation(locid: string) {
 }
 
 export async function insertOneLocation(loc: Location) {
-  const client = new MongoClient(uri)
   loc = saveImageInLocation(loc)
   try {
     const db = client.db(db_name)
@@ -85,7 +80,6 @@ export async function insertOneLocation(loc: Location) {
 }
 
 export async function updateOneLocation(loc: Location) {
-  const client = new MongoClient(uri)
   try {
     const db = client.db(db_name)
     const location_collection = db.collection('locations')
@@ -104,7 +98,6 @@ export async function updateOneLocation(loc: Location) {
 }
 
 export async function deleteOneLocation(locid: string) {
-  const client = new MongoClient(uri)
   try {
     const db = client.db(db_name)
     const location_collection = db.collection('locations')

@@ -221,7 +221,13 @@ export function EditDialog({
           e.preventDefault()
         }}
       >
-        <form className="flex flex-col">
+        <form
+          className="flex flex-col"
+          onSubmit={async (e) => {
+            e.preventDefault()
+            await submitLocation()
+          }}
+        >
           <h2 className="mb-5">Add a name</h2>
           <input
             className="mb-10"
@@ -243,7 +249,6 @@ export function EditDialog({
                 placeholder="Description"
                 defaultValue={location?.description ?? ''}
                 tabIndex={2}
-                required
                 ref={(elem) => (descInput = elem)}
               />
               <div className="flex flex-col">
@@ -377,38 +382,28 @@ export function EditDialog({
               </button>
               <div className="flex gap-10">
                 <button
-                  type="button"
+                  type="reset"
                   className="btn-normal"
                   tabIndex={5}
                   onClick={cancel}
                 >
                   Cancel
                 </button>
-                <button
-                  type="button"
-                  className="btn-positive"
-                  tabIndex={4}
-                  onClick={submitLocation}
-                >
+                <button type="submit" className="btn-positive" tabIndex={4}>
                   Update
                 </button>
               </div>
             </div>
           : <div className="flex justify-end gap-10">
               <button
-                type="button"
+                type="reset"
                 className="btn-normal"
                 tabIndex={5}
                 onClick={cancel}
               >
                 Cancel
               </button>
-              <button
-                type="button"
-                className="btn-positive"
-                tabIndex={4}
-                onClick={submitLocation}
-              >
+              <button type="submit" className="btn-positive" tabIndex={4}>
                 Add Location
               </button>
             </div>

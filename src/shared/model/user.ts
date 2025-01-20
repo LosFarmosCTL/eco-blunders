@@ -1,5 +1,5 @@
 export interface User {
-  login: string
+  username: string
   name: string
   password?: string
   role: UserRole

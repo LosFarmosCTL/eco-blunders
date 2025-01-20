@@ -34,7 +34,7 @@ export function Login(onLogin: (user: User) => void) {
       console.log('triggered succesfully')
       if (user)
         onLogin({
-          login: user,
+          username: user,
           name: response.username,
           role: UserRole[response.role as keyof typeof UserRole],
         })

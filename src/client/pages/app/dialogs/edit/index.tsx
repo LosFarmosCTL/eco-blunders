@@ -101,10 +101,10 @@ export function EditDialog({
         return
       }
 
-      // HACK: sleep for 100ms, this is so the actual vite debug server has some
+      // HACK: sleep for 200ms, this is so the actual vite debug server has some
       // time to catch on to the new file being available, otherwise we'll just
       // get issues loading the image immediately
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 200))
 
       dialog?.close()
       onEdit(location)

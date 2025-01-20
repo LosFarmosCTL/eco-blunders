@@ -20,6 +20,7 @@ export default tseslint.config(
   {
     rules: {
       '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
   {

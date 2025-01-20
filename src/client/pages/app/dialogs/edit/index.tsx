@@ -395,7 +395,7 @@ export function EditDialog({
                 Cancel
               </button>
               <button
-                type="submit"
+                type="button"
                 className="btn-positive"
                 tabIndex={4}
                 onClick={submitLocation}

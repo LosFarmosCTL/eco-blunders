@@ -1,4 +1,4 @@
-import { Location } from '../../client/model/location'
+import { Location } from '../../shared/model/location'
 import { writeFile } from 'fs/promises'
 
 // TODO: find a better way to do this instead of passing around the Location object

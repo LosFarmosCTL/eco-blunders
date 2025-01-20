@@ -1,5 +1,5 @@
 import { h } from '../../../../../util/jsx/pragma'
-import { Tag } from '../../../../../model/tag'
+import { Tag } from '../../../../../../shared/model/tag'
 
 interface TagSelectorProps {
   ref: (elem: HTMLElement) => void

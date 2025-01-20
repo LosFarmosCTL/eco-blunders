@@ -3,14 +3,14 @@ import { setCookie } from '../../util/cookies'
 
 import './app.css'
 import { request } from '../../util/request'
-import { Location } from '../../model/location'
+import { Location } from '../../../shared/model/location'
 import { LocationEntry } from './components/location-entry'
 import { EditDialog } from './dialogs/edit'
-import { Tag } from '../../model/tag'
-import { Category } from '../../model/category'
+import { Tag } from '../../../shared/model/tag'
+import { Category } from '../../../shared/model/category'
 import { TagSelector } from './dialogs/edit/components/tag-selector'
 import { DetailDialog } from './dialogs/detail'
-import { User, UserRole } from '../../model/user'
+import { User, UserRole } from '../../../shared/model/user'
 
 interface emptyResponse {
   empty: boolean
@@ -30,9 +30,7 @@ function logout() {
 export async function App(user: User) {
   const tags = await request<Tag[]>('./tags.json', {})
   const categories = await request<Category[]>('./categories.json', {})
-  //let locations = await request<Location[]>('./locations.json', {})
-  //let locations = await request<Location[]>('./locations.json', {})
-  let locations = await request<Location[]>('http://localhost:3000/loc', {
+  let locations = await request<Location[]>('/loc', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -41,7 +39,7 @@ export async function App(user: User) {
 
   let editDialog: HTMLDialogElement | null
   let locationList: HTMLDivElement | null
-  let locationEntries = new Map<string, HTMLElement>()
+  const locationEntries = new Map<string, HTMLElement>()
 
   function addLocation() {
     editDialog?.replaceWith(getEditDialog(null))
@@ -78,40 +76,32 @@ export async function App(user: User) {
 
   async function updateLocation(location: Location) {
     if (locations.some((loc) => location.id == loc.id)) {
-      //TODO: update location in db
-      console.log('updating location')
-      const result = await request<emptyResponse>(
-        `http://localhost:3000/loc/${location.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(location),
+      const result = await request<emptyResponse>(`/loc/${location.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify(location),
+      })
 
       if (result.error) {
         console.error('Failed to update location')
         alert('Failed to update location')
         return
       }
-      console.log('test')
-      //console.log(`result:${result}`)
+
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationEntries.get(location.id)?.replaceWith(entry)
       locationEntries.set(location.id, entry)
     } else {
-      const result = await request<LocationResponse>(
-        'http://localhost:3000/loc',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(location),
+      const result = await request<LocationResponse>('/loc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify(location),
+      })
+
       if (result.error) {
         console.error('Failed to insert location')
         alert('Failed to insert location')
@@ -120,7 +110,6 @@ export async function App(user: User) {
         location.id = result.id
       }
 
-      //location.id = result.
       locations.push(location)
       const entry = <LocationEntry location={location} onEdit={editLocation} />
       locationList?.appendChild(entry)
@@ -130,20 +119,19 @@ export async function App(user: User) {
   }
 
   async function deleteLocation(location: Location) {
-    const result = await request<emptyResponse>(
-      `http://localhost:3000/loc/${location.id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const result = await request<emptyResponse>(`/loc/${location.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+    })
+
     if (result.error) {
       console.error('Failed to delete location')
       alert('Failed to delete location')
       return
     }
+
     if (result.empty) {
       locationEntries.get(location.id)?.remove()
       locations = locations.filter((loc) => loc.id != location.id)

@@ -1,5 +1,5 @@
 import { h } from '../../../util/jsx/pragma'
-import { Location } from '../../../model/location'
+import { Location } from '../../../../shared/model/location'
 import { TagList } from '../dialogs/edit/components/tag-list'
 
 interface LocationEntryProps {

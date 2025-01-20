@@ -47,6 +47,8 @@ router.post(
   '/',
   upload.fields([{ name: 'urls' }]),
   async (req: Request<unknown, unknown, UploadData>, res: Response) => {
+    console.log(req.files)
+    console.log(req.body)
     const files = req.files as Record<string, Express.Multer.File[] | undefined>
     const location = getLocationFromFormData(req.body, files)
 
@@ -61,10 +63,7 @@ router.post(
     const result = await locations.insertOne(location)
     const newId = result.insertedId.toString()
 
-    res.status(201).json({
-      _id: newId,
-      ...location,
-    })
+    res.location(`/loc/${newId}`).status(201).send()
   },
 )
 
@@ -192,7 +191,7 @@ interface UploadData {
     text: string
     color: string
   }
-  urls: string[] | undefined
+  urls: string[] | string | undefined
   images: {
     alts: string[]
   }
@@ -210,6 +209,10 @@ function getLocationFromFormData(
   body: UploadData,
   files: Record<string, Express.Multer.File[] | undefined>,
 ) {
+  if (typeof body.urls === 'string') {
+    body.urls = [body.urls]
+  }
+
   return {
     name: body.name,
     description: body.description,

@@ -25,7 +25,7 @@ const endurl = '&format=json&polygon=1&addressdetails=1'
 export async function getOsmData(address: string) {
   const complete_url = baseurl + address.replace(' ', '+') + endurl
 
-  const OSMData: OSMResult[] = await request(complete_url, {
+  const [OSMData] = await request<OSMResult[]>(complete_url, {
     method: 'GET',
     headers: headersList,
   })

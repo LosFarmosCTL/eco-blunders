@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { getUser } from '../mongoCRUDs'
+import getDatabase from '../db'
+import { User } from '../../shared/model/user'
 
 const router = Router()
 
@@ -9,7 +10,13 @@ router.post('/', async (req, res) => {
     return
   }
 
-  const user = await getUser(req.body.username, req.body.password)
+  const db = await getDatabase()
+  const users = db.collection<User>('users')
+
+  const user = await users.findOne({
+    username: req.body.username,
+    password: req.body.password,
+  })
 
   if (user) {
     delete user.password

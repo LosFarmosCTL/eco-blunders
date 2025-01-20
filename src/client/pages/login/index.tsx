@@ -4,11 +4,6 @@ import { request } from '../../util/request'
 
 import './login.css'
 
-interface LoginResponse {
-  username: string
-  role: string
-}
-
 export function Login(onLogin: (user: User) => void) {
   let usernameInput: HTMLInputElement | null = null
   let passwordInput: HTMLInputElement | null = null
@@ -21,23 +16,22 @@ export function Login(onLogin: (user: User) => void) {
       'Content-Type': 'application/json',
     }
 
-    const response: LoginResponse | null = await request(baseurl, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify({
-        username: user,
-        password: pass,
-      }),
-    })
-
-    if (response) {
-      if (user)
-        onLogin({
+    try {
+      const response = await request<User>(baseurl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
           username: user,
-          name: response.username,
-          role: UserRole[response.role as keyof typeof UserRole],
-        })
-    } else {
+          password: pass,
+        }),
+      })
+
+      onLogin({
+        username: response.username,
+        name: response.name,
+        role: response.role,
+      })
+    } catch {
       usernameInput?.setCustomValidity('Invalid login')
       usernameInput?.reportValidity()
       passwordInput?.setCustomValidity('Invalid login')

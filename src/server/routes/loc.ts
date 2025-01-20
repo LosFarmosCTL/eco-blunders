@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs/promises'
 import { randomUUID } from 'crypto'
 
 import { Request, Response, Router } from 'express'
@@ -95,16 +96,28 @@ router.put(
   },
 )
 
-// TODO: clean up uploaded images
 router.delete('/:id', async (req, res) => {
   const db = await getDatabase()
-  const locations = db.collection('locations')
+  const locations = db.collection<Location>('locations')
 
-  const result = await locations.deleteOne({ _id: new ObjectId(req.params.id) })
+  const result = await locations.findOneAndDelete({
+    _id: new ObjectId(req.params.id),
+  })
 
-  if (result.deletedCount == 0) {
+  if (!result) {
     res.status(404).send(`Location not found`)
   } else {
+    const images = result.images
+    images.forEach(async (image) => {
+      const localPath = `./public/media/${path.basename(image.url)}`
+
+      try {
+        await fs.unlink(localPath)
+      } catch {
+        console.log(`Error while deleting local file of location ${result.id}`)
+      }
+    })
+
     res.status(204).send()
   }
 })

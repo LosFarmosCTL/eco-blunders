@@ -13,7 +13,7 @@ if (!loggedInUser) {
     Login(async (user) => {
       setCookie(
         'user',
-        `${user.login},${user.name},${user.role === UserRole.admin ? 'admin' : 'normal'}`,
+        `${user.username},${user.name},${user.role === UserRole.admin ? 'admin' : 'non-admin'}`,
       )
       await loadApp(user)
     }),
@@ -31,9 +31,9 @@ function parseUser(cookie: string | null): User | null {
   const parts = cookie.split(',')
   if (parts.length !== 3) return null
 
-  const [login, name, role] = parts
+  const [username, name, role] = parts
   return {
-    login,
+    username: username,
     name,
     role: role === 'admin' ? UserRole.admin : UserRole.normal,
   }

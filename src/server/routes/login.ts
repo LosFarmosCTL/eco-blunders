@@ -1,9 +1,12 @@
-import { Request, Response } from 'express'
+import { Router } from 'express'
 import { getUser } from '../mongoCRUDs'
 
-export async function loginPOST(req: Request, res: Response) {
+const router = Router()
+
+router.post('/', async (req, res) => {
   if (!validateLoginRequest(req.body)) {
-    return res.status(400).send('Invalid login request')
+    res.status(400).send('Invalid login request')
+    return
   }
 
   const user = await getUser(req.body.username, req.body.password)
@@ -14,7 +17,9 @@ export async function loginPOST(req: Request, res: Response) {
   } else {
     res.status(401).send(`Username/Password combination invalid!`)
   }
-}
+})
+
+export default router
 
 function validateLoginRequest(
   reqBody: unknown,

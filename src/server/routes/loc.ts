@@ -1,4 +1,3 @@
-import { Request, Response } from 'express'
 import {
   insertLocation,
   getLocation,
@@ -7,14 +6,16 @@ import {
   updateLocation,
 } from '../mongoCRUDs'
 import { Location } from '../../shared/model/location'
-import { Tag } from '../../shared/model/tag'
+import { Router } from 'express'
 
-export async function locGET(_: Request, res: Response) {
+const router = Router()
+
+router.get('/', async (_, res) => {
   const locations = await getLocations()
   res.status(200).json(locations)
-}
+})
 
-export async function locGETOne(req: Request, res: Response) {
+router.get('/:id', async (req, res) => {
   const locationId = req.params.id
   const location = await getLocation(locationId)
 
@@ -23,9 +24,9 @@ export async function locGETOne(req: Request, res: Response) {
   } else {
     res.status(404).send(`Location not found!`)
   }
-}
+})
 
-export async function locPOST(req: Request, res: Response) {
+router.get('/', async (req, res) => {
   if (!validateLocation(req.body)) {
     res.status(400).send('Invalid location!')
     return
@@ -36,9 +37,9 @@ export async function locPOST(req: Request, res: Response) {
   res.status(201).json({
     id: result,
   })
-}
+})
 
-export async function locPUT(req: Request, res: Response) {
+router.put('/:id', async (req, res) => {
   if (!validateLocation(req.body)) {
     res.status(400).send('Invalid location!')
     return
@@ -51,9 +52,9 @@ export async function locPUT(req: Request, res: Response) {
   } else {
     res.status(404).send(`Location not found!`)
   }
-}
+})
 
-export async function locDELETE(req: Request, res: Response) {
+router.delete('/:id', async (req, res) => {
   const result = await deleteLocation(req.params.id)
 
   if (result) {
@@ -62,7 +63,9 @@ export async function locDELETE(req: Request, res: Response) {
   } else {
     res.status(404).send(`Location not found!`)
   }
-}
+})
+
+export default router
 
 function validateLocation(reqBody: unknown): reqBody is Location {
   return (

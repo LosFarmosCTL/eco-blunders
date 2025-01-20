@@ -1,19 +1,20 @@
-export async function request<Response>(
+export async function request<Response = void>(
   url: string,
   config: RequestInit,
 ): Promise<Response> {
   const result = await fetch(url, config)
-  console.log(result)
+
   if (result.status < 200 || result.status >= 300) {
-    return { error: true } as Response
+    throw new Error(`Request failed with status ${result.status.toString()}`)
   }
-  let jsonData
+
+  if (result.status == 204) {
+    return {} as Response
+  }
+
   try {
-    //needed because if body is empty .json will throw an error
-    jsonData = (await result.json()) as Response
-  } catch (e) {
-    console.log(e)
-    return { empty: true } as Response
+    return (await result.json()) as Response
+  } catch {
+    throw new Error('Failed to parse JSON response')
   }
-  return jsonData
 }

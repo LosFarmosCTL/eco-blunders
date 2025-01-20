@@ -2,6 +2,5 @@
 @import 'css/classes.css';
 @import 'css/components.css';
 
-/* TODO: extract into app & minify for actually needed icons? */
 @import 'css/fontawesome/css/fontawesome.min.css';
 @import 'css/fontawesome/css/solid.min.css';

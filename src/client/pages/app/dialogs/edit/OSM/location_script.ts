@@ -157,5 +157,3 @@ function createNoResults() {
   listElem.classList.add('list-none', 'cursor-pointer', 'osm-list-elem')
   locationAutocomplete?.appendChild(listElem)
 }
-
-//TODO: tag selecting and shit, image uploading, submit button gives a location interface,

@@ -8,8 +8,6 @@ const hostname = process.env.DB_HOSTNAME!
 const port = process.env.DB_PORT!
 const uri = `mongodb://${user}:${password}@${hostname}:${port}/${database}`
 
-console.log(uri)
-
 let client: MongoClient | null = null
 let db: Db | null = null
 

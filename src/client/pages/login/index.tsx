@@ -29,9 +29,8 @@ export function Login(onLogin: (user: User) => void) {
         password: pass,
       }),
     })
-    console.log(response)
+
     if (response) {
-      console.log('triggered succesfully')
       if (user)
         onLogin({
           username: user,
@@ -43,19 +42,7 @@ export function Login(onLogin: (user: User) => void) {
       usernameInput?.reportValidity()
       passwordInput?.setCustomValidity('Invalid login')
       passwordInput?.reportValidity()
-      //alert('Invalid login!')
     }
-
-    //TODO: Connect the MongoDB here
-    /*
-    if (user == 'admina' && pass == 'password')
-      onLogin({ login: 'admina', name: 'Admina', role: UserRole.admin })
-    else if (user == 'normalo' && pass == 'password')
-      onLogin({ login: 'normalo', name: 'Normalo', role: UserRole.normal })
-    
-    // TODO: build a nicer way to show an invalid login
-    else alert('Invalid login!')
-    */
   }
 
   return (

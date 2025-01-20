@@ -47,7 +47,13 @@ export function Login(onLogin: (user: User) => void) {
               <h1 className="text-center">ecoBlunders Berlin</h1>
             </div>
             <div className="grow">
-              <form className="flex flex-col gap-10 w-full box-border">
+              <form
+                className="flex flex-col gap-10 w-full box-border"
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  void login()
+                }}
+              >
                 <input
                   type="text"
                   name="username"
@@ -69,14 +75,7 @@ export function Login(onLogin: (user: User) => void) {
                   }}
                 />
                 <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="btn-normal"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      void login()
-                    }}
-                  >
+                  <button type="submit" className="btn-normal">
                     Login
                   </button>
                 </div>

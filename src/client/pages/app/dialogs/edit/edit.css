@@ -2,15 +2,13 @@
   width: 300px;
 
   @media screen and (width <= 768px) {
-    width: 200px;
-  }
-
-  @media screen and (width <= 640px) {
     div:has(&) {
       flex-direction: column;
     }
 
     width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color-primary);
   }
 }
 
@@ -139,9 +137,6 @@ textarea[name='description'] {
 .readonly-input:focus-visible {
   border-color: var(--border-color-primary);
   box-shadow: none;
-}
-
-.slideshow-container {
 }
 
 .prev,

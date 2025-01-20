@@ -70,7 +70,7 @@ export function EditDialog({
       formData.append('category[color]', category.color)
 
       selectedImages.forEach((img, index) => {
-        formData.append(`urls`, img.url)
+        formData.append(`urls[${index.toString()}]`, img.url)
         formData.append(`images[alts][${index.toString()}]`, img.alt)
       })
       selectedTags.forEach((tag, index) => {

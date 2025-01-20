@@ -51,10 +51,10 @@ function prevSlide() {
 }
 
 function getImages() {
-  console.log('getImages called')
   if (imageArray.length > 0) {
     return
   }
+
   //get all children of imageContainer as htmlelements
   const images = imageContainer?.children
   if (images) {
@@ -95,7 +95,7 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
             className="readonly-input mb-10"
             name="name"
             placeholder="Name"
-            value={location?.name ?? ''}
+            value={location.name}
             tabIndex={1}
             autoComplete="off"
             readOnly
@@ -108,7 +108,7 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                 className="readonly-input grow mb-10"
                 name="description"
                 placeholder="Description"
-                defaultValue={location?.description ?? ''}
+                defaultValue={location.description}
                 tabIndex={2}
                 readOnly
               />
@@ -118,7 +118,7 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                     className="readonly-input grow"
                     name="street"
                     placeholder="Street and Nr."
-                    value={location?.address.street ?? ''}
+                    value={location.address.street}
                     readOnly
                     id="street-input"
                   />
@@ -128,7 +128,7 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                     className="readonly-input "
                     name="zipcode"
                     placeholder="ZIP Code"
-                    value={location?.address.zipcode ?? ''}
+                    value={location.address.zipcode}
                     readOnly
                     id="zip-input"
                   />
@@ -136,7 +136,7 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                     className="readonly-input grow"
                     name="city"
                     placeholder="City"
-                    value={location?.address.city ?? ''}
+                    value={location.address.city}
                     readOnly
                     id="city-input"
                   />
@@ -146,7 +146,7 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                     className="readonly-input grow"
                     name="latitude"
                     placeholder="Latitude"
-                    value={location?.lat ?? ''}
+                    value={location.lat}
                     readOnly
                     id="lat-input"
                   />
@@ -154,19 +154,14 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                     className="readonly-input grow"
                     name="longitude"
                     placeholder="Longitude"
-                    value={location?.lon ?? ''}
+                    value={location.lon}
                     readOnly
                     id="lon-input"
                   />
                 </div>
               </div>
             </div>
-            <div
-              onLoad={() => {
-                console.log('loaded')
-              }}
-              className="image-tag-container flex flex-col gap-10"
-            >
+            <div className="image-tag-container flex flex-col gap-10">
               <div
                 ref={(elem) => (imageContainer = elem)}
                 className="slideshow-container image-upload-container flex justify-center items-center relative aspect-square"
@@ -205,7 +200,9 @@ export function DetailDialog({ dialogRef, location }: DetailDialogProps) {
                 <TagList
                   tags={location.tags}
                   overlay={false}
-                  onDelete={() => {}}
+                  onDelete={() => {
+                    return
+                  }}
                 />
               </div>
             </div>

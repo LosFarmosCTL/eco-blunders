@@ -1,7 +1,7 @@
 import express from 'express'
 import ViteExpress from 'vite-express'
 
-import { transformMongoDbIdMiddleware } from './middleware/transformResponse'
+import { transformMongoDbIdMiddleware } from './middleware/transformMongoDbId'
 import locationRoutes from './routes/loc'
 import loginRoutes from './routes/login'
 

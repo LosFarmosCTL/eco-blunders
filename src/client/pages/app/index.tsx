@@ -18,9 +18,9 @@ function logout() {
 }
 
 export async function App(user: User) {
-  const tags = await request<Tag[]>('./tags.json', {})
-  const categories = await request<Category[]>('./categories.json', {})
-  let locations = await request<Location[]>('/loc', {
+  const [tags] = await request<Tag[]>('./tags.json', {})
+  const [categories] = await request<Category[]>('./categories.json', {})
+  let [locations] = await request<Location[]>('/loc', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

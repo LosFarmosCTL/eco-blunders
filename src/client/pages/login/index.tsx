@@ -17,7 +17,7 @@ export function Login(onLogin: (user: User) => void) {
     }
 
     try {
-      const response = await request<User>(baseurl, {
+      const [loggedInUser] = await request<User>(baseurl, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({
@@ -26,9 +26,9 @@ export function Login(onLogin: (user: User) => void) {
         }),
       })
       onLogin({
-        username: response.username,
-        name: response.name,
-        role: UserRole[response.role as unknown as keyof typeof UserRole],
+        username: loggedInUser.username,
+        name: loggedInUser.name,
+        role: UserRole[loggedInUser.role as unknown as keyof typeof UserRole],
       })
     } catch {
       usernameInput?.setCustomValidity('Invalid login')

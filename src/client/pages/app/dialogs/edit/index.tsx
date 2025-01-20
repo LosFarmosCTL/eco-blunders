@@ -70,7 +70,7 @@ export function EditDialog({
       formData.append('category[color]', category.color)
 
       selectedImages.forEach((img, index) => {
-        formData.append(`urls[${index.toString()}]`, img.url)
+        formData.append(`urls`, img.url)
         formData.append(`images[alts][${index.toString()}]`, img.alt)
       })
       selectedTags.forEach((tag, index) => {
@@ -81,21 +81,30 @@ export function EditDialog({
       })
 
       try {
+        let getUrl: string | null
         if (location?.id) {
           await request(`/loc/${location.id}`, {
             method: 'PUT',
             body: formData,
           })
 
-          location = await request<Location>(`/loc/${location.id}`, {
-            method: 'GET',
-          })
+          getUrl = `/loc/${location.id}`
         } else {
-          location = await request<Location>('/loc', {
+          const [, response] = await request('/loc', {
             method: 'POST',
             body: formData,
           })
+
+          getUrl = response.headers.get('Location')
+          if (!getUrl) {
+            throw new Error('Missing location of new resource')
+          }
         }
+
+        const [result] = await request<Location>(getUrl, {
+          method: 'GET',
+        })
+        location = result
       } catch {
         alert('Failed to update location')
         return

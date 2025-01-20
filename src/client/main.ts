@@ -33,7 +33,7 @@ function parseUser(cookie: string | null): User | null {
 
   const [username, name, role] = parts
   return {
-    username: username,
+    username,
     name,
     role: role === 'admin' ? UserRole.admin : UserRole.normal,
   }

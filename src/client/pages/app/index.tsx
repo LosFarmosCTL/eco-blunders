@@ -12,16 +12,6 @@ import { TagSelector } from './dialogs/edit/components/tag-selector'
 import { DetailDialog } from './dialogs/detail'
 import { User, UserRole } from '../../../shared/model/user'
 
-interface emptyResponse {
-  empty: boolean
-  error: boolean
-}
-
-interface LocationResponse {
-  id: string
-  error: boolean
-}
-
 function logout() {
   setCookie('user', '')
   window.location.reload()
@@ -74,67 +64,32 @@ export async function App(user: User) {
     )
   }
 
-  async function updateLocation(location: Location) {
-    if (locations.some((loc) => location.id == loc.id)) {
-      const result = await request<emptyResponse>(`/loc/${location.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(location),
-      })
+  function updateLocation(location: Location) {
+    const newEntry = <LocationEntry location={location} onEdit={editLocation} />
+    const entry = locationEntries.get(location.id)
 
-      if (result.error) {
-        console.error('Failed to update location')
-        alert('Failed to update location')
-        return
-      }
-
-      const entry = <LocationEntry location={location} onEdit={editLocation} />
-      locationEntries.get(location.id)?.replaceWith(entry)
-      locationEntries.set(location.id, entry)
+    if (entry) {
+      entry.replaceWith(newEntry)
+      locationEntries.set(location.id, newEntry)
     } else {
-      const result = await request<LocationResponse>('/loc', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(location),
-      })
-
-      if (result.error) {
-        console.error('Failed to insert location')
-        alert('Failed to insert location')
-        return
-      } else if (result.id) {
-        location.id = result.id
-      }
-
       locations.push(location)
-      const entry = <LocationEntry location={location} onEdit={editLocation} />
-      locationList?.appendChild(entry)
-      locationEntries.set(location.id, entry)
-      console.log(locationEntries)
+      locationList?.appendChild(newEntry)
+      locationEntries.set(location.id, newEntry)
     }
   }
 
   async function deleteLocation(location: Location) {
-    const result = await request<emptyResponse>(`/loc/${location.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    if (result.error) {
-      console.error('Failed to delete location')
-      alert('Failed to delete location')
-      return
-    }
-
-    if (result.empty) {
+    try {
+      await request(`/loc/${location.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       locationEntries.get(location.id)?.remove()
       locations = locations.filter((loc) => loc.id != location.id)
+    } catch {
+      alert('Failed to delete location')
     }
   }
 
@@ -172,10 +127,14 @@ export async function App(user: User) {
                 <span className="ml-5 fa-solid fa-caret-down" />
               </summary>
               <TagSelector
-                ref={() => {}}
+                ref={() => {
+                  return
+                }}
                 tags={tags}
                 selectedTags={[]}
-                addTag={() => {}}
+                addTag={() => {
+                  return
+                }}
               />
             </details>
             <input

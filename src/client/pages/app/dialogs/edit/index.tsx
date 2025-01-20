@@ -9,6 +9,7 @@ import { TagList } from './components/tag-list'
 
 import { activateLocationScript } from './OSM/location_script'
 import { ImageUpload } from './components/image-upload'
+import { request } from '../../../../util/request'
 
 interface EditDialogProps {
   dialogRef: (dialog: HTMLDialogElement) => void
@@ -43,31 +44,68 @@ export function EditDialog({
   let categorySelect: HTMLSelectElement | null = null
 
   let selectedTags: Tag[] = location?.tags ?? []
-  let selectedImages = location?.images ?? []
+  let selectedImages: { url: File | string; alt: string }[] =
+    location?.images ?? []
 
   function cancel() {
     dialog?.close()
   }
 
-  function submitLocation() {
+  async function submitLocation() {
     if (checkSubmitConditions()) {
-      location = {
-        id: location?.id ?? '', //crypto.randomUUID(),
-        name: nameInput?.value ?? '',
-        description: descInput?.value ?? '',
-        lat: latInput?.value ?? '',
-        lon: lonInput?.value ?? '',
-        address: {
-          street: streetInput?.value ?? '',
-          zipcode: zipInput?.value ?? '',
-          city: cityInput?.value ?? '',
-        },
-        images: selectedImages,
-        category:
-          categories.find((c) => c.id === categorySelect?.value) ??
-          categories[0],
-        tags: selectedTags,
+      const formData = new FormData()
+
+      formData.append('name', nameInput?.value ?? '')
+      formData.append('description', descInput?.value ?? '')
+      formData.append('lat', latInput?.value ?? '')
+      formData.append('lon', lonInput?.value ?? '')
+      formData.append('street', streetInput?.value ?? '')
+      formData.append('zipcode', zipInput?.value ?? '')
+      formData.append('city', cityInput?.value ?? '')
+
+      const category =
+        categories.find((c) => c.id === categorySelect?.value) ?? categories[0]
+      formData.append('category[id]', category.id)
+      formData.append('category[text]', category.text)
+      formData.append('category[color]', category.color)
+
+      selectedImages.forEach((img, index) => {
+        formData.append(`urls`, img.url)
+        formData.append(`images[alts][${index.toString()}]`, img.alt)
+      })
+      selectedTags.forEach((tag, index) => {
+        formData.append(`tags[${index.toString()}][id]`, tag.id)
+        formData.append(`tags[${index.toString()}][text]`, tag.text)
+        formData.append(`tags[${index.toString()}][colorbg]`, tag.colorbg)
+        formData.append(`tags[${index.toString()}][color]`, tag.color)
+      })
+
+      try {
+        if (location?.id) {
+          await request(`/loc/${location.id}`, {
+            method: 'PUT',
+            body: formData,
+          })
+
+          location = await request<Location>(`/loc/${location.id}`, {
+            method: 'GET',
+          })
+        } else {
+          location = await request<Location>('/loc', {
+            method: 'POST',
+            body: formData,
+          })
+        }
+      } catch {
+        alert('Failed to update location')
+        return
       }
+
+      // HACK: sleep for 100ms, this is so the actual vite debug server has some
+      // time to catch on to the new file being available, otherwise we'll just
+      // get issues loading the image immediately
+      await new Promise((resolve) => setTimeout(resolve, 100))
+
       dialog?.close()
       onEdit(location)
     }
@@ -133,14 +171,13 @@ export function EditDialog({
     return true
   }
 
-  function addedImages(images: { url: string; alt: string }[]): void {
+  function addedImages(images: { url: string | File; alt: string }[]): void {
     selectedImages = images
-    console.log('added image')
 
     rerenderImageControl()
   }
 
-  function removedImages(images: { url: string; alt: string }[]): void {
+  function removedImages(images: { url: string | File; alt: string }[]): void {
     selectedImages = images
 
     if (images.length == 0) {
@@ -148,7 +185,7 @@ export function EditDialog({
     }
   }
 
-  function updateImages(images: { url: string; alt: string }[]): void {
+  function updateImages(images: { url: string | File; alt: string }[]): void {
     selectedImages = images
   }
 
@@ -358,7 +395,7 @@ export function EditDialog({
                 Cancel
               </button>
               <button
-                type="button"
+                type="submit"
                 className="btn-positive"
                 tabIndex={4}
                 onClick={submitLocation}

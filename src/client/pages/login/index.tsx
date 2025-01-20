@@ -25,11 +25,10 @@ export function Login(onLogin: (user: User) => void) {
           password: pass,
         }),
       })
-
       onLogin({
         username: response.username,
         name: response.name,
-        role: response.role,
+        role: UserRole[response.role as unknown as keyof typeof UserRole],
       })
     } catch {
       usernameInput?.setCustomValidity('Invalid login')

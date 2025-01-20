@@ -1,5 +1,5 @@
 import { h, Fragment } from '../../util/jsx/pragma'
-import { User, UserRole } from '../../model/user'
+import { User, UserRole } from '../../../shared/model/user'
 import { request } from '../../util/request'
 
 import './login.css'
@@ -16,7 +16,7 @@ export function Login(onLogin: (user: User) => void) {
   async function login() {
     const user = usernameInput?.value
     const pass = passwordInput?.value
-    const baseurl = 'http://localhost:3000/login'
+    const baseurl = '/login'
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -94,7 +94,7 @@ export function Login(onLogin: (user: User) => void) {
                     className="btn-normal"
                     onClick={(e) => {
                       e.preventDefault()
-                      login()
+                      void login()
                     }}
                   >
                     Login

@@ -1,7 +1,7 @@
 import { h, Fragment } from '../../../../util/jsx/pragma'
 import '../edit/edit.css'
 
-import { Location } from '../../../../model/location'
+import { Location } from '../../../../../shared/model/location'
 import { TagList } from '../edit/components/tag-list'
 
 interface DetailDialogProps {

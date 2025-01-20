@@ -1,9 +1,9 @@
 import { h, Fragment } from '../../../../util/jsx/pragma'
 import './edit.css'
 
-import { Location } from '../../../../model/location'
-import { Tag } from '../../../../model/tag'
-import { Category } from '../../../../model/category'
+import { Location } from '../../../../../shared/model/location'
+import { Tag } from '../../../../../shared/model/tag'
+import { Category } from '../../../../../shared/model/category'
 import { TagSelector } from './components/tag-selector'
 import { TagList } from './components/tag-list'
 

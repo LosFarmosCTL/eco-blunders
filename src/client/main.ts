@@ -3,7 +3,7 @@ import './style.css'
 import { getCookie, setCookie } from './util/cookies'
 import { App } from './pages/app'
 import { Login } from './pages/login'
-import { User, UserRole } from './model/user'
+import { User, UserRole } from '../shared/model/user'
 
 const userCookie = getCookie('user')
 const loggedInUser = parseUser(userCookie)

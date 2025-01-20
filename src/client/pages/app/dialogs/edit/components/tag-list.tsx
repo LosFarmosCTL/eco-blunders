@@ -1,5 +1,5 @@
 import { h, Fragment } from '../../../../../util/jsx/pragma'
-import { Tag } from '../../../../../model/tag'
+import { Tag } from '../../../../../../shared/model/tag'
 
 interface TagListProps {
   tags: Tag[]

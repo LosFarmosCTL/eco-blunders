@@ -6,7 +6,7 @@ import {
   findAllLocations,
   updateOneLocation,
 } from '../mongoCRUDs'
-import { Location } from '../../client/model/location'
+import { Location } from '../../shared/model/location'
 
 export async function locGET(req: Request, res: Response) {
   console.log('get loc received')

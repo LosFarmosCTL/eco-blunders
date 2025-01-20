@@ -1,12 +1,23 @@
-import { Router } from 'express'
+import path from 'path'
+import { randomUUID } from 'crypto'
+
+import { Request, Response, Router } from 'express'
+import multer from 'multer'
 import { ObjectId } from 'mongodb'
 
 import { Location } from '../../shared/model/location'
-
-import { saveImageInLocation } from '../util/saveImage'
 import getDatabase from '../db'
 
 const router = Router()
+const storage = multer.diskStorage({
+  destination: './public/media',
+  filename: (_, file, cb) => {
+    cb(null, randomUUID() + path.extname(file.originalname))
+  },
+})
+const upload = multer({
+  storage: storage,
+})
 
 router.get('/', async (_, res) => {
   const db = await getDatabase()
@@ -31,46 +42,60 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
-  if (!validateLocation(req.body)) {
-    res.status(400).send('Invalid location!')
-    return
-  }
+router.post(
+  '/',
+  upload.fields([{ name: 'urls' }]),
+  async (req: Request<unknown, unknown, UploadData>, res: Response) => {
+    const files = req.files as Record<string, Express.Multer.File[] | undefined>
+    const location = getLocationFromFormData(req.body, files)
 
-  const location = saveImageInLocation(req.body)
+    if (!validateLocation(location)) {
+      res.status(400).send('Invalid location!')
+      return
+    }
 
-  const db = await getDatabase()
-  const locations = db.collection('locations')
+    const db = await getDatabase()
+    const locations = db.collection('locations')
 
-  const result = await locations.insertOne(location)
-  const newId = result.insertedId.toString()
+    const result = await locations.insertOne(location)
+    const newId = result.insertedId.toString()
 
-  res.status(201).json({
-    id: newId,
-  })
-})
+    res.status(201).json({
+      _id: newId,
+      ...location,
+    })
+  },
+)
 
-router.put('/:id', async (req, res) => {
-  if (!validateLocation(req.body)) {
-    res.status(400).send('Invalid location!')
-    return
-  }
+router.put(
+  '/:id',
+  upload.fields([{ name: 'urls' }]),
+  async (req: Request<{ id: string }, unknown, UploadData>, res: Response) => {
+    const files = req.files as Record<string, Express.Multer.File[] | undefined>
+    const location = getLocationFromFormData(req.body, files)
 
-  const db = await getDatabase()
-  const locations = db.collection('locations')
+    if (!validateLocation(location)) {
+      res.status(400).send('Invalid location!')
+      return
+    }
 
-  const result = await locations.replaceOne(
-    { _id: new ObjectId(req.params.id) },
-    req.body,
-  )
+    const db = await getDatabase()
+    const locations = db.collection('locations')
 
-  if (result.modifiedCount == 0) {
-    res.status(404).send(`Location not found`)
-  } else {
-    res.status(204).send()
-  }
-})
+    const result = await locations.replaceOne(
+      { _id: new ObjectId(req.params.id) },
+      location,
+    )
 
+    if (result.modifiedCount == 0) {
+      res.status(404).send(`Location not found`)
+    } else {
+      res.status(204).send()
+    }
+  },
+)
+
+// TODO: clean up uploaded images
 router.delete('/:id', async (req, res) => {
   const db = await getDatabase()
   const locations = db.collection('locations')
@@ -86,7 +111,7 @@ router.delete('/:id', async (req, res) => {
 
 export default router
 
-function validateLocation(reqBody: unknown): reqBody is Location {
+function validateLocation(reqBody: unknown): reqBody is Omit<Location, 'id'> {
   return (
     typeof reqBody === 'object' &&
     reqBody !== null &&
@@ -95,25 +120,25 @@ function validateLocation(reqBody: unknown): reqBody is Location {
     'lat' in reqBody &&
     'lon' in reqBody &&
     'address' in reqBody &&
-    'street' in (reqBody as Location).address &&
-    'zipcode' in (reqBody as Location).address &&
-    'city' in (reqBody as Location).address &&
+    'street' in (reqBody as Omit<Location, 'id'>).address &&
+    'zipcode' in (reqBody as Omit<Location, 'id'>).address &&
+    'city' in (reqBody as Omit<Location, 'id'>).address &&
     'images' in reqBody &&
     'category' in reqBody &&
-    'id' in (reqBody as Location).category &&
-    'text' in (reqBody as Location).category &&
-    'color' in (reqBody as Location).category &&
+    'id' in (reqBody as Omit<Location, 'id'>).category &&
+    'text' in (reqBody as Omit<Location, 'id'>).category &&
+    'color' in (reqBody as Omit<Location, 'id'>).category &&
     'tags' in reqBody &&
-    typeof (reqBody as Location).name === 'string' &&
-    typeof (reqBody as Location).description === 'string' &&
-    typeof (reqBody as Location).lat === 'string' &&
-    typeof (reqBody as Location).lon === 'string' &&
-    typeof (reqBody as Location).address === 'object' &&
-    typeof (reqBody as Location).address.street === 'string' &&
-    typeof (reqBody as Location).address.zipcode === 'string' &&
-    typeof (reqBody as Location).address.city === 'string' &&
-    Array.isArray((reqBody as Location).images) &&
-    (reqBody as Location).images.every(
+    typeof reqBody.name === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).description === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).lat === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).lon === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).address === 'object' &&
+    typeof (reqBody as Omit<Location, 'id'>).address.street === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).address.zipcode === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).address.city === 'string' &&
+    Array.isArray((reqBody as Omit<Location, 'id'>).images) &&
+    (reqBody as Omit<Location, 'id'>).images.every(
       (image) =>
         typeof image === 'object' &&
         'url' in image &&
@@ -121,20 +146,83 @@ function validateLocation(reqBody: unknown): reqBody is Location {
         typeof image.url === 'string' &&
         typeof image.alt === 'string',
     ) &&
-    typeof (reqBody as Location).category === 'object' &&
-    typeof (reqBody as Location).category.id === 'string' &&
-    typeof (reqBody as Location).category.text === 'string' &&
-    typeof (reqBody as Location).category.color === 'string' &&
-    Array.isArray((reqBody as Location).tags) &&
-    (reqBody as Location).tags.every(
+    typeof (reqBody as Omit<Location, 'id'>).category === 'object' &&
+    typeof (reqBody as Omit<Location, 'id'>).category.id === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).category.text === 'string' &&
+    typeof (reqBody as Omit<Location, 'id'>).category.color === 'string' &&
+    Array.isArray((reqBody as Omit<Location, 'id'>).tags) &&
+    (reqBody as Omit<Location, 'id'>).tags.every(
       (tag) =>
         typeof tag === 'object' &&
         'id' in tag &&
         'text' in tag &&
+        'colorbg' in tag &&
         'color' in tag &&
         typeof tag.id === 'string' &&
         typeof tag.text === 'string' &&
+        typeof tag.colorbg === 'string' &&
         typeof tag.color === 'string',
     )
   )
+}
+
+interface UploadData {
+  name: string
+  description: string
+  lat: string
+  lon: string
+  street: string
+  zipcode: string
+  city: string
+  category: {
+    id: string
+    text: string
+    color: string
+  }
+  urls: string[] | undefined
+  images: {
+    alts: string[]
+  }
+  tags:
+    | {
+        id: string
+        text: string
+        colorbg: string
+        color: string
+      }[]
+    | undefined
+}
+
+function getLocationFromFormData(
+  body: UploadData,
+  files: Record<string, Express.Multer.File[] | undefined>,
+) {
+  return {
+    name: body.name,
+    description: body.description,
+    lat: body.lat,
+    lon: body.lon,
+    address: {
+      street: body.street,
+      zipcode: body.zipcode,
+      city: body.city,
+    },
+    category: {
+      id: body.category.id,
+      text: body.category.text,
+      color: body.category.color,
+    },
+    images: (body.urls ?? [])
+      .map((url, index) => ({
+        url,
+        alt: body.images.alts[index],
+      }))
+      .concat(
+        files.urls?.map((file, index) => ({
+          url: `/media/${file.filename}`,
+          alt: body.images.alts[index + (body.urls?.length ?? 0)],
+        })) ?? [],
+      ),
+    tags: body.tags ?? [],
+  }
 }

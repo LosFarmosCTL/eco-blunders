@@ -2,10 +2,10 @@ import { h, Fragment } from '../../../../../util/jsx/pragma'
 
 interface ImageUploadProps {
   ref: (elem: HTMLDivElement) => void
-  images: { url: string; alt: string }[]
-  onAdd: (images: { url: string; alt: string }[]) => void
-  onRemove: (images: { url: string; alt: string }[]) => void
-  onUpdate: (images: { url: string; alt: string }[]) => void
+  images: { url: File | string; alt: string }[]
+  onAdd: (images: { url: File | string; alt: string }[]) => void
+  onRemove: (images: { url: File | string; alt: string }[]) => void
+  onUpdate: (images: { url: File | string; alt: string }[]) => void
 }
 
 export function ImageUpload({
@@ -15,33 +15,28 @@ export function ImageUpload({
   onRemove,
   onUpdate,
 }: ImageUploadProps) {
-  let currentImages = new Map(images.map((img) => [img.url, img.alt]))
+  const currentImages = new Map(images.map((img) => [img.url, img.alt]))
 
   function updateImages(imageInput: HTMLInputElement) {
-    Array.from(imageInput?.files ?? []).forEach((file) => {
-      const reader = new FileReader()
-      reader.onload = () => {
-        const name = reader.result as string
-        addImage(name)
-      }
-      reader.readAsDataURL(file)
+    Array.from(imageInput.files ?? []).forEach((file) => {
+      addImage(file)
     })
   }
 
-  function addImage(url: string) {
-    currentImages.set(url, currentImages.get(url) ?? '')
+  function addImage(image: File | string) {
+    currentImages.set(image, currentImages.get(image) ?? '')
 
     onAdd(getImages())
   }
 
-  function removeImage(url: string) {
-    currentImages.delete(url)
+  function removeImage(image: File | string) {
+    currentImages.delete(image)
 
     onRemove(getImages())
   }
 
-  function updateImage(url: string, alt: string) {
-    currentImages.set(url, alt)
+  function updateImage(image: File | string, alt: string) {
+    currentImages.set(image, alt)
 
     onUpdate(getImages())
   }
@@ -55,7 +50,9 @@ export function ImageUpload({
   return (
     <>
       <div
-        ref={(elem) => ref(elem!)}
+        ref={(elem) => {
+          ref(elem!)
+        }}
         className={
           images.length == 0 ?
             'image-upload-container flex justify-center items-center relative aspect-square'
@@ -70,7 +67,9 @@ export function ImageUpload({
               accept="image/*"
               tabIndex={3}
               multiple
-              onChange={(e) => updateImages(e.target)}
+              onChange={(e) => {
+                updateImages(e.target)
+              }}
             />
             <span className="mb-10 text-3xl fa-solid fa-upload" />
             <span>Add Images</span>
@@ -90,7 +89,9 @@ export function ImageUpload({
                 className="upload-input cursor-pointer"
                 tabIndex={3}
                 multiple
-                onChange={(e) => updateImages(e.target)}
+                onChange={(e) => {
+                  updateImages(e.target)
+                }}
               />
               <span className="text-xl fa-solid fa-upload"></span>
               <span>Add more Images</span>
@@ -107,11 +108,13 @@ function Image({
   onUpdate,
   onRemove,
 }: {
-  image: { url: string; alt: string }
-  onUpdate: (url: string, alt: string) => void
-  onRemove: (url: string) => void
+  image: { url: File | string; alt: string }
+  onUpdate: (file: File | string, alt: string) => void
+  onRemove: (file: File | string) => void
 }) {
   let container: HTMLDivElement | null = null
+  const imageUrl =
+    typeof image.url === 'string' ? image.url : URL.createObjectURL(image.url)
 
   return (
     <div
@@ -120,7 +123,7 @@ function Image({
     >
       <img
         className="upload-preview-image aspect-square"
-        src={image.url}
+        src={imageUrl}
         alt={image.alt}
       />
       <div className="flex justify-between items-center grow pr-10 gap-10">
@@ -128,7 +131,9 @@ function Image({
           value={image.alt}
           placeholder="Image description"
           className="grow py-5"
-          onChange={(e) => onUpdate(image.url, e.target.value)}
+          onChange={(e) => {
+            onUpdate(image.url, e.target.value)
+          }}
         />
         <span
           className="fa-solid fa-trash-can cursor-pointer"

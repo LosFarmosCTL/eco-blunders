@@ -1,23 +1,28 @@
-import {
-  insertLocation,
-  getLocation,
-  deleteLocation,
-  getLocations,
-  updateLocation,
-} from '../mongoCRUDs'
-import { Location } from '../../shared/model/location'
 import { Router } from 'express'
+import { ObjectId } from 'mongodb'
+
+import { Location } from '../../shared/model/location'
+
+import { saveImageInLocation } from '../util/saveImage'
+import getDatabase from '../db'
 
 const router = Router()
 
 router.get('/', async (_, res) => {
-  const locations = await getLocations()
+  const db = await getDatabase()
+  const collection = db.collection<Location>('locations')
+
+  const locations = await collection.find().toArray()
   res.status(200).json(locations)
 })
 
 router.get('/:id', async (req, res) => {
-  const locationId = req.params.id
-  const location = await getLocation(locationId)
+  const db = await getDatabase()
+  const collection = db.collection<Location>('locations')
+
+  const location = await collection.findOne({
+    _id: new ObjectId(req.params.id),
+  })
 
   if (location) {
     res.status(200).json(location)
@@ -26,16 +31,22 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   if (!validateLocation(req.body)) {
     res.status(400).send('Invalid location!')
     return
   }
 
-  const result = await insertLocation(req.body)
+  const location = saveImageInLocation(req.body)
+
+  const db = await getDatabase()
+  const locations = db.collection('locations')
+
+  const result = await locations.insertOne(location)
+  const newId = result.insertedId.toString()
 
   res.status(201).json({
-    id: result,
+    id: newId,
   })
 })
 
@@ -45,23 +56,31 @@ router.put('/:id', async (req, res) => {
     return
   }
 
-  const result = await updateLocation(req.body)
+  const db = await getDatabase()
+  const locations = db.collection('locations')
 
-  if (result) {
-    res.status(204).send()
+  const result = await locations.replaceOne(
+    { _id: new ObjectId(req.params.id) },
+    req.body,
+  )
+
+  if (result.modifiedCount == 0) {
+    res.status(404).send(`Location not found`)
   } else {
-    res.status(404).send(`Location not found!`)
+    res.status(204).send()
   }
 })
 
 router.delete('/:id', async (req, res) => {
-  const result = await deleteLocation(req.params.id)
+  const db = await getDatabase()
+  const locations = db.collection('locations')
 
-  if (result) {
-    res.status(204)
-    res.send()
+  const result = await locations.deleteOne({ _id: new ObjectId(req.params.id) })
+
+  if (result.deletedCount == 0) {
+    res.status(404).send(`Location not found`)
   } else {
-    res.status(404).send(`Location not found!`)
+    res.status(204).send()
   }
 })
 
@@ -71,7 +90,6 @@ function validateLocation(reqBody: unknown): reqBody is Location {
   return (
     typeof reqBody === 'object' &&
     reqBody !== null &&
-    'id' in reqBody &&
     'name' in reqBody &&
     'description' in reqBody &&
     'lat' in reqBody &&
@@ -86,7 +104,6 @@ function validateLocation(reqBody: unknown): reqBody is Location {
     'text' in (reqBody as Location).category &&
     'color' in (reqBody as Location).category &&
     'tags' in reqBody &&
-    typeof (reqBody as Location).id === 'string' &&
     typeof (reqBody as Location).name === 'string' &&
     typeof (reqBody as Location).description === 'string' &&
     typeof (reqBody as Location).lat === 'string' &&

@@ -47,8 +47,6 @@ router.post(
   '/',
   upload.fields([{ name: 'urls' }]),
   async (req: Request<unknown, unknown, UploadData>, res: Response) => {
-    console.log(req.files)
-    console.log(req.body)
     const files = req.files as Record<string, Express.Multer.File[] | undefined>
     const location = getLocationFromFormData(req.body, files)
 

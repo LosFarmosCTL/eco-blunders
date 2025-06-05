@@ -9,24 +9,24 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@eslint/js": "^9.18.0",
-    "@types/express": "^5.0.0",
+    "@eslint/js": "^9.28.0",
+    "@types/express": "^5.0.2",
     "@types/multer": "^1.4.12",
-    "@types/react": "^18.3.18",
-    "eslint": "^9.18.0",
-    "eslint-config-prettier": "^9.1.0",
-    "nodemon": "^3.1.9",
-    "prettier": "3.4.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.19.1",
-    "vite": "^6.1.6",
-    "vite-express": "^0.20.0"
+    "@types/react": "^19.1.6",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "nodemon": "^3.1.10",
+    "prettier": "3.5.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1",
+    "vite": "^6.3.5",
+    "vite-express": "^0.21.1"
   },
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongodb": "^6.12.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0",
     "multer": "^2.0.1"
   }
 }

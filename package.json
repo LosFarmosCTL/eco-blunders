@@ -20,13 +20,13 @@
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1",
-    "vite": "^6.4.2",
+    "vite": "^6.4.3",
     "vite-express": "^0.21.1"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.2.0",
     "mongodb": "^6.17.0",
-    "multer": "^2.1.1"
+    "multer": "^2.2.0"
   }
 }
